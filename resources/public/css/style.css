@@ -306,3 +306,8 @@ template {
 
 body {
   padding: 3rem; }
+
+.links a,
+.links span {
+  display: inline-block;
+  padding: 0 0.5rem; }

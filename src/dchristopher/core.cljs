@@ -1,18 +1,12 @@
 (ns dchristopher.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [dchristopher.index :as index]))
 
 (enable-console-print!)
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce app-state (atom {:text "Hello world!"}))
-
-(defn hello-world []
-  [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this and watch it change!"]])
-
-(reagent/render-component [hello-world]
+(reagent/render-component [index/hello-world]
                           (. js/document (getElementById "app")))
 
 (defn on-js-reload []

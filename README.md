@@ -1,10 +1,10 @@
 # dchristopher
 
-FIXME: Write a one-line description of your library/project.
+Work history and contact form for Daniel Christopher
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+A simple website to practice writing Clojurescript. Hosted on Netlify.
 
 ## Setup
 
