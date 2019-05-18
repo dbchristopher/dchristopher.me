@@ -5,7 +5,7 @@
 (defn hello-world []
   [:div
    [:h1 "Daniel Christopher"]
-   [:h3 "Front end engineer, father, wannabe chef, occasional artist, and clojure fanboy."]
+   [:h3 "Front end engineer, wannabe chef, occasional artist, and clojure fanboy."]
    [:div.links
     [:a {:href "/assets/resume-public.pdf" :download true} "Resume"]
     [:span "|"]
