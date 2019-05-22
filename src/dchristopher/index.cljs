@@ -14,5 +14,12 @@
     [:a {:href "https://twitter.com/danchristopher"} "Twitter"]
     [:span "|"]
     [:a {:href "https://www.instagram.com/dxchristopher"} "Instagram"]]
+   [:div.experiments
+    [:h2 "Experiments"]
+    [:ul
+     [:li
+      [:a {:href "http://labs.uxmonk.com/simon-says/"} "Simon Says: Memory Match Game"]]
+     [:li
+      [:a {:href "https://www.spymaster.rocks"} "Spymaster Word Game"]]]]
    [:div (form/contact)]])
 
