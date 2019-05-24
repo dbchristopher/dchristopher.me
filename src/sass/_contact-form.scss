@@ -1,5 +1,5 @@
 .form-wrapper {
-  @include for-tablet-landscape-up {
+  @include for-desktop-up {
     max-width: 50%;
     margin: auto;
   }

@@ -2,6 +2,7 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [dchristopher.components.form :as form]))
 
+
 (defn hello-world []
   [:div
    [:section.content-wrapper
@@ -24,7 +25,7 @@
       [:p "Major themes in my work history include the intersection of technology and user experience, as well as data-driven optimizations."]]]
     [:section.content-wrapper
      [:div.experiments
-      [:h2 "Experiments"]
+      [:h2 "Open Source Experiments"]
       [:ul.experiment-list
        [:li.experiment-item
         [:a {:href "http://labs.uxmonk.com/simon-says/"} "Simon Says: Memory Match Game"]]

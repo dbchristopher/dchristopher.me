@@ -3,16 +3,11 @@
 @import "./_breakpoints.scss";
 @import "./_contact-form.scss";
 
-html {
-  width: 100%;
-}
-
 body {
   font-family: Oswald, sans-serif;
   font-weight: 300;
   background: $background;
   color: $textColor;
-  width: 100%;
   font-size: 1.2rem;
 }
 
@@ -23,8 +18,11 @@ h3 {
   font-weight: 700;
   font-size: 2rem;
   margin: 0 0 0.5rem;
+  @include for-tablet-landscape-up {
+    font-size: 2.5rem;
+  }
   @include for-desktop-up {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
 
@@ -65,7 +63,7 @@ a {
 }
 
 .section-group {
-  @include for-tablet-landscape-up {
+  @include for-desktop-up {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 0;
@@ -98,7 +96,6 @@ a {
   @include for-tablet-portrait-up {
     padding: 3rem;
   }
-  max-width: 100%;
 }
 
 .links {
@@ -120,7 +117,6 @@ header {
 }
 
 .display-wrapper {
-  max-width: 100%;
   overflow: hidden;
   padding-bottom: 2rem;
   margin-bottom: 1rem;
