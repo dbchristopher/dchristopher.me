@@ -1,0 +1,23 @@
+.form-wrapper {
+  @include for-tablet-landscape-up {
+    max-width: 50%;
+    margin: auto;
+  }
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: lighten($background, 10%);
+  border: none;
+  color: $textColor;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.submit {
+  color: $highlightColor;
+  padding: 1rem 2rem;
+  border: 1px dashed lighten($background, 20%);
+  background: transparent;
+}

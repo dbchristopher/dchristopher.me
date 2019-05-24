@@ -3,14 +3,14 @@
 
 (defn contact []
   [:form {:name "contact" :method "POST" :data-netlify "true"}
-   [:input {:type "hidden" :name "form-name" :value "contact"}]
+   [:input.input {:type "hidden" :name "form-name" :value "contact"}]
    [:p
-    [:label "Your Name:"]
-    [:input {:type "text" :name "name"}]]
+    [:label "Name:"]
+    [:input.input {:type "text" :name "name"}]]
    [:p
-    [:label "Your Email:"]
-    [:input {:type "email" :name "email"}]]
+    [:label "Email:"]
+    [:input.input {:type "email" :name "email"}]]
    [:p
     [:label "Message:"]
-    [:textarea {:name "message"}]]
-   [:p [:button {:type "submit"} "Send"]]])
+    [:textarea.textarea {:name "message" :rows "5"}]]
+   [:p [:button.submit {:type "submit"} "Send"]]])

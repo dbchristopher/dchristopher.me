@@ -4,7 +4,7 @@
 
 (defn hello-world []
   [:div
-   [:div.content-wrapper
+   [:section.content-wrapper
     [:header
      [:div
       [:h1.name "Daniel Christopher"]]
@@ -16,26 +16,22 @@
     [:h1.display.javascript "Javascript"]
     [:h1.display.engineer "Engineer"]]
 
-   [:div.content-wrapper
-    [:div.history
-     [:h2 "A Brief History"]
-     [:p "A web Engineer with 15 years of technical experience, I’ve focused primarily on
-          front-end technologies, including React, Redux, HTML5/SCSS, and ES6. I’m self-motivated
-          and comfortable working independently on roughly spec’d projects, but I’m still
-          easygoing and love to collaborate with others."]
-     [:p "Major themes in my work history include the intersection of technology and user
-          experience, as well as data-driven optimizations."]]]
+   [:div.section-group
+    [:section.content-wrapper
+     [:div.history
+      [:h2 "A Brief History"]
+      [:p "A web Engineer with 15 years of technical experience, I’ve focused primarily on front-end technologies, including React, Redux, HTML5/SCSS, and ES6."]
+      [:p "Major themes in my work history include the intersection of technology and user experience, as well as data-driven optimizations."]]]
+    [:section.content-wrapper
+     [:div.experiments
+      [:h2 "Experiments"]
+      [:ul.experiment-list
+       [:li.experiment-item
+        [:a {:href "http://labs.uxmonk.com/simon-says/"} "Simon Says: Memory Match Game"]]
+       [:li.experiment-item
+        [:a {:href "https://www.spymaster.rocks"} "Spymaster Word Game"]]]]]]
 
-   [:div.content-wrapper
-    [:div.experiments
-     [:h2 "Experiments"]
-     [:ul
-      [:li
-       [:a {:href "http://labs.uxmonk.com/simon-says/"} "Simon Says: Memory Match Game"]]
-      [:li
-       [:a {:href "https://www.spymaster.rocks"} "Spymaster Word Game"]]]]]
-
-   [:div.content-wrapper
+   [:section.content-wrapper.form-wrapper
     [:h2 "Say Hello!"]
 
     [:div.links
@@ -46,5 +42,6 @@
      [:a {:href "https://twitter.com/danchristopher"} "Twitter"]
      [:span "|"]
      [:a {:href "https://www.instagram.com/dxchristopher"} "Instagram"]]
+
     [:div (form/contact)]]])
 
