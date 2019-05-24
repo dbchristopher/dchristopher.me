@@ -304,12 +304,78 @@ template {
 [hidden] {
   display: none; }
 
+html {
+  width: 100%; }
+
 body {
-  padding: 3rem;
   font-family: Oswald, sans-serif;
-  font-weight: 300; }
+  font-weight: 300;
+  background: #331a30;
+  color: #e9e5d1;
+  width: 100%;
+  font-size: 1.2rem; }
+
+h2,
+h3 {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 0; }
+  @media (min-width: 1200px) {
+    h2,
+    h3 {
+      font-size: 2rem; } }
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 8px solid rgba(245, 240, 215, 0.3);
+  line-height: 0.5rem;
+  text-indent: 5px;
+  margin-right: 5px;
+  display: inline-block; }
+
+.content-wrapper {
+  padding: 1rem;
+  max-width: 100%; }
 
 .links a,
 .links span {
-  display: inline-block;
-  padding: 0 0.5rem; }
+  display: inline-block; }
+
+.name {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 2rem; }
+
+.statement {
+  margin: 1rem 0; }
+
+.display-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 2rem;
+  margin-bottom: 1rem; }
+  @media (min-width: 600px) {
+    .display-wrapper {
+      padding-bottom: 3rem; } }
+
+.display {
+  line-height: 0.75em;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 9rem;
+  white-space: nowrap;
+  letter-spacing: -0.05em; }
+  .display.javascript {
+    position: relative;
+    left: 12%; }
+  .display.engineer {
+    position: relative;
+    left: -10%; }
+  @media (min-width: 600px) {
+    .display {
+      font-size: 15rem; } }
+  @media (min-width: 1200px) {
+    .display {
+      font-size: 30rem; } }
