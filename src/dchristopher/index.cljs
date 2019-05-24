@@ -6,6 +6,7 @@
   [:div
    [:h1 "Daniel Christopher"]
    [:h3 "Front end engineer, wannabe chef, occasional artist, and clojure fanboy."]
+
    [:div.links
     [:a {:href "/assets/resume-public.pdf" :download true} "Resume"]
     [:span "|"]
@@ -14,6 +15,13 @@
     [:a {:href "https://twitter.com/danchristopher"} "Twitter"]
     [:span "|"]
     [:a {:href "https://www.instagram.com/dxchristopher"} "Instagram"]]
+
+   [:div.history
+    [:h2 "A Brief History"]
+    [:p "A web Engineer with 15 years of technical experience, I’ve focused primarily on front-end technologies,
+          including React, Redux, HTML5/SCSS, and ES6. I’m self-motivated and comfortable working independently on roughly spec’d projects, but I’m still easygoing and love to collaborate with others.
+          Major themes in my work history include the intersection of technology and user experience, as well as data-driven optimizations."]]
+
    [:div.experiments
     [:h2 "Experiments"]
     [:ul
