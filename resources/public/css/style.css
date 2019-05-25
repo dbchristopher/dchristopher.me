@@ -304,17 +304,12 @@ template {
 [hidden] {
   display: none; }
 
-@media (min-width: 1200px) {
-  .form-wrapper {
-    max-width: 50%;
-    margin: auto; } }
-
 .input,
 .textarea {
   width: 100%;
   background: #552b50;
   border: none;
-  color: #ffefa0;
+  color: #ffe797;
   padding: 0.5rem;
   margin-top: 0.25rem; }
 
@@ -328,12 +323,12 @@ body {
   font-family: Oswald, sans-serif;
   font-weight: 300;
   background: #331a30;
-  color: #ffefa0;
+  color: #ffe797;
   font-size: 1.2rem; }
 
 h2,
 h3 {
-  color: #ffefa0;
+  color: #ffe797;
   font-family: "Amatic SC", sans-serif;
   font-weight: 700;
   font-size: 2rem;
@@ -354,7 +349,7 @@ h2 {
   text-shadow: 2px 2px 4px #331a30; }
 
 hr {
-  border: 2px solid #ffefa0;
+  border: 2px solid #ffe797;
   margin: 0; }
 
 p {
@@ -396,7 +391,7 @@ a {
       grid-template-columns: 1fr 1fr; } }
 
 .name {
-  color: #ffefa0;
+  color: #ffe797;
   text-transform: uppercase;
   margin: 0;
   font-size: 2rem;
@@ -442,10 +437,10 @@ header {
   letter-spacing: -0.05em; }
   .display.javascript {
     position: relative;
-    left: 12%; }
+    left: 10%; }
   .display.engineer {
     position: relative;
-    left: -10%; }
+    left: -7%; }
   @media (min-width: 600px) {
     .display {
       font-size: 15rem; } }

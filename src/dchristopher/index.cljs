@@ -2,6 +2,14 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [dchristopher.components.form :as form]))
 
+(defonce js-position (reagent/atom 0))
+(defonce eng-position (reagent/atom 0))
+
+(defn inc-decimal [val] (+ val 0.01))
+(defn dec-decimal [val] (- val 0.01))
+
+(js/setInterval  #(swap! js-position inc-decimal 20))
+(js/setInterval  #(swap! eng-position dec-decimal 20))
 
 (defn hello-world []
   [:div
@@ -14,8 +22,8 @@
     [:p.statement "React developer, wannabe chef, occasional artist, and clojure fanboy."]]
 
    [:div.display-wrapper
-    [:h1.display.javascript "Javascript"]
-    [:h1.display.engineer "Engineer"]]
+    [:h1.display.javascript {:style {:transform (str "translateX(" @js-position "px)")}} "Javascript"]
+    [:h1.display.engineer {:style {:transform (str "translateX(" @eng-position "px)")}} "Engineer"]]
 
    [:div.section-group
     [:section.content-wrapper

@@ -137,11 +137,11 @@ header {
   letter-spacing: -0.05em;
   &.javascript {
     position: relative;
-    left: 12%;
+    left: 10%;
   }
   &.engineer {
     position: relative;
-    left: -10%;
+    left: -7%;
   }
   @include for-tablet-portrait-up {
     font-size: 15rem;
