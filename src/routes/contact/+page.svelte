@@ -1,3 +1,13 @@
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  export const prerender = true;
+</script>
+
 <h1>Contact</h1>
 
 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -9,13 +19,13 @@
   </p>
 
   <p>
-    <label>Your Name: <input type="text" name="name" /></label>
+    <label>Your Name: <input type="text" name="name" required /></label>
   </p>
   <p>
-    <label>Your Email: <input type="email" name="email" /></label>
+    <label>Your Email: <input type="email" name="email" required /></label>
   </p>
   <p>
-    <label>Your Role: <select name="role[]" multiple>
+    <label>Your Role: <select name="role[]" multiple required>
       <option value="leader">Leader</option>
       <option value="follower">Follower</option>
     </select></label>
@@ -26,8 +36,4 @@
   <p>
     <button type="submit">Send</button>
   </p>
-</form> 
-
-<script>
-  export const prerender = true
-</script>
+</form>
