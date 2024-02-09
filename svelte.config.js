@@ -8,6 +8,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
+		alias: { $db: './src/db' },
 		// settings for @sveltejs/adapter-netlify
 		adapter: adapter({
 			// if true, will create a Netlify Edge Function rather
