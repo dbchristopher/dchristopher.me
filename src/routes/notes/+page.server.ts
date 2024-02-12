@@ -1,7 +1,7 @@
 import { customers } from '$db/customers';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
 	try {
 		const data = await customers
 			.find({}, { projection: { name: 1, _id: 0 } })
