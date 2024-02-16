@@ -11,7 +11,7 @@
 <section>
   <ul>
     {#each blogEntries as post}
-      <li>{post.title}</li>
+      <li><a href="notes/{post.slug}">{post.title}</a></li>
     {/each}
   </ul>
 </section>
