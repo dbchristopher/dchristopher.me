@@ -1,0 +1,1 @@
+<button>Email authentication link</button>

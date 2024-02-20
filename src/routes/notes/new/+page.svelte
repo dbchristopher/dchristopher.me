@@ -1,0 +1,1 @@
+<a href="/notes/auth">Sign in to continue</a>

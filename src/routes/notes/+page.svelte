@@ -16,3 +16,5 @@
   </ul>
 </section>
 
+<a href="/notes/new">New Post</a>
+
