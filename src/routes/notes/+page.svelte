@@ -3,12 +3,14 @@
 
 	export let data: PageData;
 
-	console.log({ data });
-
-	$: ({ blogEntries } = data);
+	$: ({ blogEntries, status, error } = data);
 </script>
 
 <h1>Notes</h1>
+
+{#if status === 'error'}
+  <p>{error.message}</p>
+{/if}
 
 <section>
 	<ul>

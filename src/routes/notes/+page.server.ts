@@ -1,16 +1,15 @@
 import { blog } from '$db/blog';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async () => {
 	try {
 		const blogEntries = await blog
 			.find({}, { projection: { title: 1, slug: 1, _id: 0 } })
 			.limit(5)
 			.toArray();
 
-		return { blogEntries };
+		return { status: 'ok', blogEntries };
 	} catch (error) {
-		console.error('Error querying MongoDB:', error);
-		return { props: { customers: [] } };
+		return { status: 'error', error, blogEntries: [] };
 	}
 };
