@@ -19,11 +19,18 @@ export async function POST(event) {
 	// a honeypot and reject the submission
 	if (ADMIN_EMAIL && !emailInput) {
 		// email Authentication link
-		emailAuthToken();
+		const result = await emailAuthToken();
+
+		// return success
+		return new Response(JSON.stringify({ success: true, ...result }), {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 	}
 
-	// return success
-	return new Response(JSON.stringify({ success: true }), {
+	return new Response(JSON.stringify({ success: false }), {
+		status: 400,
 		headers: {
 			'Content-Type': 'application/json'
 		}

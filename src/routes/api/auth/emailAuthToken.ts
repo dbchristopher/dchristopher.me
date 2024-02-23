@@ -16,12 +16,13 @@ export function emailAuthToken() {
 			authToken +
 			'">dchristopher.me</a> to continue.'
 	};
-	sgMail
+
+	return sgMail
 		.send(msg)
 		.then(() => {
-			console.log('Email sent');
+			return { message: 'Email sent' };
 		})
 		.catch((error) => {
-			console.error(error);
+			return { error };
 		});
 }
