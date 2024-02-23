@@ -8,7 +8,7 @@
 
 <h1>Notes</h1>
 
-{#if status === 'error'}
+{#if status === 'error' && error}
   <p>{error.message}</p>
 {/if}
 

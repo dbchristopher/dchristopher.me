@@ -10,6 +10,6 @@ export const load: PageServerLoad = async () => {
 
 		return { status: 'ok', blogEntries };
 	} catch (error) {
-		return { status: 'error', error, blogEntries: [] };
+		return { status: 'error', error: error as Error, blogEntries: [] };
 	}
 };
