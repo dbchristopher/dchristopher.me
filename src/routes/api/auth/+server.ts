@@ -1,4 +1,5 @@
 import { ADMIN_EMAIL } from '$env/static/private';
+import { emailAuthToken } from './emailAuthToken';
 
 export async function POST(event) {
 	const data = await event.request.formData();
@@ -18,8 +19,7 @@ export async function POST(event) {
 	// a honeypot and reject the submission
 	if (ADMIN_EMAIL && !emailInput) {
 		// email Authentication link
-		console.log('email authentication form');
-		console.log('email', ADMIN_EMAIL);
+		emailAuthToken();
 	}
 
 	// return success
