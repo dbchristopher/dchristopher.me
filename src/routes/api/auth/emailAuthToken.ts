@@ -1,9 +1,7 @@
 import sgMail from '@sendgrid/mail';
 import { SENDGRID_API_KEY, ADMIN_EMAIL, SENDGRID_SENDER } from '$env/static/private';
 
-const authToken = '12345';
-
-export function emailAuthToken() {
+export function emailAuthToken(authToken: string) {
 	sgMail.setApiKey(SENDGRID_API_KEY);
 	const msg = {
 		to: ADMIN_EMAIL,
