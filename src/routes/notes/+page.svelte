@@ -9,7 +9,7 @@
 <h1>Notes</h1>
 
 {#if status === 'error' && error}
-  <p>{error.message}</p>
+	<p>{error.message}</p>
 {/if}
 
 <section>

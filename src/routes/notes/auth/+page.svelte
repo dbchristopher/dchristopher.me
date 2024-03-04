@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);
@@ -8,7 +10,16 @@
 			body: data
 		});
 	}
+
+	export let data: PageData;
+
+	$: ({ isAuthorized } = data);
+
+	// todo: redirect to /notes/new if isAuthorized
+	// todo: write the user authentication cookie if isAuthorized
 </script>
+
+<p>{isAuthorized}</p>
 
 <form on:submit|preventDefault={authenticate}>
 	<input type="email" name="email" class="email-input" />
