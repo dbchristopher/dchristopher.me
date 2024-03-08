@@ -13,13 +13,12 @@
 
 	export let data: PageData;
 
-	$: ({ isAuthorized } = data);
+	$: ({ isUserAuthenticated } = data);
 
-	// todo: redirect to /notes/new if isAuthorized
-	// todo: write the user authentication cookie if isAuthorized
+	// todo: redirect to /notes/new if isUserAuthenticated
 </script>
 
-<p>{isAuthorized}</p>
+<p>{isUserAuthenticated}</p>
 
 <form on:submit|preventDefault={authenticate}>
 	<input type="email" name="email" class="email-input" />
