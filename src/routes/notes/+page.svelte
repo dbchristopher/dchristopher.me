@@ -12,6 +12,8 @@
 	<p>{error.message}</p>
 {/if}
 
+<a href="/notes/new">New Post</a>
+
 <section>
 	<ul>
 		{#each blogEntries as post}
@@ -20,4 +22,3 @@
 	</ul>
 </section>
 
-<a href="/notes/new">New Post</a>

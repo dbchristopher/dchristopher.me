@@ -4,10 +4,22 @@
 	export let data: PageData;
 
 	$: ({ isUserAuthenticated } = data);
-
-  // todo: render a form to create a new note if isUserAuthenticated
 </script>
 
-<p>{isUserAuthenticated}</p>
+{#if isUserAuthenticated}
+  <!-- create a new form api endpoint for writing a new post -->
+	<form>
+		<label for="title">Title</label>
+		<input type="text" id="title" placeholder="Title" />
 
-<a href="/notes/auth">Sign in to continue</a>
+		<label for="tags">Tags</label>
+		<input type="text" id="tags" placeholder="Tags" />
+
+		<label for="content">Content</label>
+		<textarea id="content" placeholder="Content"></textarea>
+
+		<button type="submit">Submit</button>
+	</form>
+{:else}
+	<a href="/notes/auth">Sign in to continue</a>
+{/if}
