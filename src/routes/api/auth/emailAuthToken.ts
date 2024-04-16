@@ -6,7 +6,7 @@ export function emailAuthToken(authToken: string) {
 	const msg = {
 		to: ADMIN_EMAIL,
 		from: SENDGRID_SENDER,
-		subject: 'Dchristopher.me Email Authentication Link',
+		subject: 'Dchristopher.me Email Authentication Link ' + new Date(),
 		text:
 			'Authentication token created. Please use the following token to authenticate: ' + authToken,
 		html:

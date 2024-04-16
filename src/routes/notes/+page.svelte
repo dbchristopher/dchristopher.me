@@ -21,4 +21,3 @@
 		{/each}
 	</ul>
 </section>
-

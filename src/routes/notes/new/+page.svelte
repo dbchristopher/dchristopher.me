@@ -7,7 +7,7 @@
 </script>
 
 {#if isUserAuthenticated}
-  <!-- create a new form api endpoint for writing a new post -->
+	<!-- create a new form api endpoint for writing a new post -->
 	<form>
 		<label for="title">Title</label>
 		<input type="text" id="title" placeholder="Title" />
