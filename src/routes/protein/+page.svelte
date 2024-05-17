@@ -3,7 +3,9 @@
 
 	export let data: PageData;
 
-	$: ({ isUserAuthenticated } = data);
+	$: ({ isUserAuthenticated, entries } = data);
+
+	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
 
 	async function insertEntry(event: Event) {
 		const form = event.target as HTMLFormElement;
@@ -20,15 +22,25 @@
 			}
 
 			form.reset();
+			// Fetch the updated entries from the server
+			const updatedEntriesResponse = await fetch('/api/protein/entries');
+			if (updatedEntriesResponse.ok) {
+				const updatedEntriesData = await updatedEntriesResponse.json();
+				entries = updatedEntriesData.entries; // Update the entries variable with the new data
+			}
 		} catch (error) {
 			console.error('Error during protein insertion:', error);
 		}
 	}
+
+	async function destroyEntry(event: Event) {}
 </script>
 
 <h1>Protein</h1>
 <h3>&lt;- Date: 2024-05-17 -&gt;</h3>
-Total consumption: 0g
+Total consumption:
+
+<strong>{totalConsumption}g</strong>
 
 <table>
 	<thead>
@@ -38,18 +50,21 @@ Total consumption: 0g
 			<th /><!-- delete button-->
 		</tr>
 	</thead>
+
 	<tbody>
-		<tr>
-			<td>17g</td>
-			<td>Puff bar</td>
-			<td>delete</td>
-		</tr>
+		{#each entries as entry}
+			<tr>
+				<td>{entry.amount}</td>
+				<td>{entry.description}</td>
+				<td><button on:click={destroyEntry}>delete</button></td>
+			</tr>
+		{/each}
 	</tbody>
 </table>
 
 {#if isUserAuthenticated}
 	<h2>Add Intake</h2>
-	<form on:submit|preventDefault={insertEntry} on:change|preventDefault={formUpdate}>
+	<form on:submit|preventDefault={insertEntry}>
 		<fieldset>
 			<label for="amount">Amount</label>
 			<input placeholder="g" type="number" id="amount" name="amount" required min="0" max="100" />

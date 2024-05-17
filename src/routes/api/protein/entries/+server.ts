@@ -1,5 +1,4 @@
 import { protein } from '$db/protein';
-import type { PageServerLoad } from './$types';
 
 type ProteinEntry = {
 	_id: string;
@@ -8,8 +7,13 @@ type ProteinEntry = {
 	description: string;
 };
 
-export const load: PageServerLoad = async ({ parent }) => {
-	const { isUserAuthenticated } = await parent();
+export async function GET() {
+	const options: ResponseInit = {
+		status: 200,
+		headers: {
+			'content-type': 'application/json'
+		}
+	};
 
 	const startOfDay = new Date();
 	startOfDay.setHours(0, 0, 0, 0);
@@ -33,8 +37,6 @@ export const load: PageServerLoad = async ({ parent }) => {
 		_id: entry._id.toString()
 	}));
 
-	return {
-		isUserAuthenticated,
-		entries: entriesWithSerializableId
-	};
-};
+	const body: BodyInit = JSON.stringify({ entries: entriesWithSerializableId });
+	return new Response(body, options);
+}
