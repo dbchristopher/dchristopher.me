@@ -1,17 +1,10 @@
 import { protein } from '$db/protein';
 
-type ProteinEntry = {
-	_id: string;
-	created: Date;
-	amount: number;
-	description: string;
-};
-
-export async function fetchProteinEntries() {
-	const startOfDay = new Date();
+export async function fetchProteinEntries(date: Date) {
+	const startOfDay = new Date(date.getTime());
 	startOfDay.setHours(0, 0, 0, 0);
 
-	const endOfDay = new Date();
+	const endOfDay = new Date(date.getTime());
 	endOfDay.setHours(23, 59, 59, 999);
 
 	const entries = await protein

@@ -1,11 +1,32 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
-	$: ({ isUserAuthenticated, entries } = data);
+	export let entries: ProteinEntry[] = [];
 
+	$: entries;
+	$: ({ isUserAuthenticated } = data);
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
+
+	async function updateEntries() {
+		const updatedEntriesResponse = await fetch(
+			`/api/protein/entries?date=${new Date().toISOString()}`,
+			{
+				method: 'GET'
+			}
+		);
+
+		if (updatedEntriesResponse.ok) {
+			const updatedEntriesData = await updatedEntriesResponse.json();
+			entries = updatedEntriesData.entries; // Update the entries variable with the new data
+		}
+	}
+
+	onMount(async () => {
+		await updateEntries();
+	});
 
 	async function insertEntry(event: Event) {
 		const form = event.target as HTMLFormElement;
@@ -23,24 +44,24 @@
 
 			form.reset();
 			// Fetch the updated entries from the server
-			const updatedEntriesResponse = await fetch('/api/protein/entries');
-			if (updatedEntriesResponse.ok) {
-				const updatedEntriesData = await updatedEntriesResponse.json();
-				entries = updatedEntriesData.entries; // Update the entries variable with the new data
-			}
+			updateEntries();
 		} catch (error) {
 			console.error('Error during protein insertion:', error);
 		}
 	}
 
-	async function destroyEntry(event: Event) {}
+	async function destroyEntry(event: Event) {
+		// TODO: delete entry by id
+	}
 </script>
 
 <h1>Protein</h1>
 <h3>&lt;- Date: 2024-05-17 -&gt;</h3>
-Total consumption:
 
-<strong>{totalConsumption}g</strong>
+<div class="total">
+	<p class="total__label">Total protein:</p>
+	<strong class="total__callout">{totalConsumption}g</strong>
+</div>
 
 <table>
 	<thead>
@@ -82,3 +103,17 @@ Total consumption:
 {:else}
 	<a href="/notes/auth">Sign in to continue</a>
 {/if}
+
+<style>
+	.total {
+		margin: 1rem 0;
+	}
+
+	.total__label {
+		margin: 0;
+	}
+
+	.total__callout {
+		font-size: 3rem;
+	}
+</style>
