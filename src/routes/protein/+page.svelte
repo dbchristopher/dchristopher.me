@@ -6,17 +6,16 @@
 
 	export let entries: ProteinEntry[] = [];
 
+	export let date: Date = new Date();
+
 	$: entries;
 	$: ({ isUserAuthenticated } = data);
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
 
 	async function updateEntries() {
-		const updatedEntriesResponse = await fetch(
-			`/api/protein/entries?date=${new Date().toISOString()}`,
-			{
-				method: 'GET'
-			}
-		);
+		const updatedEntriesResponse = await fetch(`/api/protein/entries?date=${date.toISOString()}`, {
+			method: 'GET'
+		});
 
 		if (updatedEntriesResponse.ok) {
 			const updatedEntriesData = await updatedEntriesResponse.json();
@@ -56,7 +55,7 @@
 </script>
 
 <h1>Protein</h1>
-<h3>&lt;- Date: 2024-05-17 -&gt;</h3>
+<h3>&lt;- Date: {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()} -&gt;</h3>
 
 <div class="total">
 	<p class="total__label">Total protein:</p>
