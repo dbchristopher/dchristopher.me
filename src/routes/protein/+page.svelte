@@ -3,15 +3,18 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
 	export let entries: ProteinEntry[] = [];
-
 	export let date: Date = new Date();
+	export let isAsyncPending: boolean;
 
 	$: entries;
 	$: ({ isUserAuthenticated } = data);
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
+	$: isAsyncPending = false;
 
+	/**
+	 * fetch all entries from the server
+	 */
 	async function updateEntries() {
 		const updatedEntriesResponse = await fetch(`/api/protein/entries?date=${date.toISOString()}`, {
 			method: 'GET'
@@ -31,7 +34,14 @@
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);
 
+		if (isAsyncPending) {
+			// don't insert anything while database is pending
+			return false;
+		}
+
 		try {
+			isAsyncPending = true;
+
 			const response = await fetch('/api/protein', {
 				method: 'POST',
 				body: data
@@ -43,14 +53,30 @@
 
 			form.reset();
 			// Fetch the updated entries from the server
-			updateEntries();
+			await updateEntries();
+
+			isAsyncPending = false;
 		} catch (error) {
 			console.error('Error during protein insertion:', error);
 		}
 	}
 
-	async function destroyEntry(event: Event) {
-		// TODO: delete entry by id
+	async function destroyEntry(id: string) {
+		if (isAsyncPending === false) {
+			isAsyncPending = true;
+
+			const deleteEntryResponse = await fetch(`/api/protein/entries/${id}`, {
+				method: 'DELETE'
+			});
+
+			if (deleteEntryResponse.status === 200) {
+				await updateEntries();
+			} else {
+				console.error('Error deleting entry');
+			}
+
+			isAsyncPending = false;
+		}
 	}
 </script>
 
@@ -76,7 +102,7 @@
 			<tr>
 				<td>{entry.amount}</td>
 				<td>{entry.description}</td>
-				<td><button on:click={destroyEntry}>delete</button></td>
+				<td><button on:click={() => destroyEntry(entry._id)}>delete</button></td>
 			</tr>
 		{/each}
 	</tbody>
@@ -87,7 +113,16 @@
 	<form on:submit|preventDefault={insertEntry}>
 		<fieldset>
 			<label for="amount">Amount</label>
-			<input placeholder="g" type="number" id="amount" name="amount" required min="0" max="100" />
+			<input
+				placeholder="g"
+				type="number"
+				id="amount"
+				name="amount"
+				required
+				min="0"
+				max="100"
+				disabled={isAsyncPending}
+			/>
 			<label for="description">Description</label>
 			<input
 				placeholder="boiled chicken"
@@ -95,9 +130,10 @@
 				id="description"
 				name="description"
 				required
+				disabled={isAsyncPending}
 			/>
 		</fieldset>
-		<button type="submit">Submit</button>
+		<button type="submit" disabled={isAsyncPending}>Submit</button>
 	</form>
 {:else}
 	<a href="/notes/auth">Sign in to continue</a>
