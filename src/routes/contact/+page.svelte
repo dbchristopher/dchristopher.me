@@ -1,37 +1,58 @@
+<script lang="ts">
+	let emailSent = true;
+	$: emailSent;
+
+	async function sendMail(event: Event) {
+		const form = event.target as HTMLFormElement;
+		const data = new FormData(form);
+
+		try {
+			await fetch('/api/contact', {
+				method: 'POST',
+				body: data
+			});
+
+			emailSent = true;
+			// Handle response here if necessary
+		} catch (error) {
+			console.error('Error when sending mail:', error);
+		}
+	}
+</script>
+
 <h1>Contact</h1>
+<h2>Say Hello!</h2>
 
-<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-	<input type="hidden" name="form-name" value="contact" />
-	<p class="hidden">
-		<label>
-			Don’t fill this out if you’re human: <input name="bot-field" />
-		</label>
-	</p>
+{#if !emailSent}
+	<p>Send me something cool.</p>
+	<form name="contact" method="POST" on:submit|preventDefault={sendMail}>
+		<fieldset class="usercode">
+			<label for="usercode">Enter a random value</label>
+			<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />
+		</fieldset>
 
-	<p>
-		<label>Your Name: <input type="text" name="name" required /></label>
-	</p>
-	<p>
-		<label>Your Email: <input type="email" name="email" required /></label>
-	</p>
-	<p>
-		<label
-			>Your Role: <select name="role[]" multiple required>
-				<option value="leader">Leader</option>
-				<option value="follower">Follower</option>
-			</select></label
-		>
-	</p>
-	<p>
-		<label>Message: <textarea name="message"></textarea></label>
-	</p>
-	<p>
-		<button type="submit">Send</button>
-	</p>
-</form>
+		<fieldset>
+			<label for="email">Your Email:</label><input id="email" type="email" name="email" required />
+		</fieldset>
+		<fieldset>
+			<label for="message">Message:</label>
+			<textarea id="message" name="message" rows="10"></textarea>
+		</fieldset>
+		<p>
+			<button type="submit">Send</button>
+		</p>
+	</form>
+{:else}
+	<p>Message received! I will read and respond as quickly as I can.</p>
+{/if}
 
 <style>
-	.hidden {
+	fieldset {
+		border: none;
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+	.usercode {
 		display: none;
 	}
 </style>

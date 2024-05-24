@@ -5,7 +5,7 @@
 	import ProteinCounter from './ProteinCounter.svelte';
 	import ProteinTable from './ProteinTable.svelte';
 	import ProteinInputForm from './ProteinInputForm.svelte';
-	import Faq from './Faq.svelte'
+	import Faq from './Faq.svelte';
 	import { fetchEntries } from './utils/fetchEntries';
 	import { insertEntry } from './utils/insertEntry';
 	import { destroyEntry } from './utils/destroyEntry';
@@ -48,23 +48,23 @@
 	};
 
 	const handleDatePrev = async () => {
-		const draftDate = new Date(date)
+		const draftDate = new Date(date);
 		draftDate.setDate(date.getDate() - 1);
-		date = draftDate
-		refreshEntryData()
-	}
+		date = draftDate;
+		refreshEntryData();
+	};
 
 	const handleDateNext = async () => {
-		const draftDate = new Date(date)
+		const draftDate = new Date(date);
 		draftDate.setDate(date.getDate() + 1);
-		date = draftDate
-		refreshEntryData()
-	}
+		date = draftDate;
+		refreshEntryData();
+	};
 
 	const handleDateReset = async () => {
-		date = new Date()
-		refreshEntryData()
-	}
+		date = new Date();
+		refreshEntryData();
+	};
 </script>
 
 <div class="page-grid">
@@ -74,7 +74,7 @@
 	<ProteinCounter {totalConsumption} {isAsyncPending} />
 
 	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} />
-	
+
 	{#if isUserAuthenticated}
 		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
 	{:else}

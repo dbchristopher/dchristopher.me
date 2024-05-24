@@ -35,7 +35,7 @@ export async function DELETE(request) {
 		const options: ResponseInit = {
 			status: 500
 		};
-		const responseBody: BodyInit = JSON.stringify({ message: (error as any).message });
+		const responseBody: BodyInit = JSON.stringify({ message: (error as Error).message });
 
 		return new Response(responseBody, options);
 	}
