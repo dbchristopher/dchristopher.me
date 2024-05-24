@@ -1,154 +1,102 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import DatePicker from './DatePicker.svelte';
+	import ProteinCounter from './ProteinCounter.svelte';
+	import ProteinTable from './ProteinTable.svelte';
+	import ProteinInputForm from './ProteinInputForm.svelte';
+	import Faq from './Faq.svelte'
+	import { fetchEntries } from './utils/fetchEntries';
+	import { insertEntry } from './utils/insertEntry';
+	import { destroyEntry } from './utils/destroyEntry';
 
 	export let data: PageData;
-	export let entries: ProteinEntry[] = [];
-	export let date: Date = new Date();
-	export let isAsyncPending: boolean;
+	let entries: ProteinEntry[] = [];
+	let date: Date = new Date();
+	let isAsyncPending: boolean;
 
 	$: entries;
 	$: ({ isUserAuthenticated } = data);
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
 	$: isAsyncPending = false;
+	$: date;
 
-	/**
-	 * fetch all entries from the server
-	 */
-	async function updateEntries() {
-		const updatedEntriesResponse = await fetch(`/api/protein/entries?date=${date.toISOString()}`, {
-			method: 'GET'
-		});
-
-		if (updatedEntriesResponse.ok) {
-			const updatedEntriesData = await updatedEntriesResponse.json();
-			entries = updatedEntriesData.entries; // Update the entries variable with the new data
-		}
-	}
+	const refreshEntryData = async () => {
+		isAsyncPending = true;
+		entries = await fetchEntries(date);
+		isAsyncPending = false;
+	};
 
 	onMount(async () => {
-		await updateEntries();
+		await refreshEntryData();
 	});
 
-	async function insertEntry(event: Event) {
-		const form = event.target as HTMLFormElement;
-		const data = new FormData(form);
-
-		if (isAsyncPending) {
-			// don't insert anything while database is pending
-			return false;
-		}
-
-		try {
-			isAsyncPending = true;
-
-			const response = await fetch('/api/protein', {
-				method: 'POST',
-				body: data
-			});
-
-			if (!response.ok) {
-				throw new Error('Protein log failed');
-			}
-
-			form.reset();
-			// Fetch the updated entries from the server
-			await updateEntries();
-
-			isAsyncPending = false;
-		} catch (error) {
-			console.error('Error during protein insertion:', error);
-		}
-	}
-
-	async function destroyEntry(id: string) {
+	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false) {
 			isAsyncPending = true;
-
-			const deleteEntryResponse = await fetch(`/api/protein/entries/${id}`, {
-				method: 'DELETE'
-			});
-
-			if (deleteEntryResponse.status === 200) {
-				await updateEntries();
-			} else {
-				console.error('Error deleting entry');
-			}
-
+			await insertEntry(event, refreshEntryData);
 			isAsyncPending = false;
 		}
+	};
+
+	const handleDestroyEntry = async (id: string) => {
+		if (isAsyncPending === false) {
+			isAsyncPending = true;
+			await destroyEntry(id, refreshEntryData);
+			isAsyncPending = false;
+		}
+	};
+
+	const handleDatePrev = async () => {
+		const draftDate = new Date(date)
+		draftDate.setDate(date.getDate() - 1);
+		date = draftDate
+		refreshEntryData()
+	}
+
+	const handleDateNext = async () => {
+		const draftDate = new Date(date)
+		draftDate.setDate(date.getDate() + 1);
+		date = draftDate
+		refreshEntryData()
 	}
 </script>
 
-<h1>Protein</h1>
-<h3>&lt;- Date: {date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()} -&gt;</h3>
+<div class="page-grid">
+	<h1>Protein</h1>
+	<DatePicker {date} {handleDateNext} {handleDatePrev} />
 
-<div class="total">
-	<p class="total__label">Total protein:</p>
-	<strong class="total__callout">{totalConsumption}g</strong>
+	<ProteinCounter {totalConsumption} {isAsyncPending} />
+
+	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} />
+	
+	{#if isUserAuthenticated}
+		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
+	{:else}
+		<a href="/notes/auth">Sign in manage data</a>
+
+		<Faq />
+	{/if}
 </div>
 
-<table>
-	<thead>
-		<tr>
-			<th>Amount</th>
-			<th>Description</th>
-			<th /><!-- delete button-->
-		</tr>
-	</thead>
-
-	<tbody>
-		{#each entries as entry}
-			<tr>
-				<td>{entry.amount}</td>
-				<td>{entry.description}</td>
-				<td><button on:click={() => destroyEntry(entry._id)}>delete</button></td>
-			</tr>
-		{/each}
-	</tbody>
-</table>
-
-{#if isUserAuthenticated}
-	<h2>Add Intake</h2>
-	<form on:submit|preventDefault={insertEntry}>
-		<fieldset>
-			<label for="amount">Amount</label>
-			<input
-				placeholder="g"
-				type="number"
-				id="amount"
-				name="amount"
-				required
-				min="0"
-				max="100"
-				disabled={isAsyncPending}
-			/>
-			<label for="description">Description</label>
-			<input
-				placeholder="boiled chicken"
-				type="text"
-				id="description"
-				name="description"
-				required
-				disabled={isAsyncPending}
-			/>
-		</fieldset>
-		<button type="submit" disabled={isAsyncPending}>Submit</button>
-	</form>
-{:else}
-	<a href="/notes/auth">Sign in to continue</a>
-{/if}
-
 <style>
-	.total {
-		margin: 1rem 0;
+	.page-grid {
+		display: grid;
+		grid-row-gap: 1rem;
 	}
 
-	.total__label {
-		margin: 0;
+	@keyframes pendingFade {
+		0% {
+			opacity: 0.7;
+		}
+		50% {
+			opacity: 0.3;
+		}
+		100% {
+			opacity: 0.7;
+		}
 	}
-
-	.total__callout {
-		font-size: 3rem;
+	:global(.async-pending) {
+		animation: pendingFade ease-in-out 1.5s infinite;
 	}
 </style>
