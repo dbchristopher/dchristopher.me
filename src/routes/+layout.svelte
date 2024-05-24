@@ -22,6 +22,7 @@
 	<a href="/notes">Notes</a>
 	<a href="/about">About</a>
 	<a href="/contact">Contact</a>
+	<a href="/protein">Protein</a>
 	{#if isUserAuthenticated}
 		<a href="/notes/auth-destroy">Sign Out</a>
 	{/if}
