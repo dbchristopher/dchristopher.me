@@ -60,11 +60,16 @@
 		date = draftDate
 		refreshEntryData()
 	}
+
+	const handleDateReset = async () => {
+		date = new Date()
+		refreshEntryData()
+	}
 </script>
 
 <div class="page-grid">
 	<h1>Protein</h1>
-	<DatePicker {date} {handleDateNext} {handleDatePrev} />
+	<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
 
 	<ProteinCounter {totalConsumption} {isAsyncPending} />
 
