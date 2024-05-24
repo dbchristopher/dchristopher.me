@@ -32,7 +32,7 @@
 	});
 
 	const handleInsertEntry = async (event: Event) => {
-		if (isAsyncPending === false) {
+		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
 			await insertEntry(event, refreshEntryData);
 			isAsyncPending = false;
@@ -40,7 +40,7 @@
 	};
 
 	const handleDestroyEntry = async (id: string) => {
-		if (isAsyncPending === false) {
+		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
 			await destroyEntry(id, refreshEntryData);
 			isAsyncPending = false;
@@ -73,7 +73,7 @@
 
 	<ProteinCounter {totalConsumption} {isAsyncPending} />
 
-	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} />
+	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
 	{#if isUserAuthenticated}
 		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />

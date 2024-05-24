@@ -2,6 +2,7 @@
 	export let entries: ProteinEntry[];
 	export let handleDestroyEntry: (id: string) => void;
 	export let isAsyncPending: boolean;
+  export let isUserAuthenticated: boolean;
 </script>
 
 <div class="container">
@@ -20,9 +21,11 @@
 					<td>{entry.amount}</td>
 					<td>{entry.description}</td>
 					<td class="delete">
-						<button on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
-							>delete</button
-						>
+            {#if isUserAuthenticated}
+              <button on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
+                >delete</button
+              >
+            {/if}
 					</td>
 				</tr>
 			{/each}

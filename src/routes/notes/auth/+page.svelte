@@ -32,14 +32,18 @@
 	}
 </script>
 
-<p>{data.isUserAuthenticated}</p>
-
+<div class="page-grid">
 <form on:submit|preventDefault={authenticate}>
 	<input type="email" name="email" class="email-input" />
 	<button>Email authentication link</button>
 </form>
+</div>
 
 <style>
+	.page-grid {
+		padding: 2rem 0;
+		text-align: center;
+	}
 	.email-input {
 		display: none;
 	}
