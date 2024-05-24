@@ -1,5 +1,5 @@
 <script lang="ts">
-	let emailSent = true;
+	let emailSent = false;
 	$: emailSent;
 
 	async function sendMail(event: Event) {
@@ -43,7 +43,7 @@
 		</p>
 	</form>
 {:else}
-	<p>Message received! I will read and respond as quickly as I can.</p>
+	<p>Message received!</p>
 {/if}
 
 <style>
