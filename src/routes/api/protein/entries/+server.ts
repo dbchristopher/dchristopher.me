@@ -14,6 +14,7 @@ export async function GET(request: Request) {
 				'content-type': 'application/json'
 			}
 		};
+
 		const responseBody: BodyInit = JSON.stringify({ entries: await fetchProteinEntries(date) });
 		return new Response(responseBody, options);
 	}

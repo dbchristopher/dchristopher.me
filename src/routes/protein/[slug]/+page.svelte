@@ -6,17 +6,18 @@
 	import ProteinTable from './ProteinTable.svelte';
 	import ProteinInputForm from './ProteinInputForm.svelte';
 	import Faq from './Faq.svelte';
-	import { fetchEntries } from './utils/fetchEntries';
-	import { insertEntry } from './utils/insertEntry';
-	import { destroyEntry } from './utils/destroyEntry';
+	import { fetchEntries } from '../utils/fetchEntries';
+	import { insertEntry } from '../utils/insertEntry';
+	import { destroyEntry } from '../utils/destroyEntry';
 
 	export let data: PageData;
 	let entries: ProteinEntry[] = [];
-	let date: Date = new Date();
+
+	$: ({ isUserAuthenticated, entries, dateFromSlug } = data);
+
+	let date: Date = new Date(dateFromSlug);
 	let isAsyncPending: boolean;
 
-	$: entries;
-	$: ({ isUserAuthenticated } = data);
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
 	$: isAsyncPending = false;
 	$: date;
@@ -26,10 +27,6 @@
 		entries = await fetchEntries(date);
 		isAsyncPending = false;
 	};
-
-	onMount(async () => {
-		await refreshEntryData();
-	});
 
 	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
@@ -46,30 +43,11 @@
 			isAsyncPending = false;
 		}
 	};
-
-	const handleDatePrev = async () => {
-		const draftDate = new Date(date);
-		draftDate.setDate(date.getDate() - 1);
-		date = draftDate;
-		refreshEntryData();
-	};
-
-	const handleDateNext = async () => {
-		const draftDate = new Date(date);
-		draftDate.setDate(date.getDate() + 1);
-		date = draftDate;
-		refreshEntryData();
-	};
-
-	const handleDateReset = async () => {
-		date = new Date();
-		refreshEntryData();
-	};
 </script>
 
 <div class="page-grid">
 	<h1>Protein</h1>
-	<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
+	<DatePicker {date} />
 
 	<ProteinCounter {totalConsumption} {isAsyncPending} />
 
@@ -79,7 +57,6 @@
 		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
 	{:else}
 		<a href="/notes/auth">Sign in manage data</a>
-
 		<Faq />
 	{/if}
 </div>

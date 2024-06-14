@@ -7,15 +7,6 @@ export async function DELETE(request) {
 	try {
 		const result = await protein.deleteOne({ _id: new ObjectId(entryId) });
 
-		// const options: ResponseInit = {
-		// 	status: 200,
-		// 	headers: {
-		// 		'content-type': 'application/json'
-		// 	}
-		// };
-		// const responseBody: BodyInit = JSON.stringify({ entries: await fetchProteinEntries(date) });
-		// return new Response(responseBody, options);
-
 		if (result.deletedCount === 0) {
 			const options: ResponseInit = {
 				status: 404

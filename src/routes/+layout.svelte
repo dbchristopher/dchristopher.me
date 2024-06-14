@@ -6,6 +6,8 @@
 	import '@fontsource/fira-sans/700-italic.css'; // Specify
 	import '../reset.css';
 	import '../app.css';
+
+	import { formatSlug as formatProteinSlug } from './protein/utils/formatSlug';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -22,7 +24,7 @@
 	<a href="/notes">Notes</a>
 	<a href="/about">About</a>
 	<a href="/contact">Contact</a>
-	<a href="/protein">Protein</a>
+	<a href={formatProteinSlug()}>Protein</a>
 	{#if isUserAuthenticated}
 		<a href="/notes/auth-destroy">Sign Out</a>
 	{/if}
