@@ -8,13 +8,11 @@ export const load: PageServerLoad = async ({ parent, params, fetch }) => {
 	const [, date] = params.slug.split('_');
 
 	const parsedDate = parseISO(date + 'T00:00:00.000Z');
-	const dateFromSlug = isValid(parsedDate) ? new Date(Date.now()) : parsedDate;
-
-	const entries = await fetchEntries(dateFromSlug, fetch);
+	const dateFromSlug = isValid(parsedDate) ? parsedDate : new Date(Date.now());
 
 	return {
 		isUserAuthenticated,
-		entries,
+		entries: await fetchEntries(dateFromSlug, fetch),
 		dateFromSlug
 	};
 };

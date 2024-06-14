@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import DatePicker from './DatePicker.svelte';
 	import ProteinCounter from './ProteinCounter.svelte';
@@ -11,11 +10,13 @@
 	import { destroyEntry } from '../utils/destroyEntry';
 
 	export let data: PageData;
-	let entries: ProteinEntry[] = [];
+	let { isUserAuthenticated, entries, dateFromSlug } = data;
 
-	$: ({ isUserAuthenticated, entries, dateFromSlug } = data);
+	$: entries = entries || [];
+	$: isUserAuthenticated = isUserAuthenticated || false;
+	$: dateFromSlug = dateFromSlug || new Date().toDateString();
 
-	let date: Date = new Date(dateFromSlug);
+	let date: Date = dateFromSlug;
 	let isAsyncPending: boolean;
 
 	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
@@ -45,21 +46,25 @@
 	};
 </script>
 
-<div class="page-grid">
-	<h1>Protein</h1>
-	<DatePicker {date} />
+{#await data.entries}
+	loading
+{:then entries}
+	<div class="page-grid">
+		<h1>Protein</h1>
+		<DatePicker {date} />
 
-	<ProteinCounter {totalConsumption} {isAsyncPending} />
+		<ProteinCounter {totalConsumption} {isAsyncPending} />
 
-	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
+		<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
-	{#if isUserAuthenticated}
-		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
-	{:else}
-		<a href="/notes/auth">Sign in manage data</a>
-		<Faq />
-	{/if}
-</div>
+		{#if isUserAuthenticated}
+			<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
+		{:else}
+			<a href="/notes/auth">Sign in manage data</a>
+			<Faq />
+		{/if}
+	</div>
+{/await}
 
 <style>
 	.page-grid {
