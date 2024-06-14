@@ -11,3 +11,6 @@ vite.config.ts.timestamp-*
 
 # Local Netlify folder
 .netlify
+
+# Sentry Config File
+.sentryclirc

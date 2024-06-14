@@ -33,10 +33,10 @@
 </script>
 
 <div class="page-grid">
-<form on:submit|preventDefault={authenticate}>
-	<input type="email" name="email" class="email-input" />
-	<button>Email authentication link</button>
-</form>
+	<form on:submit|preventDefault={authenticate}>
+		<input type="email" name="email" class="email-input" />
+		<button>Email authentication link</button>
+	</form>
 </div>
 
 <style>
