@@ -76,7 +76,7 @@
 	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
 	{#if isUserAuthenticated}
-		<ProteinInputForm {handleInsertEntry} {isAsyncPending} />
+		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
 	{:else}
 		<a href="/notes/auth">Sign in manage data</a>
 

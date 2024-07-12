@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
+	export let date: Date = new Date();
 </script>
 
 <form on:submit|preventDefault={handleInsertEntry}>
@@ -28,6 +29,7 @@
 			disabled={isAsyncPending}
 		/>
 	</fieldset>
+	<input type="hidden" name="date" value={date.toISOString()} />
 	<button type="submit" disabled={isAsyncPending}>Submit</button>
 </form>
 

@@ -5,9 +5,10 @@ type InsertAuthTokenResponse = { success: true; error?: never } | { success: fal
 
 export async function insertProteinEntry(
 	amount: number,
-	description: string
+	description: string,
+	date: Date = new Date()
 ): Promise<InsertAuthTokenResponse> {
-	const createdTimestamp = normalizeDateTime(new Date());
+	const createdTimestamp = normalizeDateTime(date);
 
 	try {
 		// Insert the value into the specified collection

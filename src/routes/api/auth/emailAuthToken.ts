@@ -12,7 +12,8 @@ export function emailAuthToken(authToken: string) {
 		html:
 			'Authentication token created. Visit the auth page at <a href="https://dchristopher.me/notes/auth?token=' +
 			authToken +
-			'">dchristopher.me</a> to continue.'
+			'">dchristopher.me</a> to continue. Auth token: ' +
+			authToken
 	};
 
 	return sgMail

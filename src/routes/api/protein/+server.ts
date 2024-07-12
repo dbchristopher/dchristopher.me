@@ -4,6 +4,8 @@ export async function POST(event) {
 	const data = await event.request.formData();
 	const amount = data.get('amount');
 	const description = data.get('description');
+	const dateFormData = data.get('date');
+	const date = dateFormData ? new Date(dateFormData as string) : new Date();
 
 	if (
 		typeof amount === 'string' &&
@@ -12,7 +14,7 @@ export async function POST(event) {
 		description.length
 	) {
 		// insert entry token into mongodb protein table
-		const dbResult = await insertProteinEntry(parseInt(amount), description);
+		const dbResult = await insertProteinEntry(parseInt(amount), description, date);
 		if (dbResult.success) {
 			// return success
 			return new Response(JSON.stringify({ success: true }), {
