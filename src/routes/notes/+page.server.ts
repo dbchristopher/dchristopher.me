@@ -5,6 +5,7 @@ export const load: PageServerLoad = async () => {
 	try {
 		const blogEntries = await blog
 			.find({}, { projection: { title: 1, slug: 1, _id: 0 } })
+			.sort({ created: 1 }) // sort reverse chronologically (newest on top)
 			.limit(5)
 			.toArray();
 
