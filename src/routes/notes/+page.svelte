@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { NoteStatus} from '$lib/constants'
 
 	export let data: PageData;
 
-	$: ({ blogEntries, status, error } = data);
+	$: ({ blogEntries, status, error, isUserAuthenticated } = data);
 </script>
 
 <h1>Notes</h1>
@@ -17,7 +18,12 @@
 <section>
 	<ul>
 		{#each blogEntries as post}
-			<li><a href="notes/{post.slug}">{post.title}</a></li>
+			{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
+				<li>
+					<a href="notes/{post.slug}">{post.title}</a>
+					{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
+				</li>
+			{/if}
 		{/each}
 	</ul>
 </section>

@@ -10,9 +10,7 @@
 	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
-			await insertEntry(event, (slug: string) => {
-				console.log('onSuccess', slug);
-			});
+			await insertEntry(event);
 			isAsyncPending = false;
 		}
 	};

@@ -1,4 +1,4 @@
-export async function insertEntry(event: Event, onSuccess: () => void) {
+export async function insertEntry(event: Event) {
 	const form = event.target as HTMLFormElement;
 	const data = new FormData(form);
 
@@ -14,7 +14,6 @@ export async function insertEntry(event: Event, onSuccess: () => void) {
 
 		form.reset();
 
-		onSuccess();
 	} catch (error) {
 		console.error('Error during notes insertion:', error);
 	}

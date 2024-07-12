@@ -22,7 +22,7 @@ export async function POST(event) {
 		const dbResult = await insertNote({title, content, tags, status, slug});
 		if (dbResult.success) {
 			// return success
-			return new Response(JSON.stringify({ success: true }), {
+			return new Response(JSON.stringify({ success: true, slug}), {
 				headers: {
 					'Content-Type': 'application/json'
 				}
