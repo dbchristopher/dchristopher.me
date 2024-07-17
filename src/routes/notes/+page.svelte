@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { NoteStatus} from '$lib/constants'
+	import { NoteStatus } from '$lib/constants';
+	import { format } from 'date-fns';
 
 	export let data: PageData;
 
@@ -20,7 +21,7 @@
 		{#each blogEntries as post}
 			{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
 				<li>
-					<a href="notes/{post.slug}">{post.title}</a>
+					{format(post.created, 'L/d/yy')} <a href="notes/{post.slug}">{post.title}</a>
 					{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
 				</li>
 			{/if}

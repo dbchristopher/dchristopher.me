@@ -14,7 +14,6 @@
 			isAsyncPending = false;
 		}
 	};
-
 </script>
 
 {#if isUserAuthenticated}

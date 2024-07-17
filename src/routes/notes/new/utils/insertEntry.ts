@@ -13,7 +13,6 @@ export async function insertEntry(event: Event) {
 		}
 
 		form.reset();
-
 	} catch (error) {
 		console.error('Error during notes insertion:', error);
 	}

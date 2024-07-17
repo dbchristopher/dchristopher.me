@@ -1,11 +1,11 @@
 <script lang="ts">
-  import {NoteStatus} from '$lib/constants';
-  import {toTitleCase} from '$lib/toTitleCase'
+	import { NoteStatus } from '$lib/constants';
+	import { toTitleCase } from '$lib/toTitleCase';
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
 
-  const statusValues = Object.values(NoteStatus)
+	const statusValues = Object.values(NoteStatus);
 </script>
 
 <form on:submit|preventDefault={handleInsertEntry}>
@@ -49,9 +49,9 @@
 		<fieldset>
 			<label for="status">Status</label>
 			<select id="status" name="status" disabled={isAsyncPending} required>
-        {#each statusValues as status}
-          <option value={status}>{toTitleCase(status)}</option>
-        {/each}
+				{#each statusValues as status}
+					<option value={status}>{toTitleCase(status)}</option>
+				{/each}
 			</select>
 		</fieldset>
 	</div>

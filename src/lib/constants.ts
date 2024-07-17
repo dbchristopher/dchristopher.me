@@ -1,4 +1,4 @@
 export enum NoteStatus {
-  DRAFT = 'draft',
-  PUBLISHED = 'published'
+	DRAFT = 'draft',
+	PUBLISHED = 'published'
 }

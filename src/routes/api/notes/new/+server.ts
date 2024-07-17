@@ -1,8 +1,7 @@
 import { insertNote } from './insertNote';
-import {NoteStatus} from '$lib/constants';
-import {generateSlugFromTitle} from './generateSlugFromTitle'
-import {normalizeTags} from './normalizeTags'
-
+import { NoteStatus } from '$lib/constants';
+import { generateSlugFromTitle } from './generateSlugFromTitle';
+import { normalizeTags } from './normalizeTags';
 
 export async function POST(event) {
 	const data = await event.request.formData();
@@ -10,7 +9,7 @@ export async function POST(event) {
 	const content = data.get('content');
 	const tags = normalizeTags(data.get('tags'));
 	const status = data.get('status');
-  const slug = generateSlugFromTitle(title);
+	const slug = generateSlugFromTitle(title);
 
 	if (
 		typeof title === 'string' &&
@@ -19,10 +18,10 @@ export async function POST(event) {
 		(status === NoteStatus.DRAFT || status === NoteStatus.PUBLISHED)
 	) {
 		// insert entry token into mongodb protein table
-		const dbResult = await insertNote({title, content, tags, status, slug});
+		const dbResult = await insertNote({ title, content, tags, status, slug });
 		if (dbResult.success) {
 			// return success
-			return new Response(JSON.stringify({ success: true, slug}), {
+			return new Response(JSON.stringify({ success: true, slug }), {
 				headers: {
 					'Content-Type': 'application/json'
 				}
