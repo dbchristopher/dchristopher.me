@@ -4,6 +4,7 @@
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
+	export let post: Record<string, any> | undefined;
 
 	const statusValues = Object.values(NoteStatus);
 </script>
@@ -17,6 +18,7 @@
 			name="title"
 			placeholder="Title"
 			disabled={isAsyncPending}
+			value={post?.title || ''}
 			required
 		/>
 	</fieldset>
@@ -29,6 +31,7 @@
 			placeholder="Midway upon the journey of our life I found myself within a forest dark, for the straightforward pathway had been lost."
 			disabled={isAsyncPending}
 			rows="10"
+			value={post?.content || ''}
 			required
 		></textarea>
 	</fieldset>
@@ -41,6 +44,7 @@
 				id="tags"
 				name="tags"
 				placeholder="Tag 1, Tag 2, Tag 3"
+				value={post?.tags?.join(', ') || ''}
 				disabled={isAsyncPending}
 				required
 			/>
@@ -50,7 +54,7 @@
 			<label for="status">Status</label>
 			<select id="status" name="status" disabled={isAsyncPending} required>
 				{#each statusValues as status}
-					<option value={status}>{toTitleCase(status)}</option>
+					<option value={status} selected={post?.status === status}>{toTitleCase(status)}</option>
 				{/each}
 			</select>
 		</fieldset>

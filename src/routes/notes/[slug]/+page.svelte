@@ -5,7 +5,6 @@
 	import { NoteStatus } from '$lib/constants';
 
 	export let data: PageData;
-
 	$: ({ post, isUserAuthenticated } = data);
 </script>
 

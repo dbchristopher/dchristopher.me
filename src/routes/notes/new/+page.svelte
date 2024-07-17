@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import BlogInputForm from './BlogInputForm.svelte';
+	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { insertEntry } from './utils/insertEntry';
 
 	export let data: PageData;
