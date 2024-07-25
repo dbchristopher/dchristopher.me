@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { format } from 'date-fns';
-	import { NoteStatus } from '$lib/constants';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
+	import {destroyEntry} from './utils/destroyEntry'
+	// import {updateEntry} from './utils/updateEntry'
 
 	export let data: PageData;
 
@@ -10,7 +10,7 @@
 
 	let isAsyncPending: boolean = false;
 
-	const handleInsertEntry = (event: Event) => {
+	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
 			console.log('updating entry', event);
@@ -18,13 +18,25 @@
 			isAsyncPending = false;
 		}
 	};
+
+	const handleDelete = async () => {
+		const response = confirm('Are you sure? This cannot be undone.');
+		if (response && post?._id) {
+			isAsyncPending = true;
+			await destroyEntry(post._id);
+			isAsyncPending = false;
+		} else {
+			console.log('save');
+		}
+	};
 </script>
 
 <article>
 	{#if isUserAuthenticated}
 		<BlogInputForm {handleInsertEntry} isAsyncPending={false} {post} />
+		<br /><br />
+		<button on:click={handleDelete}>Delete Post</button>
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}
-	<textarea>{post?.content}</textarea>
 </article>

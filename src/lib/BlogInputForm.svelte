@@ -4,7 +4,7 @@
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
-	export let post: Record<string, any> | undefined;
+	export let post: Record<string, any> | undefined = {};
 
 	const statusValues = Object.values(NoteStatus);
 </script>
