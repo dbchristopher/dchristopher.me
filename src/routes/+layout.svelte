@@ -4,7 +4,8 @@
 	import '@fontsource/fira-sans/700.css'; // Specify weight
 	import '@fontsource/fira-sans/400-italic.css'; // Specify
 	import '@fontsource/fira-sans/700-italic.css'; // Specify
-	import '../reset.css';
+	// White theme
+	import "carbon-components-svelte/css/white.css";	
 	import '../app.css';
 	import type { PageData } from './$types';
 

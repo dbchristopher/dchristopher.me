@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 	export let entries: ProteinEntry[];
 	export let handleDestroyEntry: (id: string) => void;
 	export let isAsyncPending: boolean;
@@ -22,8 +23,8 @@
 					<td>{entry.description}</td>
 					<td class="delete">
 						{#if isUserAuthenticated}
-							<button on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
-								>delete</button
+							<Button on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
+								>delete</Button
 							>
 						{/if}
 					</td>

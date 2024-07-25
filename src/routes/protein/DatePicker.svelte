@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 	export let date: Date;
 	export let handleDateNext: () => void;
 	export let handleDatePrev: () => void;
@@ -7,20 +8,15 @@
 </script>
 
 <div class="date-picker">
-	<button on:click={handleDatePrev}>&#8592;</button>
-	<button on:click={handleDateReset}
-		>{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}</button
+	<Button on:click={handleDatePrev}>&#8592;</Button>
+	<Button on:click={handleDateReset}
+		>{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}</Button
 	>
-	<button on:click={handleDateNext}>&#8594;</button>
+	<Button on:click={handleDateNext}>&#8594;</Button>
 </div>
 
 <style>
 	.date-picker {
 		text-align: center;
-	}
-	button {
-		padding: 0.5rem 1rem;
-		line-height: 1rem;
-		font-size: 0.75rem;
 	}
 </style>

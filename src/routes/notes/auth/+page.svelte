@@ -2,6 +2,9 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+
+	
 
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
@@ -35,7 +38,7 @@
 <div class="page-grid">
 	<form on:submit|preventDefault={authenticate}>
 		<input type="email" name="email" class="email-input" />
-		<button>Email authentication link</button>
+		<Button>Email authentication link</Button>
 	</form>
 </div>
 

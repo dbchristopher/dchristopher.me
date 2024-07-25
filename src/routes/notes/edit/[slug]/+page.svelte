@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import {destroyEntry} from './utils/destroyEntry'
 	// import {updateEntry} from './utils/updateEntry'
@@ -35,7 +36,7 @@
 	{#if isUserAuthenticated}
 		<BlogInputForm {handleInsertEntry} isAsyncPending={false} {post} />
 		<br /><br />
-		<button on:click={handleDelete}>Delete Post</button>
+		<Button on:click={handleDelete}>Delete Post</Button>
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}

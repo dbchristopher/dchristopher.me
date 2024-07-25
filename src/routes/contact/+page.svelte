@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 	let emailSent = false;
 	$: emailSent;
 
@@ -39,7 +40,7 @@
 			<textarea id="message" name="message" rows="10"></textarea>
 		</fieldset>
 		<p>
-			<button type="submit">Send</button>
+			<Button type="submit">Send</Button>
 		</p>
 	</form>
 {:else}

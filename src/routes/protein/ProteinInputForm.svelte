@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
 	export let date: Date = new Date();
@@ -30,7 +31,7 @@
 		/>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<button type="submit" disabled={isAsyncPending}>Submit</button>
+	<Button type="submit" disabled={isAsyncPending}>Submit</Button>
 </form>
 
 <style>

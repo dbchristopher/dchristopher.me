@@ -28,5 +28,14 @@
 		</div>
 	</header>
 
-	<p>{@html marked.parse(post?.content)}</p>
+	{@html marked.parse(post?.content)}
 </article>
+
+<style>
+	article {
+		padding: 1rem;
+	}
+	article p {
+		padding-bottom: 1.5rem;
+	}
+</style>
