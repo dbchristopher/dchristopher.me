@@ -4,11 +4,11 @@
 	import { browser } from '$app/environment';
 	import Button from "carbon-components-svelte/src/Button/Button.svelte";
 
-	
-
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);
+
+		console.log('data', data);
 
 		try {
 			const response = await fetch('/api/auth', {
@@ -38,7 +38,7 @@
 <div class="page-grid">
 	<form on:submit|preventDefault={authenticate}>
 		<input type="email" name="email" class="email-input" />
-		<Button>Email authentication link</Button>
+		<Button type="submit">Email authentication link</Button>
 	</form>
 </div>
 

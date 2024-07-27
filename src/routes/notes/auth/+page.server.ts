@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 			// Create a new user session cookie
 			cookies.set('session', newestAuthEntry[0].token, {
 				path: '/',
-				maxAge: 3600 * 24 * 30, // 30 days from now
+				maxAge: 3600 * 24 * 90, // 90 days from now
 				httpOnly: true,
 				secure: true, // Set to true if using HTTPS
 				sameSite: 'strict'
