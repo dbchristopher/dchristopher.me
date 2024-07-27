@@ -2,6 +2,10 @@
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
+	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
+	import TextArea from 'carbon-components-svelte/src/TextArea/TextArea.svelte';
+  import Select from 'carbon-components-svelte/src/Select/Select.svelte';
+	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
@@ -13,7 +17,7 @@
 <form on:submit|preventDefault={handleInsertEntry}>
 	<fieldset>
 		<label for="title">Title</label>
-		<input
+		<TextInput
 			type="text"
 			id="title"
 			name="title"
@@ -26,21 +30,21 @@
 
 	<fieldset>
 		<label for="content">Content</label>
-		<textarea
+		<TextArea
 			id="content"
 			name="content"
 			placeholder="Midway upon the journey of our life I found myself within a forest dark, for the straightforward pathway had been lost."
 			disabled={isAsyncPending}
-			rows="10"
+			rows={10}
 			value={post?.content || ''}
 			required
-		></textarea>
+		></TextArea>
 	</fieldset>
 
 	<div class="metadata">
 		<fieldset>
 			<label for="tags">Tags</label>
-			<input
+			<TextInput
 				type="text"
 				id="tags"
 				name="tags"
@@ -53,11 +57,11 @@
 
 		<fieldset>
 			<label for="status">Status</label>
-			<select id="status" name="status" disabled={isAsyncPending} required>
+			<Select selected={post?.status} id="status" name="status" disabled={isAsyncPending} required>
 				{#each statusValues as status}
-					<option value={status} selected={post?.status === status}>{toTitleCase(status)}</option>
+					<SelectItem value={status}>{toTitleCase(status)}</SelectItem>
 				{/each}
-			</select>
+			</Select>
 		</fieldset>
 	</div>
 

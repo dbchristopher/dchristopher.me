@@ -3,7 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
+import {title} from '$lib/store'
 
+title.set('Sign In')
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);

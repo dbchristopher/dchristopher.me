@@ -22,7 +22,7 @@
 	</fieldset>
 	<fieldset>
 		<label for="description">Description</label>
-		<input
+		<TextInput
 			placeholder="boiled chicken"
 			type="text"
 			id="description"
