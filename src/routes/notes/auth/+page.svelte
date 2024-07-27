@@ -2,13 +2,11 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);
-
-		console.log('data', data);
 
 		try {
 			const response = await fetch('/api/auth', {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	export let date: Date;
 	export let handleDateNext: () => void;
 	export let handleDatePrev: () => void;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	let emailSent = false;
 	$: emailSent;
 

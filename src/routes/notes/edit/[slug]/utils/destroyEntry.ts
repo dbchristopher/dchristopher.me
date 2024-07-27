@@ -7,7 +7,6 @@ export async function destroyEntry(id: string) {
 		if (!response.ok) {
 			throw new Error('Note deletion failed');
 		}
-
 	} catch (error) {
 		console.error('Error during note deletion:', error);
 	}

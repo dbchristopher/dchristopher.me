@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
-	import {destroyEntry} from './utils/destroyEntry'
+	import { destroyEntry } from './utils/destroyEntry';
 	// import {updateEntry} from './utils/updateEntry'
 
 	export let data: PageData;

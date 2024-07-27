@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
-	import Button from "carbon-components-svelte/src/Button/Button.svelte";
+	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
