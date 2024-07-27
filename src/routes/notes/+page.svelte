@@ -2,10 +2,13 @@
 	import type { PageData } from './$types';
 	import { NoteStatus } from '$lib/constants';
 	import { format } from 'date-fns';
+	import { title } from '$lib/store.js';
 
 	export let data: PageData;
 
 	$: ({ blogEntries, status, error, isUserAuthenticated } = data);
+
+	title.set('Notes');
 </script>
 
 <h1>Notes</h1>

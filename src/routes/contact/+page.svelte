@@ -1,5 +1,8 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
+	import {title} from '$lib/store'
+  title.set('Contact')
+
 	let emailSent = false;
 	$: emailSent;
 

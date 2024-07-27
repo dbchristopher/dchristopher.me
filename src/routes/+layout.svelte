@@ -9,10 +9,16 @@
 	import '../app.css';
 	import type { PageData } from './$types';
 
+	import { title } from '$lib/store.js';
+
 	export let data: PageData;
 
 	$: ({ isUserAuthenticated } = data);
 </script>
+
+<svelte:head>
+	<title>{$title}</title>
+</svelte:head>
 
 <h1>Daniel Christopher</h1>
 

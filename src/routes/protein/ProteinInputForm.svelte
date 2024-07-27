@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
+	import TextInput from "carbon-components-svelte/src/TextInput/TextInput.svelte";
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
 	export let date: Date = new Date();
@@ -8,7 +9,7 @@
 <form on:submit|preventDefault={handleInsertEntry}>
 	<fieldset>
 		<label for="amount">Amount</label>
-		<input
+		<TextInput
 			placeholder="50"
 			type="number"
 			id="amount"

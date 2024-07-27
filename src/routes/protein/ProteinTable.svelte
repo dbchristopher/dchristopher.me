@@ -23,7 +23,7 @@
 					<td>{entry.description}</td>
 					<td class="delete">
 						{#if isUserAuthenticated}
-							<Button on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
+							<Button kind="tertiary" on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
 								>delete</Button
 							>
 						{/if}

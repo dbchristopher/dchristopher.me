@@ -9,7 +9,7 @@
 	import { fetchEntries } from './utils/fetchEntries';
 	import { insertEntry } from './utils/insertEntry';
 	import { destroyEntry } from './utils/destroyEntry';
-
+	import {title} from '$lib/store'
 	export let data: PageData;
 	let entries: ProteinEntry[] = [];
 	let date: Date = new Date();
@@ -21,10 +21,15 @@
 	$: isAsyncPending = false;
 	$: date;
 
+	const setTitle = (date: Date) => {
+		title.set(`Daily Protein Journal - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
+	}
+
 	const refreshEntryData = async () => {
 		isAsyncPending = true;
 		entries = await fetchEntries(date);
 		isAsyncPending = false;
+		setTitle(date)
 	};
 
 	onMount(async () => {

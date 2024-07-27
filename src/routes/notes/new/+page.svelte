@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { insertEntry } from './utils/insertEntry';
+	import { title } from '$lib/store.js';
 
 	export let data: PageData;
 	$: ({ isUserAuthenticated } = data);
@@ -14,6 +15,8 @@
 			isAsyncPending = false;
 		}
 	};
+
+	title.set('Write New Note');
 </script>
 
 {#if isUserAuthenticated}

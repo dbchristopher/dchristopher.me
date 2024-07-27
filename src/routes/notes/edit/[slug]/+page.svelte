@@ -4,6 +4,9 @@
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { destroyEntry } from './utils/destroyEntry';
 	// import {updateEntry} from './utils/updateEntry'
+	import { title } from '$lib/store';
+
+	title.set('Edit Note');
 
 	export let data: PageData;
 

@@ -9,7 +9,7 @@
 
 <div class="date-picker">
 	<Button on:click={handleDatePrev}>&#8592;</Button>
-	<Button on:click={handleDateReset}
+	<Button kind="tertiary" on:click={handleDateReset}
 		>{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}</Button
 	>
 	<Button on:click={handleDateNext}>&#8594;</Button>
