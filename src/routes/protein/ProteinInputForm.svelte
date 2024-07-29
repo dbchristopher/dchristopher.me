@@ -18,6 +18,7 @@
 			min="0"
 			max="100"
 			disabled={isAsyncPending}
+			size="xl"
 		/>
 	</fieldset>
 	<fieldset>
@@ -29,6 +30,7 @@
 			name="description"
 			required
 			disabled={isAsyncPending}
+			size="xl"
 		/>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />

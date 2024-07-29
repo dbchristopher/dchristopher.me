@@ -24,7 +24,7 @@
 					<td class="delete">
 						{#if isUserAuthenticated}
 							<Button kind="tertiary" on:click={() => handleDestroyEntry(entry._id)} disabled={isAsyncPending}
-								>delete</Button
+								size="small">delete</Button
 							>
 						{/if}
 					</td>
