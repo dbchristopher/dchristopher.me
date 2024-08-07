@@ -45,11 +45,13 @@
 		{#each blogEntries as post}
 			{#if post.status === 'published' || isUserAuthenticated}
 				<li>
+          <article>
 					<a href="notes/{post.slug}">{post.title}</a>
 					<time pubdate="pubdate" datetime={post.created}
 						>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
 					>
 					{@html marked.parse(extractContentSnippet(post.content))}
+          </article>
 				</li>
 			{/if}
 		{/each}
