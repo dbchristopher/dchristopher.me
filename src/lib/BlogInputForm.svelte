@@ -4,7 +4,7 @@
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 	import TextArea from 'carbon-components-svelte/src/TextArea/TextArea.svelte';
-  import Select from 'carbon-components-svelte/src/Select/Select.svelte';
+	import Select from 'carbon-components-svelte/src/Select/Select.svelte';
 	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 
 	export let handleInsertEntry: (event: Event) => void;

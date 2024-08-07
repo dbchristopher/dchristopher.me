@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-	import TextInput from "carbon-components-svelte/src/TextInput/TextInput.svelte";
+	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 	export let handleInsertEntry: (event: Event) => void;
 	export let isAsyncPending: boolean;
 	export let date: Date = new Date();
