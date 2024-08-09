@@ -43,17 +43,17 @@
 <style>
 	article {
 		padding: 1rem;
-		max-width: 75ch;
 		margin: 0 auto;
 		font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0;
+		font-weight: 400;
+		line-height: 1.5;
+		letter-spacing: 0;
 		font-size: 1.2rem;
 	}
 
 	:global(.content p) {
 		font: inherit;
+		margin-bottom: 1.5rem;
 	}
 	:global(.content ul) {
 		font: inherit;
