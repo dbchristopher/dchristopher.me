@@ -5,6 +5,8 @@
 	import { NoteStatus } from '$lib/constants';
 	import { title } from '$lib/store';
 	import { pushState } from '$app/navigation';
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
+
 
 	export let data: PageData;
 	$: ({ post, isUserAuthenticated } = data);
@@ -14,6 +16,7 @@
 	}
 </script>
 
+<ContentWrapper>
 {#if post}
 	<article>
 		<header>
@@ -39,12 +42,11 @@
 		</div>
 	</article>
 {/if}
+</ContentWrapper>
 
 <style>
 	article {
-		padding: 1rem;
 		margin: 0 auto;
-		font-size: 1rem;
 		font-weight: 400;
 		line-height: 1.5;
 		letter-spacing: 0;
@@ -69,7 +71,7 @@
 
 	article header {
 		border-bottom: 1px solid #e0e0e0;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 	}
 
 	article header ul.tags {
@@ -80,5 +82,10 @@
 		display: inline-block;
 		margin-right: 0.25rem;
 		font-style: italic;
+	}
+
+	.byline {
+		font-size: 0.8rem;
+		padding: 0.5rem 0;
 	}
 </style>

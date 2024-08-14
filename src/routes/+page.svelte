@@ -3,6 +3,7 @@
 	import { title } from '$lib/store';
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
 	title.set('Home');
 
@@ -31,7 +32,7 @@
 		return sentences.slice(0, 3).join(' ');
 	}
 </script>
-
+<ContentWrapper>
 <h1>Thinking for a Living</h1>
 <h2 class="subtitle">Exploring Tech, Wellness, and Life's Adventures</h2>
 <p>
@@ -57,9 +58,8 @@
 		{/each}
 	</ul>
 </section>
-
+</ContentWrapper>
 <style>
-
 	.subtitle {
 		font-size: 1.2rem;
 		margin-bottom: 1rem;

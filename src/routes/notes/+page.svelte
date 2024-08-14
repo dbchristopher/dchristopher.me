@@ -3,7 +3,7 @@
 	import { NoteStatus } from '$lib/constants';
 	import { format } from 'date-fns';
 	import { title } from '$lib/store.js';
-
+	import ContentWrapper from '$lib/ContentWrapper.svelte'
 	export let data: PageData;
 
 	$: ({ blogEntries, status, error, isUserAuthenticated } = data);
@@ -11,6 +11,7 @@
 	title.set('Notes');
 </script>
 
+<ContentWrapper>
 <h1>Notes</h1>
 
 {#if status === 'error' && error}
@@ -31,3 +32,4 @@
 		{/each}
 	</ul>
 </section>
+</ContentWrapper>

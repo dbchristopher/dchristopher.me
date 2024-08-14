@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import { title } from '$lib/store';
+	import ContentWrapper from '$lib/ContentWrapper.svelte'
 	title.set('Contact');
 
 	let emailSent = false;
@@ -23,7 +24,7 @@
 		}
 	}
 </script>
-
+<ContentWrapper>
 <h1>Contact</h1>
 <h2>Say Hello!</h2>
 
@@ -49,6 +50,7 @@
 {:else}
 	<p>Message received!</p>
 {/if}
+</ContentWrapper>
 
 <style>
 	fieldset {

@@ -17,10 +17,7 @@
 <header>
 	<div class="header-content">
 		<a href="/">Daniel Christopher</a>
-		<div class="job-title">
-			&middot;
-			Senior Frontend Software Engineer
-		</div>
+		<div class="job-title">&middot; Senior Frontend Software Engineer</div>
 	</div>
 
 	<nav>
@@ -38,9 +35,7 @@
 	</nav>
 </header>
 
-<main>
-	<slot />
-</main>
+<slot />
 
 <style>
 	nav {
@@ -48,14 +43,6 @@
 		gap: 0.6rem;
 		padding: 0.5rem 0;
 	}
-
-	main {
-		padding: 1rem;
-		max-width: 75ch;
-		margin: 0 auto;
-		line-height: 1.5;
-	}
-
 	header {
 		padding: 1rem;
 		margin-bottom: 1rem;
@@ -75,8 +62,8 @@
 	}
 
 	@media (max-width: 768px) {
-        .job-title {
-            display: none;
-        }
-    }
+		.job-title {
+			display: none;
+		}
+	}
 </style>

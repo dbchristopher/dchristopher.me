@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import ContentWrapper from '$lib/ContentWrapper.svelte'
 	import DatePicker from './DatePicker.svelte';
 	import ProteinCounter from './ProteinCounter.svelte';
 	import ProteinTable from './ProteinTable.svelte';
@@ -73,7 +74,7 @@
 		refreshEntryData();
 	};
 </script>
-
+<ContentWrapper>
 <div class="page-grid">
 	<h1>Protein</h1>
 	<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
@@ -82,14 +83,18 @@
 
 	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
-	{#if isUserAuthenticated}
-		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
-	{:else}
+	{#if !isUserAuthenticated}
 		<a href="/notes/auth">Sign in manage data</a>
 
 		<Faq />
 	{/if}
 </div>
+</ContentWrapper>
+{#if isUserAuthenticated}
+	<div>
+		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
+	</div>
+{/if}
 
 <style>
 	.page-grid {
