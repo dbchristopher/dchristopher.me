@@ -74,6 +74,7 @@
 		refreshEntryData();
 	};
 </script>
+<div class="page-wrapper">
 <ContentWrapper>
 <div class="page-grid">
 	<h1>Protein</h1>
@@ -91,12 +92,15 @@
 </div>
 </ContentWrapper>
 {#if isUserAuthenticated}
-	<div>
-		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
-	</div>
+	<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
 {/if}
+</div>
 
 <style>
+
+	.page-wrapper {
+		position: relative;
+	}
 	.page-grid {
 		display: grid;
 		grid-row-gap: 1rem;
