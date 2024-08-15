@@ -2,11 +2,11 @@
 </script>
 
 <main>
-  <slot />
+	<slot />
 </main>
 
 <style>
-  main {
+	main {
 		padding: 1rem;
 		max-width: 75ch;
 		margin: 0 auto;

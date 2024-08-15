@@ -7,7 +7,6 @@
 	import { pushState } from '$app/navigation';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
-
 	export let data: PageData;
 	$: ({ post, isUserAuthenticated } = data);
 
@@ -17,31 +16,31 @@
 </script>
 
 <ContentWrapper>
-{#if post}
-	<article>
-		<header>
-			<h1>{post.title}</h1>
-			<div class="byline">
-				<address class="author">by Daniel Christopher</address>
-				<time pubdate="pubdate" datetime={post.created}
-					>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
-				>
-				{#if isUserAuthenticated}
-					<a href="/notes/edit/{post.slug}">Edit Post</a>
-				{/if}
-				{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
-				<ul class="tags">
-					{#each post.tags as tag, index (tag)}
-						<li>{tag}{index < post.tags.length - 1 ? ',' : ''}</li>
-					{/each}
-				</ul>
+	{#if post}
+		<article>
+			<header>
+				<h1>{post.title}</h1>
+				<div class="byline">
+					<address class="author">by Daniel Christopher</address>
+					<time pubdate="pubdate" datetime={post.created}
+						>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
+					>
+					{#if isUserAuthenticated}
+						<a href="/notes/edit/{post.slug}">Edit Post</a>
+					{/if}
+					{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
+					<ul class="tags">
+						{#each post.tags as tag, index (tag)}
+							<li>{tag}{index < post.tags.length - 1 ? ',' : ''}</li>
+						{/each}
+					</ul>
+				</div>
+			</header>
+			<div class="content">
+				{@html marked.parse(post.content)}
 			</div>
-		</header>
-		<div class="content">
-			{@html marked.parse(post.content)}
-		</div>
-	</article>
-{/if}
+		</article>
+	{/if}
 </ContentWrapper>
 
 <style>

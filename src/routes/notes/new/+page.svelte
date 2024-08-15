@@ -3,7 +3,7 @@
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { insertEntry } from './utils/insertEntry';
 	import { title } from '$lib/store.js';
-import ContentWrapper from '$lib/ContentWrapper.svelte'
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
 	export let data: PageData;
 	$: ({ isUserAuthenticated } = data);
@@ -21,10 +21,10 @@ import ContentWrapper from '$lib/ContentWrapper.svelte'
 </script>
 
 <ContentWrapper>
-{#if isUserAuthenticated}
-	<!-- create a new form api endpoint for writing a new post -->
-	<BlogInputForm {isAsyncPending} {handleInsertEntry} />
-{:else}
-	<a href="/notes/auth">Sign in to continue</a>
-{/if}
+	{#if isUserAuthenticated}
+		<!-- create a new form api endpoint for writing a new post -->
+		<BlogInputForm {isAsyncPending} {handleInsertEntry} />
+	{:else}
+		<a href="/notes/auth">Sign in to continue</a>
+	{/if}
 </ContentWrapper>

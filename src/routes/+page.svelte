@@ -32,33 +32,35 @@
 		return sentences.slice(0, 3).join(' ');
 	}
 </script>
+
 <ContentWrapper>
-<h1>Thinking for a Living</h1>
-<h2 class="subtitle">Exploring Tech, Wellness, and Life's Adventures</h2>
-<p>
-	I'm a software developer who brings ideas to life through code, a fitness enthusiast always
-	striving for personal growth, a writer exploring diverse topics, and a dedicated parent. This is
-	my little corner of the internet, which showcases my professional work and personal interests.
-</p>
-<section>
-	<h2>Recent Notes</h2>
-	<ul class="post-list">
-		{#each blogEntries as post}
-			{#if post.status === 'published' || isUserAuthenticated}
-				<li>
-					<article>
-						<a href="notes/{post.slug}" class="post-title">{post.title}</a>
-						<time pubdate="pubdate" datetime={post.created}
-							>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
-						>
-						{@html marked.parse(extractContentSnippet(post.content))}
-					</article>
-				</li>
-			{/if}
-		{/each}
-	</ul>
-</section>
+	<h1>Thinking for a Living</h1>
+	<h2 class="subtitle">Exploring Tech, Wellness, and Life's Adventures</h2>
+	<p>
+		I'm a software developer who brings ideas to life through code, a fitness enthusiast always
+		striving for personal growth, a writer exploring diverse topics, and a dedicated parent. This is
+		my little corner of the internet, which showcases my professional work and personal interests.
+	</p>
+	<section>
+		<h2>Recent Notes</h2>
+		<ul class="post-list">
+			{#each blogEntries as post}
+				{#if post.status === 'published' || isUserAuthenticated}
+					<li>
+						<article>
+							<a href="notes/{post.slug}" class="post-title">{post.title}</a>
+							<time pubdate="pubdate" datetime={post.created}
+								>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
+							>
+							{@html marked.parse(extractContentSnippet(post.content))}
+						</article>
+					</li>
+				{/if}
+			{/each}
+		</ul>
+	</section>
 </ContentWrapper>
+
 <style>
 	.subtitle {
 		font-size: 1.2rem;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import { title } from '$lib/store';
-	import ContentWrapper from '$lib/ContentWrapper.svelte'
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	title.set('Contact');
 
 	let emailSent = false;
@@ -24,32 +24,38 @@
 		}
 	}
 </script>
+
 <ContentWrapper>
-<h1>Contact</h1>
-<h2>Say Hello!</h2>
+	<h1>Contact</h1>
+	<h2>Say Hello!</h2>
 
-{#if !emailSent}
-	<p>Send me something cool.</p>
-	<form name="contact" method="POST" on:submit|preventDefault={sendMail}>
-		<fieldset class="usercode">
-			<label for="usercode">Enter a random value</label>
-			<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />
-		</fieldset>
+	{#if !emailSent}
+		<p>Send me something cool.</p>
+		<form name="contact" method="POST" on:submit|preventDefault={sendMail}>
+			<fieldset class="usercode">
+				<label for="usercode">Enter a random value</label>
+				<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />
+			</fieldset>
 
-		<fieldset>
-			<label for="email">Your Email:</label><input id="email" type="email" name="email" required />
-		</fieldset>
-		<fieldset>
-			<label for="message">Message:</label>
-			<textarea id="message" name="message" rows="10"></textarea>
-		</fieldset>
-		<p>
-			<Button type="submit">Send</Button>
-		</p>
-	</form>
-{:else}
-	<p>Message received!</p>
-{/if}
+			<fieldset>
+				<label for="email">Your Email:</label><input
+					id="email"
+					type="email"
+					name="email"
+					required
+				/>
+			</fieldset>
+			<fieldset>
+				<label for="message">Message:</label>
+				<textarea id="message" name="message" rows="10"></textarea>
+			</fieldset>
+			<p>
+				<Button type="submit">Send</Button>
+			</p>
+		</form>
+	{:else}
+		<p>Message received!</p>
+	{/if}
 </ContentWrapper>
 
 <style>

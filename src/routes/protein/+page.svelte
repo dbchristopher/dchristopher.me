@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import ContentWrapper from '$lib/ContentWrapper.svelte'
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import DatePicker from './DatePicker.svelte';
 	import ProteinCounter from './ProteinCounter.svelte';
 	import ProteinTable from './ProteinTable.svelte';
@@ -74,30 +74,30 @@
 		refreshEntryData();
 	};
 </script>
+
 <div class="page-wrapper">
-<ContentWrapper>
-<div class="page-grid">
-	<h1>Protein</h1>
-	<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
+	<ContentWrapper>
+		<div class="page-grid">
+			<h1>Protein</h1>
+			<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
 
-	<ProteinCounter {totalConsumption} {isAsyncPending} />
+			<ProteinCounter {totalConsumption} {isAsyncPending} />
 
-	<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
+			<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
-	{#if !isUserAuthenticated}
-		<a href="/notes/auth">Sign in manage data</a>
+			{#if !isUserAuthenticated}
+				<a href="/notes/auth">Sign in manage data</a>
 
-		<Faq />
+				<Faq />
+			{/if}
+		</div>
+	</ContentWrapper>
+	{#if isUserAuthenticated}
+		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
 	{/if}
-</div>
-</ContentWrapper>
-{#if isUserAuthenticated}
-	<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
-{/if}
 </div>
 
 <style>
-
 	.page-wrapper {
 		position: relative;
 	}
