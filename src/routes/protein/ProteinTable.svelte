@@ -39,7 +39,6 @@
 
 <style>
 	.container {
-		padding: 0.5rem;
 		width: 100%;
 	}
 	table {

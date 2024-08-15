@@ -3,6 +3,7 @@
 	import 'carbon-components-svelte/css/white.css';
 	import '../app.css';
 	import type { PageData } from './$types';
+	import PageFooter from '$lib/PageFooter.svelte';
 
 	import { title } from '$lib/store.js';
 
@@ -36,6 +37,8 @@
 </header>
 
 <slot />
+
+<PageFooter />
 
 <style>
 	nav {

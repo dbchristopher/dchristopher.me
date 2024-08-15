@@ -11,5 +11,6 @@
 		max-width: 75ch;
 		margin: 0 auto;
 		line-height: 1.5;
+		min-height: 70vh;
 	}
 </style>

@@ -42,14 +42,9 @@
 		display: grid;
 		grid-template-columns: 1fr 3fr auto;
 		align-items: end;
-		position: sticky;
-		bottom: 0;
-		left: 0;
-		right: 0;
 		background: white;
-		padding: 0.5rem;
-		box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
 	}
+
 	fieldset {
 		border: none;
 		padding: 0;

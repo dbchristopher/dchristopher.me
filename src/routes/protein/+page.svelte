@@ -78,7 +78,7 @@
 <div class="page-wrapper">
 	<ContentWrapper>
 		<div class="page-grid">
-			<h1>Protein</h1>
+			<h1>Protein Journal</h1>
 			<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
 
 			<ProteinCounter {totalConsumption} {isAsyncPending} />
@@ -93,7 +93,9 @@
 		</div>
 	</ContentWrapper>
 	{#if isUserAuthenticated}
-		<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
+		<div class="input-form-wrapper">
+			<ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} />
+		</div>
 	{/if}
 </div>
 
@@ -104,6 +106,24 @@
 	.page-grid {
 		display: grid;
 		grid-row-gap: 1rem;
+	}
+
+	.input-form-wrapper {
+		max-width: 75ch;
+		margin: 0 auto;
+		padding: 0.5rem 1rem;
+		border-top: 1px solid #e0e0e0;
+		background: #fff;
+	}
+
+	@media (max-width: 768px) {
+		.input-form-wrapper {
+			box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+			position: sticky;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
 	}
 
 	@keyframes pendingFade {
