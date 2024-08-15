@@ -44,7 +44,7 @@
 </ContentWrapper>
 
 <style>
-	article {
+	:global(article) {
 		margin: 0 auto;
 		font-weight: 400;
 		line-height: 1.5;
