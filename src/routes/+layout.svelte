@@ -17,8 +17,7 @@
 </svelte:head>
 <header>
 	<div class="header-content">
-		<a href="/">Daniel Christopher</a>
-		<div class="job-title">&middot; Senior Frontend Software Engineer</div>
+		<div class="name"><a href="/">Daniel Christopher</a></div>
 	</div>
 
 	<nav>
@@ -47,26 +46,20 @@
 		padding: 0.5rem 0;
 	}
 	header {
-		padding: 1rem;
-		margin-bottom: 1rem;
-		border-bottom: 1px solid #ddd;
+		padding: 0;
+		max-width: 75ch;
+		margin: 0 auto 1rem;
+		padding: 0.5rem 1rem;
 	}
 
 	.header-content {
-		font-size: 1.25rem;
-		font-weight: 700;
+		font-size: 1rem;
 		& a {
 			color: inherit;
 		}
 	}
 
-	.job-title {
-		display: inline-block;
-	}
-
-	@media (max-width: 768px) {
-		.job-title {
-			display: none;
-		}
+	.name {
+		font-weight: 700;
 	}
 </style>

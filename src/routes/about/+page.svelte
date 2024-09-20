@@ -21,7 +21,7 @@
 				could on a platform like Medium, but it feels good to have a personal outlet that is fully
 				mine.
 			</p>
-			<p>This was lovingly crafted with the following technologies:</p>
+			<p>This was crafted with the following technologies:</p>
 			<ul>
 				<li>SvelteKit</li>
 				<li>MongoDB</li>

@@ -3,7 +3,7 @@
 
 <footer>
 	<div class="footer-content-wrapper">
-		<p>❤️ Thank you for visit a personal website in {new Date().getFullYear()}!</p>
+		<p>❤️ Thank you for visiting a personal website in {new Date().getFullYear()}.</p>
 		<p class="copyright">© {new Date().getFullYear()} Daniel Christopher</p>
 	</div>
 </footer>
@@ -20,8 +20,11 @@
 		margin: 0 auto;
 		max-width: 75ch;
 	}
+
+	.footer-content-wrapper p {
+		font-size: 0.75rem;
+	}
 	.copyright {
-		font-size: 0.8rem;
 		color: #ddd;
 	}
 </style>
