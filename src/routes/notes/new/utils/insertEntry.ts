@@ -8,6 +8,8 @@ export async function insertEntry(event: Event) {
 			body: data
 		});
 
+		console.log(response)
+
 		if (!response.ok) {
 			throw new Error('Note insertion failed');
 		}

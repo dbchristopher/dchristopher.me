@@ -4,12 +4,17 @@
 	import '../app.css';
 	import type { PageData } from './$types';
 	import PageFooter from '$lib/PageFooter.svelte';
+	import { page } from '$app/stores';
 
 	import { title } from '$lib/store.js';
 
 	export let data: PageData;
 
 	$: ({ isUserAuthenticated } = data);
+
+	let currentPath = '';
+
+	$: currentPath = $page.url.pathname;
 </script>
 
 <svelte:head>
@@ -21,16 +26,16 @@
 	</div>
 
 	<nav>
-		<a href="/">Home</a>
-		<a href="/notes">Notes</a>
-		<a href="/about">About</a>
-		<a href="/contact">Contact</a>
-		<a href="/protein">Protein</a>
+		<a href="/" class:active={currentPath === '/'}>Home</a>
+		<a href="/notes" class:active={currentPath === '/notes'}>Notes</a>
+		<a href="/about" class:active={currentPath === '/about'}>About</a>
+		<a href="/contact" class:active={currentPath === '/contact'}>Contact</a>
+		<a href="/protein" class:active={currentPath === '/protein'}>Protein</a>
 		{#if isUserAuthenticated}
 			<a href="/notes/auth-destroy">Sign Out</a>
 		{/if}
 		{#if !isUserAuthenticated}
-			<a href="/notes/auth">Sign in</a>
+			<a href="/notes/auth" class:active={currentPath === '/notes/auth'}>Sign in</a>
 		{/if}
 	</nav>
 </header>
@@ -45,6 +50,11 @@
 		gap: 0.6rem;
 		padding: 0.5rem 0;
 	}
+
+	nav a.active {
+		font-weight: bold;
+	}
+
 	header {
 		padding: 0;
 		max-width: 75ch;

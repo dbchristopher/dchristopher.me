@@ -17,9 +17,8 @@
 			<p>
 				I created this website as a throwback to a time when the internet was a little more DIY. I'm
 				tired of the consolidation of the internet into a few major social network players and
-				simply wanted my own custom-built playground. My writing may never attain the reach that it
-				could on a platform like Medium, but it feels good to have a personal outlet that is fully
-				mine.
+				simply wanted my own custom-built playground. I may be intentionally isolating myself from
+				social networking opportunities, but it feels good to fully control my own work and content.
 			</p>
 			<p>This was crafted with the following technologies:</p>
 			<ul>
@@ -32,4 +31,12 @@
 </ContentWrapper>
 
 <style>
+	p {
+		margin-bottom: 1rem;
+	}
+
+	ul {
+		margin-bottom: 1rem;
+		list-style: inside;
+	}
 </style>
