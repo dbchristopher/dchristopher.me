@@ -4,6 +4,8 @@
 	import { insertEntry } from './utils/insertEntry';
 	import { title } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
+	import { goto } from '$app/navigation';
+
 
 	export let data: PageData;
 	$: ({ isUserAuthenticated } = data);
@@ -12,8 +14,9 @@
 	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
-			await insertEntry(event);
+			const newPostSlug = await insertEntry(event);
 			isAsyncPending = false;
+			goto(`/notes/${newPostSlug}`);
 		}
 	};
 

@@ -3,6 +3,7 @@
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { destroyEntry } from './utils/destroyEntry';
+	import { goto } from '$app/navigation';
 	// import {updateEntry} from './utils/updateEntry'
 	import { title } from '$lib/store';
 
@@ -29,6 +30,7 @@
 			isAsyncPending = true;
 			await destroyEntry(post._id);
 			isAsyncPending = false;
+			goto('/notes');
 		} else {
 			console.log('save');
 		}

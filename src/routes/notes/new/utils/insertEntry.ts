@@ -8,13 +8,16 @@ export async function insertEntry(event: Event) {
 			body: data
 		});
 
-		console.log(response)
-
 		if (!response.ok) {
 			throw new Error('Note insertion failed');
 		}
 
+		const responseData = await response.json();
+		const slug = responseData.slug;
+
 		form.reset();
+
+		return slug;
 	} catch (error) {
 		console.error('Error during notes insertion:', error);
 	}
