@@ -2,8 +2,5 @@
 	command = "npm run build"
 	publish = "build"
 
-[functions]
-	node_bundler = "esbuild"
-
 [durable_objects]
 	classes = [{ name = "DataCache", path = "src/lib/server/durable/data-cache.js" }]
