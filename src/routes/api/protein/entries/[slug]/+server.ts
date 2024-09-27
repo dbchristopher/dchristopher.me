@@ -1,20 +1,15 @@
 import { ObjectId } from 'mongodb';
 import { protein } from '$db/protein';
+import { invalidateCache } from '$lib/cacheUtils';
+import { PROTEIN_CACHE_KEY } from '$lib/constants';
 
-export async function DELETE(request) {
-	const entryId = request.params.slug;
+export async function DELETE({params, platform}) {
+	const entryId = params.slug;
 
 	try {
-		const result = await protein.deleteOne({ _id: new ObjectId(entryId) });
+		await invalidateCache({ platform, cacheKey: PROTEIN_CACHE_KEY });
 
-		// const options: ResponseInit = {
-		// 	status: 200,
-		// 	headers: {
-		// 		'content-type': 'application/json'
-		// 	}
-		// };
-		// const responseBody: BodyInit = JSON.stringify({ entries: await fetchProteinEntries(date) });
-		// return new Response(responseBody, options);
+		const result = await protein.deleteOne({ _id: new ObjectId(entryId) });
 
 		if (result.deletedCount === 0) {
 			const options: ResponseInit = {

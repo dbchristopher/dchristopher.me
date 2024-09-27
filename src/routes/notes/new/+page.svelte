@@ -6,7 +6,6 @@
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import { goto } from '$app/navigation';
 
-
 	export let data: PageData;
 	$: ({ isUserAuthenticated } = data);
 	let isAsyncPending: boolean = false;

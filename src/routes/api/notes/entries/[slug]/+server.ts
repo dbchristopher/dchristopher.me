@@ -1,10 +1,14 @@
 import { ObjectId } from 'mongodb';
 import { blog } from '$db/blog';
+import { invalidateCache } from '$lib/cacheUtils';
+import { NOTES_CACHE_KEY } from '$lib/constants';
 
-export async function DELETE(request) {
-	const entryId = request.params.slug;
+export async function DELETE({params, platform}) {
+	const entryId = params.slug;
 
 	try {
+		await invalidateCache({ platform, cacheKey: NOTES_CACHE_KEY });
+
 		const result = await blog.deleteOne({ _id: new ObjectId(entryId) });
 
 		if (result.deletedCount === 0) {
