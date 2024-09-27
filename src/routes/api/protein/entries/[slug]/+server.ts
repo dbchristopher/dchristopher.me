@@ -3,7 +3,7 @@ import { protein } from '$db/protein';
 import { invalidateCache } from '$lib/cacheUtils';
 import { PROTEIN_CACHE_KEY } from '$lib/constants';
 
-export async function DELETE({params, platform}) {
+export async function DELETE({ params, platform }) {
 	const entryId = params.slug;
 
 	try {

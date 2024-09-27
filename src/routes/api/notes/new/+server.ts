@@ -2,9 +2,11 @@ import { insertNote } from './insertNote';
 import { NoteStatus } from '$lib/constants';
 import { generateSlugFromTitle } from './generateSlugFromTitle';
 import { normalizeTags } from './normalizeTags';
+import { invalidateCache } from '$lib/cacheUtils';
+import { NOTES_CACHE_KEY, HOMEPAGE_NOTES_CACHE_KEY } from '$lib/constants';
 
-export async function POST(event) {
-	const data = await event.request.formData();
+export async function POST({ request, platform }) {
+	const data = await request.formData();
 	const title = data.get('title');
 	const content = data.get('content');
 	const tags = normalizeTags(data.get('tags'));
@@ -17,6 +19,9 @@ export async function POST(event) {
 		tags.length &&
 		(status === NoteStatus.DRAFT || status === NoteStatus.PUBLISHED)
 	) {
+		await invalidateCache({ platform, cacheKey: NOTES_CACHE_KEY });
+		await invalidateCache({ platform, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
+
 		// insert entry token into mongodb protein table
 		const dbResult = await insertNote({ title, content, tags, status, slug });
 		if (dbResult.success) {

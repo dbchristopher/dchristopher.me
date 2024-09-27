@@ -1,6 +1,7 @@
 import { blog } from '$db/blog';
 import type { PageServerLoad } from './$types';
 import { NoteStatus } from '$lib/constants';
+import { updateCache, getCache } from '$lib/cacheUtils';
 
 type Note = {
 	_id: string;
@@ -12,13 +13,20 @@ type Note = {
 	status: NoteStatus;
 };
 
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ params, parent, platform }) => {
 	try {
 		const { isUserAuthenticated } = await parent();
 
-		const { title, tags, content, created, slug, status, _id } = (
-			await blog.find({ slug: params.slug }).limit(1).toArray()
-		)[0];
+		let data: Note = await getCache({ platform, cacheKey: params.slug });
+
+		if (!data) {
+			console.log('Cache miss. Fetching from MongoDB...');
+			const dataArr = await blog.find({ slug: params.slug }).limit(1).toArray();
+			data = dataArr[0];
+			updateCache({ platform, data, cacheKey: params.slug });
+		}
+
+		const { title, tags, content, created, slug, status, _id } = data;
 
 		const webSafeNote: Note = { title, tags, content, created, slug, status, _id: _id.toString() };
 

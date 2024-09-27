@@ -4,4 +4,5 @@ export enum NoteStatus {
 }
 
 export const PROTEIN_CACHE_KEY = 'proteinEntries';
-export const NOTES_CACHE_KEY = 'notesEntries'
+export const NOTES_CACHE_KEY = 'notesEntries';
+export const HOMEPAGE_NOTES_CACHE_KEY = 'hompageNotesEntrySnippets';

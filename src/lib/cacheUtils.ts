@@ -12,7 +12,7 @@ export async function invalidateCache({ platform, cacheKey }: CacheData) {
 	if (platform?.context?.durable) {
 		await platform.context.durable.delete(cacheKey);
 	} else {
-    console.log('DELETE CACHE KEY:', cacheKey);
+		console.log('DELETE CACHE KEY:', cacheKey);
 		inMemoryCache.delete(cacheKey);
 	}
 }

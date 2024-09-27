@@ -3,7 +3,7 @@ import { blog } from '$db/blog';
 import { invalidateCache } from '$lib/cacheUtils';
 import { NOTES_CACHE_KEY } from '$lib/constants';
 
-export async function DELETE({params, platform}) {
+export async function DELETE({ params, platform }) {
 	const entryId = params.slug;
 
 	try {

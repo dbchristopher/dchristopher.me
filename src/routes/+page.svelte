@@ -26,6 +26,7 @@
 	}
 
 	function extractContentSnippet(content: string) {
+		if (!content) return '';
 		const paragraphs = content.split('\n');
 		const sentences = splitIntoSentences(paragraphs[0]);
 
