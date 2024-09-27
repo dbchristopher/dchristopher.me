@@ -5,8 +5,5 @@
 [functions]
 	node_bundler = "esbuild"
 
-[[plugins]]
-	package = "@sveltejs/adapter-netlify"
-
 [durable_objects]
 	classes = [{ name = "DataCache", path = "src/lib/server/durable/data-cache.js" }]
