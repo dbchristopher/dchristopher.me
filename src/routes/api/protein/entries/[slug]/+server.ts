@@ -1,13 +1,19 @@
 import { ObjectId } from 'mongodb';
 import { protein } from '$db/protein';
 import { invalidateCache } from '$lib/cacheUtils';
-import { PROTEIN_CACHE_KEY } from '$lib/constants';
+import { formatDateKeywordCacheKey } from '../../formatDateKeywordCacheKey';
 
-export async function DELETE({ params, platform }) {
+export async function DELETE({ params, platform, request }) {
 	const entryId = params.slug;
 
+	const url = new URL(request.url);
+	const queryParams = new URLSearchParams(url.search);
+	const dateString = queryParams.get('date') || '';
+	const date = new Date(dateString);
+	const cacheKey = formatDateKeywordCacheKey(date);
+
 	try {
-		await invalidateCache({ platform, cacheKey: PROTEIN_CACHE_KEY });
+		await invalidateCache({ platform, cacheKey: cacheKey });
 
 		const result = await protein.deleteOne({ _id: new ObjectId(entryId) });
 

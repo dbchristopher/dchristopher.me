@@ -50,7 +50,7 @@
 	const handleDestroyEntry = async (id: string) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
-			await destroyEntry(id, refreshEntryData);
+			await destroyEntry(id, date, refreshEntryData);
 			isAsyncPending = false;
 		}
 	};

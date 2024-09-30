@@ -1,6 +1,6 @@
 import { insertProteinEntry } from './insertProteinEntry';
 import { invalidateCache } from '$lib/cacheUtils';
-import { PROTEIN_CACHE_KEY } from '$lib/constants';
+import { formatDateKeywordCacheKey } from './formatDateKeywordCacheKey';
 
 export async function POST({ request, platform }) {
 	const data = await request.formData();
@@ -8,6 +8,7 @@ export async function POST({ request, platform }) {
 	const description = data.get('description');
 	const dateFormData = data.get('date');
 	const date = dateFormData ? new Date(dateFormData as string) : new Date();
+	const cacheKey = formatDateKeywordCacheKey(date);
 
 	if (
 		typeof amount === 'string' &&
@@ -18,7 +19,7 @@ export async function POST({ request, platform }) {
 		// insert entry token into mongodb protein table
 		const dbResult = await insertProteinEntry(parseInt(amount), description, date);
 		if (dbResult.success) {
-			await invalidateCache({ platform, cacheKey: PROTEIN_CACHE_KEY });
+			await invalidateCache({ platform, cacheKey: cacheKey });
 			// return success
 			return new Response(JSON.stringify({ success: true }), {
 				headers: {

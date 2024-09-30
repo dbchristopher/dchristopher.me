@@ -1,5 +1,5 @@
-export async function destroyEntry(id: string, onSuccess: () => void) {
-	const deleteEntryResponse = await fetch(`/api/protein/entries/${id}`, {
+export async function destroyEntry(id: string, date: Date, onSuccess: () => void) {
+	const deleteEntryResponse = await fetch(`/api/protein/entries/${id}?date=${date}`, {
 		method: 'DELETE'
 	});
 

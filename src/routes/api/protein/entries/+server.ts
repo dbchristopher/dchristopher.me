@@ -1,24 +1,25 @@
 import { fetchProteinEntries } from './fetchProteinEntries';
 import { updateCache, getCache } from '$lib/cacheUtils';
-import { PROTEIN_CACHE_KEY } from '$lib/constants';
+import { formatDateKeywordCacheKey } from '../formatDateKeywordCacheKey';
 
 type GetArgs = { request: Request; platform: any };
 
 export async function GET({ request, platform }: GetArgs) {
 	const url = new URL(request.url);
+	const queryParams = new URLSearchParams(url.search);
+	const dateString = queryParams.get('date') || '';
+	const date = new Date(dateString);
+	const cacheKey = formatDateKeywordCacheKey(date);
 
 	// Try to get data from the cache
-	let data: ProteinEntry[] | undefined = await getCache({ platform, cacheKey: PROTEIN_CACHE_KEY });
+	let data: ProteinEntry[] | undefined = await getCache({ platform, cacheKey: cacheKey });
 
 	if (!data) {
 		console.log('Cache miss. Fetching from MongoDB...');
-		const queryParams = new URLSearchParams(url.search);
-		const dateString = queryParams.get('date');
 
 		if (dateString) {
-			const date = new Date(dateString);
 			data = await fetchProteinEntries(date);
-			updateCache({ platform, data, cacheKey: PROTEIN_CACHE_KEY });
+			updateCache({ platform, data, cacheKey });
 		}
 	} else {
 		console.log('Cache hit!');
