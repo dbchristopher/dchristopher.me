@@ -2,7 +2,26 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+
+		<!-- Basic favicon -->
+		<link rel="icon" type="image/x-icon" href="%sveltekit.assets%/favicon.ico" />
+
+		<!-- Modern browsers and PWA support -->
+		<link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png" />
+
+		<!-- iOS and iPad icons -->
+		<link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png" />
+
+		<!-- Android/Chrome -->
+		<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
+
+		<!-- Safari -->
+		<link rel="mask-icon" href="%sveltekit.assets%/apple-touch-icon.png" color="#5bbad5" />
+
+		<!-- Theme color for mobile browsers -->
+		<meta name="theme-color" content="#ffffff" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="%sveltekit.assets%/reset.css" />
 
