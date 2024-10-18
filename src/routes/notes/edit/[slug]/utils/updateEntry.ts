@@ -1,19 +1,19 @@
-export async function insertEntry(event: Event) {
+export async function updateEntry(id: string, event: Event) {
 	const form = event.target as HTMLFormElement;
 	const data = new FormData(form);
 
 	try {
-		const response = await fetch('/api/notes/new', {
-			method: 'POST',
+		const response = await fetch(`/api/notes/edit/${id}`, {
+			method: 'PATCH',
 			body: data
 		});
 
 		if (!response.ok) {
-			throw new Error('Note insertion failed');
+			throw new Error('Note updating failed');
 		}
 
 		form.reset();
 	} catch (error) {
-		console.error('Error during notes insertion:', error);
+		console.error('Error during notes updating:', error);
 	}
 }

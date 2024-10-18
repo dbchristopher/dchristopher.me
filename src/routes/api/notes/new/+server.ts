@@ -1,7 +1,7 @@
 import { insertNote } from './insertNote';
 import { NoteStatus } from '$lib/constants';
 import { generateSlugFromTitle } from './generateSlugFromTitle';
-import { normalizeTags } from './normalizeTags';
+import { normalizeTags } from '$lib/normalizeTags';
 import { invalidateCache } from '$lib/cacheUtils';
 import { NOTES_CACHE_KEY, HOMEPAGE_NOTES_CACHE_KEY } from '$lib/constants';
 
