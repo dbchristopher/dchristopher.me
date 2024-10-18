@@ -6,8 +6,9 @@
 	import TextArea from 'carbon-components-svelte/src/TextArea/TextArea.svelte';
 	import Select from 'carbon-components-svelte/src/Select/Select.svelte';
 	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
-
+	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 	export let handleInsertEntry: (event: Event) => void;
+	export let handleDelete: ((event: Event) => void) | undefined = undefined;
 	export let isAsyncPending: boolean;
 	export let post: Record<string, any> | undefined = {};
 
@@ -65,7 +66,14 @@
 		</fieldset>
 	</div>
 
-	<Button type="submit" disabled={isAsyncPending}>Submit</Button>
+	<div class="form-action-grid">
+		<Button type="submit" disabled={isAsyncPending}>Submit</Button>
+		{#if handleDelete !== undefined}
+			<div class="divider"></div>
+			<Button on:click={handleDelete} kind="ghost" class="button--delete"><Close size={20} />Delete Post</Button>
+			<div></div>
+		{/if}
+	</div>
 </form>
 
 <style>
@@ -96,5 +104,21 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
+	}
+
+	.form-action-grid {
+		display: grid;
+		grid-template-columns: 1fr auto auto 2fr;
+		grid-gap: 1rem;
+		align-items: center;
+	}
+
+	.form-action-grid .divider {
+		width: 1px;
+		background: #ccc;
+		height: 1rem;
+	}
+	:global(.button--delete) {
+		color: rgb(180, 25, 25);
 	}
 </style>

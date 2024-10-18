@@ -39,9 +39,7 @@
 
 <article>
 	{#if isUserAuthenticated}
-		<BlogInputForm {handleInsertEntry} isAsyncPending={false} {post} />
-		<br /><br />
-		<Button on:click={handleDelete}>Delete Post</Button>
+		<BlogInputForm {handleInsertEntry} {handleDelete} isAsyncPending={false} {post} />
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}
