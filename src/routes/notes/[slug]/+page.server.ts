@@ -3,7 +3,6 @@ import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import type { Note } from '$lib/types';
 
-
 export const load: PageServerLoad = async ({ params, parent, platform }) => {
 	try {
 		const { isUserAuthenticated } = await parent();

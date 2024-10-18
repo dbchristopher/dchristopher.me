@@ -1,16 +1,6 @@
 import db from '$db/mongo';
 import { normalizeDateTime } from '$lib/normalizeDateTime';
-import { NoteStatus } from '$lib/constants';
-
-type InsertAuthTokenResponse = { success: true; error?: never } | { success: false; error: Error };
-
-type InsertNoteArgs = {
-	title: string;
-	content: string;
-	tags: string[];
-	status: NoteStatus;
-	slug: string;
-};
+import type { InsertAuthTokenResponse, InsertNoteArgs } from '$lib/types';
 
 export async function insertNote({
 	title,

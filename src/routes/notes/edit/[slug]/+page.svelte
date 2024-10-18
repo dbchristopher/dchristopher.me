@@ -3,7 +3,7 @@
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { destroyEntry } from './utils/destroyEntry';
 	import { goto } from '$app/navigation';
-	import { updateEntry } from './utils/updateEntry'
+	import { updateEntry } from './utils/updateEntry';
 	import { title } from '$lib/store';
 
 	title.set('Edit Note');
@@ -17,9 +17,11 @@
 	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
-			console.log('updating entry', event);
-			await updateEntry(post._id, event);
+			if (post) {
+				await updateEntry(post._id, event);
+			}
 			isAsyncPending = false;
+			goto(`/notes/${post?.slug}`);
 		}
 	};
 
@@ -36,13 +38,19 @@
 	};
 
 	const handleCancelClick = () => {
-		goto('/notes/' + post?.slug)
-	}
+		goto('/notes/' + post?.slug);
+	};
 </script>
 
 <article>
 	{#if isUserAuthenticated}
-		<BlogInputForm {handleInsertEntry} {handleDelete} {handleCancelClick} isAsyncPending={false} {post} />
+		<BlogInputForm
+			{handleInsertEntry}
+			{handleDelete}
+			{handleCancelClick}
+			isAsyncPending={false}
+			{post}
+		/>
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}

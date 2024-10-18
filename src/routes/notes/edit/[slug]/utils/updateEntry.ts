@@ -3,7 +3,7 @@ export async function updateEntry(id: string, event: Event) {
 	const data = new FormData(form);
 
 	try {
-		const response = await fetch(`/api/notes/edit/${id}`, {
+		const response = await fetch(`/api/notes/entries/${id}`, {
 			method: 'PATCH',
 			body: data
 		});

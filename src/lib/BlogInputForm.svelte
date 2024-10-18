@@ -10,17 +10,18 @@
 
 	export let handleInsertEntry: (event: Event) => void;
 	export let handleDelete: ((event: Event) => void) | undefined = undefined;
-	export let handleCancelClick: (() => void) | undefined = undefined
+	export let handleCancelClick: (() => void) | undefined = undefined;
 	export let isAsyncPending: boolean;
 	export let post: Record<string, any> | undefined = {};
-
-
 
 	const statusValues = Object.values(NoteStatus);
 </script>
 
 <form on:submit|preventDefault={handleInsertEntry}>
 	<fieldset>
+		{#if post?.slug}
+			<input type="hidden" value={post.slug} name="slug" />
+		{/if}
 		<label for="title">Title</label>
 		<TextInput
 			type="text"
@@ -73,10 +74,11 @@
 	<div class="form-action-grid">
 		<Button type="submit" disabled={isAsyncPending}>Submit</Button>
 		{#if handleDelete !== undefined}
-			<div class="divider"></div>
-			<Button on:click={handleDelete} kind="ghost" class="button--delete"><Close size={20} />Delete Post</Button>
-			<div>
-			</div>
+			<div class="divider" />
+			<Button on:click={handleDelete} kind="ghost" class="button--delete"
+				><Close size={20} />Delete Post</Button
+			>
+			<div />
 			<Button kind="ghost" on:click={handleCancelClick}>Cancel</Button>
 		{/if}
 	</div>

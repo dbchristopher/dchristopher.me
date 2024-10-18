@@ -10,3 +10,14 @@ export type Note = {
 	status: NoteStatus;
 };
 
+export type InsertAuthTokenResponse =
+	| { success: true; error?: never }
+	| { success: false; error: Error };
+
+export type InsertNoteArgs = {
+	title: string;
+	content: string;
+	tags: string[];
+	status: NoteStatus;
+	slug: string;
+};
