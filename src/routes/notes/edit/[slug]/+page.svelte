@@ -35,11 +35,15 @@
 			console.log('save');
 		}
 	};
+
+	const handleCancelClick = () => {
+		goto('/notes/' + post?.slug)
+	}
 </script>
 
 <article>
 	{#if isUserAuthenticated}
-		<BlogInputForm {handleInsertEntry} {handleDelete} isAsyncPending={false} {post} />
+		<BlogInputForm {handleInsertEntry} {handleDelete} {handleCancelClick} isAsyncPending={false} {post} />
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}

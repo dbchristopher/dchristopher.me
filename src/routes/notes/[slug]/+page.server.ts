@@ -1,17 +1,8 @@
 import { blog } from '$db/blog';
 import type { PageServerLoad } from './$types';
-import { NoteStatus } from '$lib/constants';
 import { updateCache, getCache } from '$lib/cacheUtils';
+import type { Note } from '$lib/types';
 
-type Note = {
-	_id: string;
-	title: string;
-	tags: string[];
-	content: string;
-	created: string;
-	slug: string;
-	status: NoteStatus;
-};
 
 export const load: PageServerLoad = async ({ params, parent, platform }) => {
 	try {

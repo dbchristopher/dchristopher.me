@@ -7,10 +7,14 @@
 	import Select from 'carbon-components-svelte/src/Select/Select.svelte';
 	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
+
 	export let handleInsertEntry: (event: Event) => void;
 	export let handleDelete: ((event: Event) => void) | undefined = undefined;
+	export let handleCancelClick: (() => void) | undefined = undefined
 	export let isAsyncPending: boolean;
 	export let post: Record<string, any> | undefined = {};
+
+
 
 	const statusValues = Object.values(NoteStatus);
 </script>
@@ -71,7 +75,9 @@
 		{#if handleDelete !== undefined}
 			<div class="divider"></div>
 			<Button on:click={handleDelete} kind="ghost" class="button--delete"><Close size={20} />Delete Post</Button>
-			<div></div>
+			<div>
+			</div>
+			<Button kind="ghost" on:click={handleCancelClick}>Cancel</Button>
 		{/if}
 	</div>
 </form>
@@ -108,7 +114,7 @@
 
 	.form-action-grid {
 		display: grid;
-		grid-template-columns: 1fr auto auto 2fr;
+		grid-template-columns: auto auto auto 1fr auto;
 		grid-gap: 1rem;
 		align-items: center;
 	}
