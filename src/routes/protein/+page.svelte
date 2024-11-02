@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
@@ -11,16 +13,24 @@
 	import { insertEntry } from './utils/insertEntry';
 	import { destroyEntry } from './utils/destroyEntry';
 	import { title } from '$lib/store';
-	export let data: PageData;
-	let entries: ProteinEntry[] = [];
-	let date: Date = new Date();
-	let isAsyncPending: boolean;
+	interface Props {
+		data: PageData;
+	}
 
-	$: entries;
-	$: ({ isUserAuthenticated } = data);
-	$: totalConsumption = entries.reduce((acc, entry) => acc + entry.amount, 0);
-	$: isAsyncPending = false;
-	$: date;
+	let { data }: Props = $props();
+	let entries: ProteinEntry[] = $state([]);
+	let date: Date = $state(new Date());
+	let isAsyncPending: boolean = $state(false);
+
+	run(() => {
+		entries;
+	});
+	let { isUserAuthenticated } = $derived(data);
+	let totalConsumption = $derived(entries.reduce((acc, entry) => acc + entry.amount, 0));
+	
+	run(() => {
+		date;
+	});
 
 	const setTitle = (date: Date) => {
 		title.set(

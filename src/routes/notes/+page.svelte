@@ -4,9 +4,13 @@
 	import { format } from 'date-fns';
 	import { title } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	$: ({ blogEntries, status, error, isUserAuthenticated } = data);
+	let { data }: Props = $props();
+
+	let { blogEntries, status, error, isUserAuthenticated } = $derived(data);
 
 	title.set('Notes');
 </script>

@@ -8,9 +8,13 @@
 
 	title.set('Edit Note');
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	$: ({ post, isUserAuthenticated } = data);
+	let { data }: Props = $props();
+
+	let { post, isUserAuthenticated } = $derived(data);
 
 	let isAsyncPending: boolean = false;
 

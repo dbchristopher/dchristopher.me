@@ -7,8 +7,12 @@
 	import { pushState } from '$app/navigation';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
-	export let data: PageData;
-	$: ({ post, isUserAuthenticated } = data);
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
+	let { post, isUserAuthenticated } = $derived(data);
 
 	if (data.post) {
 		title.set(data.post.title);

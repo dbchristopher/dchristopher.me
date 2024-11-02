@@ -6,9 +6,13 @@
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import { goto } from '$app/navigation';
 
-	export let data: PageData;
-	$: ({ isUserAuthenticated } = data);
-	let isAsyncPending: boolean = false;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
+	let { isUserAuthenticated } = $derived(data);
+	let isAsyncPending: boolean = $state(false);
 
 	const handleInsertEntry = async (event: Event) => {
 		if (isAsyncPending === false && isUserAuthenticated) {

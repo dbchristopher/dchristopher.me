@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	// White theme
 	import 'carbon-components-svelte/css/white.css';
 	import '../app.css';
@@ -8,13 +10,20 @@
 
 	import { title } from '$lib/store.js';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+		children?: import('svelte').Snippet;
+	}
 
-	$: ({ isUserAuthenticated } = data);
+	let { data, children }: Props = $props();
 
-	let currentPath = '';
+	let { isUserAuthenticated } = $derived(data);
 
-	$: currentPath = $page.url.pathname;
+	let currentPath = $state('');
+
+	run(() => {
+		currentPath = $page.url.pathname;
+	});
 </script>
 
 <svelte:head>
@@ -40,7 +49,7 @@
 	</nav>
 </header>
 
-<slot />
+{@render children?.()}
 
 <PageFooter />
 

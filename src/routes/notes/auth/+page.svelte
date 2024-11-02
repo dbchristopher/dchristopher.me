@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run, preventDefault } from 'svelte/legacy';
+
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
@@ -26,17 +28,23 @@
 		}
 	}
 
-	export let data: PageData;
-
-	$: if (browser && data.isUserAuthenticated) {
-		// check if on client side
-		// Redirect to new post page if user is authenticated
-		goto('/notes/new');
+	interface Props {
+		data: PageData;
 	}
+
+	let { data }: Props = $props();
+
+	run(() => {
+		if (browser && data.isUserAuthenticated) {
+			// check if on client side
+			// Redirect to new post page if user is authenticated
+			goto('/notes/new');
+		}
+	});
 </script>
 
 <div class="page-grid">
-	<form on:submit|preventDefault={authenticate}>
+	<form onsubmit={preventDefault(authenticate)}>
 		<input type="email" name="email" class="email-input" />
 		<Button type="submit">Email authentication link</Button>
 	</form>

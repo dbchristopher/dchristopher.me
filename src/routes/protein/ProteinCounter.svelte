@@ -1,6 +1,10 @@
 <script lang="ts">
-	export let isAsyncPending: boolean;
-	export let totalConsumption: number;
+	interface Props {
+		isAsyncPending: boolean;
+		totalConsumption: number;
+	}
+
+	let { isAsyncPending, totalConsumption }: Props = $props();
 </script>
 
 <div class="total">

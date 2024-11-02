@@ -1,9 +1,18 @@
 <script lang="ts">
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-	export let entries: ProteinEntry[];
-	export let handleDestroyEntry: (id: string) => void;
-	export let isAsyncPending: boolean;
-	export let isUserAuthenticated: boolean;
+	interface Props {
+		entries: ProteinEntry[];
+		handleDestroyEntry: (id: string) => void;
+		isAsyncPending: boolean;
+		isUserAuthenticated: boolean;
+	}
+
+	let {
+		entries,
+		handleDestroyEntry,
+		isAsyncPending,
+		isUserAuthenticated
+	}: Props = $props();
 </script>
 
 <div class="container">
@@ -12,7 +21,7 @@
 			<tr>
 				<th>Amount</th>
 				<th>Description</th>
-				<th /><!-- delete button-->
+				<th></th><!-- delete button-->
 			</tr>
 		</thead>
 

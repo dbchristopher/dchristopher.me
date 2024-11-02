@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
@@ -8,16 +10,26 @@
 	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 
-	export let handleInsertEntry: (event: Event) => void;
-	export let handleDelete: ((event: Event) => void) | undefined = undefined;
-	export let handleCancelClick: (() => void) | undefined = undefined;
-	export let isAsyncPending: boolean;
-	export let post: Record<string, any> | undefined = {};
+	interface Props {
+		handleInsertEntry: (event: Event) => void;
+		handleDelete?: ((event: Event) => void) | undefined;
+		handleCancelClick?: (() => void) | undefined;
+		isAsyncPending: boolean;
+		post?: Record<string, any> | undefined;
+	}
+
+	let {
+		handleInsertEntry,
+		handleDelete = undefined,
+		handleCancelClick = undefined,
+		isAsyncPending,
+		post = {}
+	}: Props = $props();
 
 	const statusValues = Object.values(NoteStatus);
 </script>
 
-<form on:submit|preventDefault={handleInsertEntry}>
+<form onsubmit={preventDefault(handleInsertEntry)}>
 	<fieldset>
 		{#if post?.slug}
 			<input type="hidden" value={post.slug} name="slug" />
@@ -74,11 +86,11 @@
 	<div class="form-action-grid">
 		<Button type="submit" disabled={isAsyncPending}>Submit</Button>
 		{#if handleDelete !== undefined}
-			<div class="divider" />
+			<div class="divider"></div>
 			<Button on:click={handleDelete} kind="ghost" class="button--delete"
 				><Close size={20} />Delete Post</Button
 			>
-			<div />
+			<div></div>
 			<Button kind="ghost" on:click={handleCancelClick}>Cancel</Button>
 		{/if}
 	</div>

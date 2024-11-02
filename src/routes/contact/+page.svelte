@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { run, preventDefault } from 'svelte/legacy';
+
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import { title } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	title.set('Contact');
 
-	let emailSent = false;
-	$: emailSent;
+	let emailSent = $state(false);
+	run(() => {
+		emailSent;
+	});
 
 	async function sendMail(event: Event) {
 		const form = event.target as HTMLFormElement;
@@ -31,7 +35,7 @@
 
 	{#if !emailSent}
 		<p>Send me something cool.</p>
-		<form name="contact" method="POST" on:submit|preventDefault={sendMail}>
+		<form name="contact" method="POST" onsubmit={preventDefault(sendMail)}>
 			<fieldset class="usercode">
 				<label for="usercode">Enter a random value</label>
 				<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />

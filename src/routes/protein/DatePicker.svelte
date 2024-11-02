@@ -1,10 +1,23 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-	export let date: Date;
-	export let handleDateNext: () => void;
-	export let handleDatePrev: () => void;
-	export let handleDateReset: () => void;
-	$: date;
+	interface Props {
+		date: Date;
+		handleDateNext: () => void;
+		handleDatePrev: () => void;
+		handleDateReset: () => void;
+	}
+
+	let {
+		date,
+		handleDateNext,
+		handleDatePrev,
+		handleDateReset
+	}: Props = $props();
+	run(() => {
+		date;
+	});
 </script>
 
 <div class="date-picker">

@@ -1,12 +1,18 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
-	export let handleInsertEntry: (event: Event) => void;
-	export let isAsyncPending: boolean;
-	export let date: Date = new Date();
+	interface Props {
+		handleInsertEntry: (event: Event) => void;
+		isAsyncPending: boolean;
+		date?: Date;
+	}
+
+	let { handleInsertEntry, isAsyncPending, date = new Date() }: Props = $props();
 </script>
 
-<form on:submit|preventDefault={handleInsertEntry}>
+<form onsubmit={preventDefault(handleInsertEntry)}>
 	<fieldset>
 		<label for="amount">Amount</label>
 		<TextInput
