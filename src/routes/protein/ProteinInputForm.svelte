@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { preventDefault } from 'svelte/legacy';
-
 	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 	interface Props {
@@ -40,7 +39,7 @@
 		/>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<Button type="submit" disabled={isAsyncPending}>Submit</Button>
+	<md-filled-button type="submit" disabled={isAsyncPending}>Click me</md-filled-button>
 </form>
 
 <style>

@@ -9,12 +9,7 @@
 		handleDateReset: () => void;
 	}
 
-	let {
-		date,
-		handleDateNext,
-		handleDatePrev,
-		handleDateReset
-	}: Props = $props();
+	let { date, handleDateNext, handleDatePrev, handleDateReset }: Props = $props();
 	run(() => {
 		date;
 	});

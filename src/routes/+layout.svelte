@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
+	import '../lib/material';
 
 	// White theme
 	import 'carbon-components-svelte/css/white.css';

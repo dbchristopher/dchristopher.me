@@ -1,6 +1,9 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"target": "es2020",
+		"allowSyntheticDefaultImports": true,
+		"customElements": true,
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,

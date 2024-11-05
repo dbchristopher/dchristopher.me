@@ -7,12 +7,7 @@
 		isUserAuthenticated: boolean;
 	}
 
-	let {
-		entries,
-		handleDestroyEntry,
-		isAsyncPending,
-		isUserAuthenticated
-	}: Props = $props();
+	let { entries, handleDestroyEntry, isAsyncPending, isUserAuthenticated }: Props = $props();
 </script>
 
 <div class="container">

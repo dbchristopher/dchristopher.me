@@ -27,7 +27,7 @@
 	});
 	let { isUserAuthenticated } = $derived(data);
 	let totalConsumption = $derived(entries.reduce((acc, entry) => acc + entry.amount, 0));
-	
+
 	run(() => {
 		date;
 	});

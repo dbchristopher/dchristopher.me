@@ -1,3 +1,7 @@
+/// <reference types="@material/web/select/select.js" />
+/// <reference types="@material/web/button/button.js" />
+// Add other components you plan to use
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
