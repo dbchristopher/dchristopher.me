@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run, preventDefault } from 'svelte/legacy';
 
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import { title } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	title.set('Contact');
@@ -42,19 +41,20 @@
 			</fieldset>
 
 			<fieldset>
-				<label for="email">Your Email:</label><input
-					id="email"
-					type="email"
-					name="email"
-					required
-				/>
+				<md-outlined-text-field label="email" id="email" type="email" name="email" required
+				></md-outlined-text-field>
 			</fieldset>
 			<fieldset>
-				<label for="message">Message:</label>
-				<textarea id="message" name="message" rows="10"></textarea>
+				<md-outlined-text-field
+					type="textarea"
+					label="Message"
+					id="message"
+					name="message"
+					rows="10"
+				></md-outlined-text-field>
 			</fieldset>
 			<p>
-				<Button type="submit">Send</Button>
+				<md-filled-button type="submit">Send</md-filled-button>
 			</p>
 		</form>
 	{:else}
@@ -63,6 +63,10 @@
 </ContentWrapper>
 
 <style>
+	form {
+		display: grid;
+		grid-gap: 1rem;
+	}
 	fieldset {
 		border: none;
 		display: grid;

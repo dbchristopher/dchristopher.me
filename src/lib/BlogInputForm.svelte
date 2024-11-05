@@ -3,11 +3,6 @@
 
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
-	import TextArea from 'carbon-components-svelte/src/TextArea/TextArea.svelte';
-	import Select from 'carbon-components-svelte/src/Select/Select.svelte';
-	import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 
 	interface Props {
@@ -34,8 +29,8 @@
 		{#if post?.slug}
 			<input type="hidden" value={post.slug} name="slug" />
 		{/if}
-		<label for="title">Title</label>
-		<TextInput
+		<md-outlined-text-field
+			label="Title"
 			type="text"
 			id="title"
 			name="title"
@@ -43,12 +38,13 @@
 			disabled={isAsyncPending}
 			value={post?.title || ''}
 			required
-		/>
+		></md-outlined-text-field>
 	</fieldset>
 
 	<fieldset>
-		<label for="content">Content</label>
-		<TextArea
+		<md-outlined-text-field
+			label="Content"
+			type="textarea"
 			id="content"
 			name="content"
 			placeholder="Midway upon the journey of our life I found myself within a forest dark, for the straightforward pathway had been lost."
@@ -56,13 +52,13 @@
 			rows={10}
 			value={post?.content || ''}
 			required
-		></TextArea>
+		></md-outlined-text-field>
 	</fieldset>
 
 	<div class="metadata">
 		<fieldset>
-			<label for="tags">Tags</label>
-			<TextInput
+			<md-outlined-text-field
+				label="Tags"
 				type="text"
 				id="tags"
 				name="tags"
@@ -70,28 +66,34 @@
 				value={post?.tags?.join(', ') || ''}
 				disabled={isAsyncPending}
 				required
-			/>
+			></md-outlined-text-field>
 		</fieldset>
 
 		<fieldset>
-			<label for="status">Status</label>
-			<Select selected={post?.status} id="status" name="status" disabled={isAsyncPending} required>
+			<md-outlined-select
+				label="Status"
+				selected={post?.status}
+				id="status"
+				name="status"
+				disabled={isAsyncPending}
+				required
+			>
 				{#each statusValues as status}
-					<SelectItem value={status}>{toTitleCase(status)}</SelectItem>
+					<md-select-option value={status}>{toTitleCase(status)}</md-select-option>
 				{/each}
-			</Select>
+			</md-outlined-select>
 		</fieldset>
 	</div>
 
 	<div class="form-action-grid">
-		<Button type="submit" disabled={isAsyncPending}>Submit</Button>
+		<md-filled-button type="submit" disabled={isAsyncPending}>Submit</md-filled-button>
 		{#if handleDelete !== undefined}
 			<div class="divider"></div>
-			<Button on:click={handleDelete} kind="ghost" class="button--delete"
-				><Close size={20} />Delete Post</Button
+			<md-outlined-button onclick={handleDelete} kind="ghost" class="button--delete"
+				><Close size={20} />Delete Post</md-outlined-button
 			>
 			<div></div>
-			<Button kind="ghost" on:click={handleCancelClick}>Cancel</Button>
+			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>
 		{/if}
 	</div>
 </form>

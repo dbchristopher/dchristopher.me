@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { preventDefault } from 'svelte/legacy';
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-	import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 	interface Props {
 		handleInsertEntry: (event: Event) => void;
 		isAsyncPending: boolean;
@@ -13,8 +11,8 @@
 
 <form onsubmit={preventDefault(handleInsertEntry)}>
 	<fieldset>
-		<label for="amount">Amount</label>
-		<TextInput
+		<md-outlined-text-field
+			label="amount"
 			placeholder="50"
 			type="number"
 			id="amount"
@@ -24,11 +22,11 @@
 			max="100"
 			disabled={isAsyncPending}
 			size="xl"
-		/>
+		></md-outlined-text-field>
 	</fieldset>
 	<fieldset>
-		<label for="description">Description</label>
-		<TextInput
+		<md-outlined-text-field
+			label="Description"
 			placeholder="boiled chicken"
 			type="text"
 			id="description"
@@ -36,17 +34,18 @@
 			required
 			disabled={isAsyncPending}
 			size="xl"
-		/>
+		></md-outlined-text-field>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<md-filled-button type="submit" disabled={isAsyncPending}>Click me</md-filled-button>
+	<md-filled-button type="submit" disabled={isAsyncPending}>Submit</md-filled-button>
 </form>
 
 <style>
 	form {
 		display: grid;
 		grid-template-columns: 1fr 3fr auto;
-		align-items: end;
+		grid-gap: 0.5rem;
+		align-items: middle;
 		background: white;
 	}
 
@@ -55,9 +54,5 @@
 		padding: 0;
 		display: grid;
 		grid-template-columns: 1fr;
-	}
-	label {
-		text-transform: uppercase;
-		font-size: 0.7rem;
 	}
 </style>

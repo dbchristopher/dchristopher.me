@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	interface Props {
 		date: Date;
 		handleDateNext: () => void;
@@ -16,11 +15,11 @@
 </script>
 
 <div class="date-picker">
-	<Button on:click={handleDatePrev}>&#8592;</Button>
-	<Button kind="tertiary" on:click={handleDateReset}
-		>{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}</Button
+	<md-filled-button onclick={handleDatePrev}>&#8592;</md-filled-button>
+	<md-filled-tonal-button kind="tertiary" onclick={handleDateReset}
+		>{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}</md-filled-tonal-button
 	>
-	<Button on:click={handleDateNext}>&#8594;</Button>
+	<md-filled-button onclick={handleDateNext}>&#8594;</md-filled-button>
 </div>
 
 <style>

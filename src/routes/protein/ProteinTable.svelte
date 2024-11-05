@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	interface Props {
 		entries: ProteinEntry[];
 		handleDestroyEntry: (id: string) => void;
@@ -27,11 +26,14 @@
 					<td>{entry.description}</td>
 					<td class="delete">
 						{#if isUserAuthenticated}
-							<Button
+							<md-outlined-button
 								kind="tertiary"
-								on:click={() => handleDestroyEntry(entry._id)}
+								role="button"
+								tabindex="0"
+								onclick={() => handleDestroyEntry(entry._id)}
+								onkeypress={() => {}}
 								disabled={isAsyncPending}
-								size="small">delete</Button
+								size="small">delete</md-outlined-button
 							>
 						{/if}
 					</td>

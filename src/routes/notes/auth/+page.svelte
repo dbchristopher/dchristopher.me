@@ -4,7 +4,6 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import Button from 'carbon-components-svelte/src/Button/Button.svelte';
 	import { title } from '$lib/store';
 
 	title.set('Sign In');
@@ -46,7 +45,7 @@
 <div class="page-grid">
 	<form onsubmit={preventDefault(authenticate)}>
 		<input type="email" name="email" class="email-input" />
-		<Button type="submit">Email authentication link</Button>
+		<md-filled-button type="submit">Email authentication link</md-filled-button>
 	</form>
 </div>
 

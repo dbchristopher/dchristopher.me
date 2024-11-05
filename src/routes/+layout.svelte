@@ -3,7 +3,6 @@
 	import '../lib/material';
 
 	// White theme
-	import 'carbon-components-svelte/css/white.css';
 	import '../app.css';
 	import type { PageData } from './$types';
 	import PageFooter from '$lib/PageFooter.svelte';
