@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { preventDefault } from 'svelte/legacy';
-
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
