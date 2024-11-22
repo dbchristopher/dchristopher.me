@@ -88,8 +88,17 @@
 		<md-filled-button type="submit" disabled={isAsyncPending}>Submit</md-filled-button>
 		{#if handleDelete !== undefined}
 			<div class="divider"></div>
-			<md-outlined-button onclick={handleDelete} kind="ghost" class="button--delete"
-				><Close size={20} />Delete Post</md-outlined-button
+			<md-outlined-button
+				role="button"
+				tabindex="0"
+				onclick={handleDelete}
+				onkeypress={(e) => {
+					if (e.key === 'Enter') {
+						handleDelete(e);
+					}
+				}}
+				kind="ghost"
+				class="button--delete"><Close size={20} />Delete Post</md-outlined-button
 			>
 			<div></div>
 			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>

@@ -7,7 +7,7 @@
 	import type { PageData } from './$types';
 	import PageFooter from '$lib/PageFooter.svelte';
 	import { page } from '$app/stores';
-
+	import Logout from 'carbon-icons-svelte/lib/Logout.svelte';
 	import { title } from '$lib/store.js';
 
 	interface Props {
@@ -41,10 +41,7 @@
 		<a href="/contact" class:active={currentPath === '/contact'}>Contact</a>
 		<a href="/protein" class:active={currentPath === '/protein'}>Protein</a>
 		{#if isUserAuthenticated}
-			<a href="/notes/auth-destroy">Sign Out</a>
-		{/if}
-		{#if !isUserAuthenticated}
-			<a href="/notes/auth" class:active={currentPath === '/notes/auth'}>Sign in</a>
+			<a href="/notes/auth-destroy"><Logout /></a>
 		{/if}
 	</nav>
 </header>
@@ -56,8 +53,9 @@
 <style>
 	nav {
 		display: flex;
-		gap: 0.6rem;
+		gap: 0.7rem;
 		padding: 0.5rem 0;
+		align-items: center;
 	}
 
 	nav a.active {

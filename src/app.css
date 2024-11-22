@@ -7,6 +7,6 @@ html {
 }
 
 :root {
-  --md-ref-typeface-brand: 'Open Sans';
-  --md-ref-typeface-plain: system-ui;
+	--md-ref-typeface-brand: 'Open Sans';
+	--md-ref-typeface-plain: system-ui;
 }

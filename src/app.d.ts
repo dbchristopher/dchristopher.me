@@ -1,5 +1,9 @@
 /// <reference types="@material/web/select/select.js" />
 /// <reference types="@material/web/button/button.js" />
+/// <reference types="@material/web/fab/fab.js" />
+/// <reference types="@material/web/iconbutton/icon-button.js" />
+/// <reference types="@material/web/icon/icon.js" />
+
 // Add other components you plan to use
 
 // See https://kit.svelte.dev/docs/types#app

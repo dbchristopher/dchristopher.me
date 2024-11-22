@@ -1,15 +1,19 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
+	import CloudUpload from 'carbon-icons-svelte/lib/CloudUpload.svelte';
 	interface Props {
 		handleInsertEntry: (event: Event) => void;
 		isAsyncPending: boolean;
 		date?: Date;
 	}
-
 	let { handleInsertEntry, isAsyncPending, date = new Date() }: Props = $props();
+	const handleFormKeypress = (e) => {
+		if (e.key === 'Enter' && !isAsyncPending) {
+			e.target.closest('form').requestSubmit();
+		}
+	};
 </script>
 
-<form onsubmit={preventDefault(handleInsertEntry)}>
+<form onsubmit={handleInsertEntry}>
 	<fieldset>
 		<md-outlined-text-field
 			label="amount"
@@ -22,6 +26,9 @@
 			max="100"
 			disabled={isAsyncPending}
 			size="xl"
+			onkeypress={handleFormKeypress}
+			role="textbox"
+			tabindex="0"
 		></md-outlined-text-field>
 	</fieldset>
 	<fieldset>
@@ -34,18 +41,23 @@
 			required
 			disabled={isAsyncPending}
 			size="xl"
+			onkeypress={handleFormKeypress}
+			role="textbox"
+			tabindex="0"
 		></md-outlined-text-field>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<md-filled-button type="submit" disabled={isAsyncPending}>Submit</md-filled-button>
+	<md-filled-icon-button type="submit" disabled={isAsyncPending}
+		><md-icon><CloudUpload size={24} /></md-icon></md-filled-icon-button
+	>
 </form>
 
 <style>
 	form {
 		display: grid;
-		grid-template-columns: 1fr 3fr auto;
+		grid-template-columns: 2fr 5fr auto;
 		grid-gap: 0.5rem;
-		align-items: middle;
+		align-items: center;
 		background: white;
 	}
 
