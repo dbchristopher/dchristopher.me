@@ -98,7 +98,7 @@
 					}
 				}}
 				kind="ghost"
-				class="button--delete"><Close size={20} />Delete Post</md-outlined-button
+				class="button--delete"><Close size={20} slot="icon" />Delete Post</md-outlined-button
 			>
 			<div></div>
 			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>

@@ -40,12 +40,6 @@
 
 <ContentWrapper>
 	<h1>Thinking for a Living</h1>
-	<h2 class="subtitle">Exploring Tech, Wellness, and Life's Adventures</h2>
-	<p>
-		I'm a software developer who brings ideas to life through code, a fitness enthusiast always
-		striving for personal growth, a writer exploring diverse topics, and a dedicated parent. This is
-		my little corner of the internet, which showcases my professional work and personal interests.
-	</p>
 	<section>
 		<h2>Recent Notes</h2>
 		<ul class="post-list">
@@ -67,14 +61,6 @@
 </ContentWrapper>
 
 <style>
-	.subtitle {
-		font-size: 1.2rem;
-		margin-bottom: 1rem;
-	}
-	section {
-		padding: 1rem 0;
-	}
-
 	.post-list li {
 		margin-bottom: 1rem;
 	}
