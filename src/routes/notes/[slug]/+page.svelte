@@ -4,8 +4,8 @@
 	import { format } from 'date-fns';
 	import { NoteStatus } from '$lib/constants';
 	import { title } from '$lib/store';
-	import { pushState } from '$app/navigation';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
+	import TagGroup from 'carbon-icons-svelte/lib/TagGroup.svelte';
 
 	interface Props {
 		data: PageData;
@@ -25,19 +25,26 @@
 			<header>
 				<h1>{post.title}</h1>
 				<div class="byline">
-					<address class="author">by Daniel Christopher</address>
-					<time pubdate="pubdate" datetime={post.created}
-						>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
-					>
-					{#if isUserAuthenticated}
-						<a href="/notes/edit/{post.slug}">Edit Post</a>
-					{/if}
-					{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
-					<ul class="tags">
-						{#each post.tags as tag, index (tag)}
-							<li>{tag}{index < post.tags.length - 1 ? ',' : ''}</li>
-						{/each}
-					</ul>
+					<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
+					<div class="byline-text">
+						<address class="author">by Daniel Christopher</address>
+						<time pubdate="pubdate" datetime={post.created}
+							>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
+						>
+
+						{#if isUserAuthenticated}
+							<a href="/notes/edit/{post.slug}">Edit Post</a>
+						{/if}
+						{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
+						<div class="tag-group">
+							<TagGroup />
+							<ul class="tags">
+								{#each post.tags as tag, index (tag)}
+									<li>{tag}{index < post.tags.length - 1 ? ',' : ''}</li>
+								{/each}
+							</ul>
+						</div>
+					</div>
 				</div>
 			</header>
 			<div class="content">
@@ -72,12 +79,26 @@
 		padding-bottom: 0.5rem;
 	}
 
+	address {
+		font-style: normal;
+	}
+
+	h1 {
+		margin: 0;
+	}
+
+	.tag-group {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+	}
 	article header {
 		border-bottom: 1px solid #e0e0e0;
 		margin-bottom: 1rem;
 	}
-
 	article header ul.tags {
+		margin: 0;
+		padding: 0;
 		list-style: none;
 	}
 
@@ -88,7 +109,14 @@
 	}
 
 	.byline {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-gap: 1rem;
 		font-size: 0.8rem;
 		padding: 0.5rem 0;
+	}
+	.byline .pfp {
+		width: 50px;
+		border-radius: 100%;
 	}
 </style>

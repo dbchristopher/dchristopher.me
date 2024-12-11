@@ -4,3 +4,8 @@
 
 [durable_objects]
 	classes = [{ name = "DataCache", path = "src/lib/server/durable/data-cache.js" }]
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000" # Optional but recommended for images

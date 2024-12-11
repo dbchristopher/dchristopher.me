@@ -10,3 +10,11 @@ html {
 	--md-ref-typeface-brand: 'Open Sans';
 	--md-ref-typeface-plain: system-ui;
 }
+
+a {
+	color: #1428b6;
+}
+
+a:visited {
+	color: #9050ff;
+}

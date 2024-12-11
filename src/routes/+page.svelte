@@ -39,6 +39,7 @@
 </script>
 
 <ContentWrapper>
+	<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
 	<h1>Thinking for a Living</h1>
 	<section>
 		<h2>Recent Notes</h2>
@@ -61,6 +62,10 @@
 </ContentWrapper>
 
 <style>
+	.pfp {
+		max-width: 200px;
+		border-radius: 100px;
+	}
 	.post-list li {
 		margin-bottom: 1rem;
 	}
