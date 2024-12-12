@@ -71,6 +71,8 @@
 		border: none;
 		display: grid;
 		grid-template-columns: 1fr;
+		padding-left: 0;
+		padding-right: 0;
 	}
 	.usercode {
 		display: none;

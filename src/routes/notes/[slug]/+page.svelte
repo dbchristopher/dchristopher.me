@@ -58,7 +58,9 @@
 				fitness, life advice, mental health, and productivity.
 			</p>
 			<p>
-				Find me on <a href="https://bsky.app/profile/dchristopher.me"><BlueskyLogo />Bluesky</a>
+				Find me on <a href="https://bsky.app/profile/dchristopher.me" class="bluesky-link"
+					><BlueskyLogo />Bluesky</a
+				>
 			</p>
 		</footer>
 	{/if}
@@ -88,6 +90,15 @@
 		padding-bottom: 0.5rem;
 	}
 
+	.bluesky-link {
+		margin-left: 0.2rem;
+	}
+
+	footer {
+		font-style: italic;
+		border-top: 1px solid var(--ui-grey-1);
+	}
+
 	address {
 		font-style: normal;
 	}
@@ -102,7 +113,7 @@
 		align-items: center;
 	}
 	article header {
-		border-bottom: 1px solid #e0e0e0;
+		border-bottom: 1px solid var(--ui-grey-1);
 		margin-bottom: 1rem;
 	}
 	article header ul.tags {

@@ -10,12 +10,15 @@ html {
 :root {
 	--md-ref-typeface-brand: 'Open Sans';
 	--md-ref-typeface-plain: system-ui;
+	--link-color: #1428c6;
+	--link-color-visited: #5928a8;
+	--ui-grey-1: #e0e0e0;
 }
 
 a {
-	color: #1428c6;
+	color: var(--link-color);
 }
 
 a:visited {
-	color: #8050cf;
+	color: var(--link-color-visited);
 }
