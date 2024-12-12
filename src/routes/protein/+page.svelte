@@ -119,7 +119,7 @@
 	}
 
 	.input-form-wrapper {
-		max-width: 75ch;
+		max-width: 65ch;
 		margin: 0 auto;
 		padding: 0.5rem 1rem;
 		border-top: 1px solid #e0e0e0;

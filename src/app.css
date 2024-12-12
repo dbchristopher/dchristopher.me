@@ -4,6 +4,7 @@ html {
 	font-size: 18px;
 	background: #fff;
 	font-family: 'Open Sans', sans-serif;
+	color: #222;
 }
 
 :root {
@@ -12,9 +13,9 @@ html {
 }
 
 a {
-	color: #1428b6;
+	color: #1428c6;
 }
 
 a:visited {
-	color: #9050ff;
+	color: #8050cf;
 }

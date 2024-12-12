@@ -10,7 +10,7 @@
 
 <style>
 	footer {
-		background: #333;
+		background: #444;
 		color: white;
 		text-align: left;
 	}
@@ -18,7 +18,7 @@
 	.footer-content-wrapper {
 		padding: 1rem;
 		margin: 0 auto;
-		max-width: 75ch;
+		max-width: 65ch;
 	}
 
 	.footer-content-wrapper p {

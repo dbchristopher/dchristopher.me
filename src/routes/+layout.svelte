@@ -64,7 +64,7 @@
 
 	header {
 		padding: 0;
-		max-width: 75ch;
+		max-width: 65ch;
 		margin: 0 auto 1rem;
 		padding: 0.5rem 1rem 0;
 	}

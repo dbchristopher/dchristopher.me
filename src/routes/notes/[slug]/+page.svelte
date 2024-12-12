@@ -6,6 +6,7 @@
 	import { title } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import TagGroup from 'carbon-icons-svelte/lib/TagGroup.svelte';
+	import BlueskyLogo from '$lib/BlueskyLogo.svelte';
 
 	interface Props {
 		data: PageData;
@@ -51,6 +52,15 @@
 				{@html marked.parse(post.content)}
 			</div>
 		</article>
+		<footer>
+			<p>
+				I'm a software developer by trade, and a writer by hobby. I mostly write about books,
+				fitness, life advice, mental health, and productivity.
+			</p>
+			<p>
+				Find me on <a href="https://bsky.app/profile/dchristopher.me"><BlueskyLogo />Bluesky</a>
+			</p>
+		</footer>
 	{/if}
 </ContentWrapper>
 
@@ -60,7 +70,6 @@
 		font-weight: 400;
 		line-height: 1.5;
 		letter-spacing: 0;
-		font-size: 1.2rem;
 	}
 
 	:global(.content p) {
