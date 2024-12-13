@@ -13,7 +13,7 @@
 			<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
 
 			<div class="text">
-				<p>I'm a marginally online non-influencer. Not a guru or a thought leader.</p>
+				<p>Marginally online. Not a guru or a thought leader or an influencer.</p>
 				<p>
 					Professionally: I'm a software developer, though I'll only occasionally write about that.
 					I'm a parent, a fitness enthusiast, and I built my own independent slice of the internet

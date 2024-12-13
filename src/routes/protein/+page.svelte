@@ -87,20 +87,24 @@
 
 <div class="page-wrapper">
 	<ContentWrapper>
-		<div class="page-grid">
-			<h1>Protein Journal</h1>
-			<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
+		<article>
+			<div class="page-grid">
+				<header>
+					<h1>Protein Journal</h1>
+				</header>
+				<DatePicker {date} {handleDateNext} {handleDatePrev} {handleDateReset} />
 
-			<ProteinCounter {totalConsumption} {isAsyncPending} />
+				<ProteinCounter {totalConsumption} {isAsyncPending} />
 
-			<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
+				<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} />
 
-			{#if !isUserAuthenticated}
-				<a href="/notes/auth">Sign in manage data</a>
+				{#if !isUserAuthenticated}
+					<a href="/notes/auth">Sign in manage data</a>
 
-				<Faq />
-			{/if}
-		</div>
+					<Faq />
+				{/if}
+			</div>
+		</article>
 	</ContentWrapper>
 	{#if isUserAuthenticated}
 		<div class="input-form-wrapper">
@@ -116,6 +120,10 @@
 	.page-grid {
 		display: grid;
 		grid-row-gap: 1rem;
+	}
+
+	.page-grid h1 {
+		margin-top: 0.25rem;
 	}
 
 	.input-form-wrapper {

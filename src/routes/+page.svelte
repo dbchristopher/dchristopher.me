@@ -40,9 +40,8 @@
 
 <ContentWrapper>
 	<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
-	<h1>Thinking for a Living</h1>
 	<section>
-		<h2>Recent Notes</h2>
+		<h2>Recent Posts</h2>
 		<ul class="post-list">
 			{#each blogEntries as post}
 				{#if post.status === 'published' || isUserAuthenticated}
@@ -62,6 +61,11 @@
 </ContentWrapper>
 
 <style>
+	h2 {
+		font-size: 1.5rem;
+		margin-bottom: 0;
+	}
+
 	.pfp {
 		max-width: 200px;
 		border-radius: 100px;
@@ -70,11 +74,18 @@
 		margin-bottom: 1rem;
 	}
 
+	:global(.post-list p) {
+		margin: 0;
+		padding: 0;
+	}
+
 	.post-list time {
 		display: block;
+		font-style: italic;
+		font-size: 0.85rem;
 	}
 
 	.post-title {
-		font-size: 1.25rem;
+		font-weight: bold;
 	}
 </style>

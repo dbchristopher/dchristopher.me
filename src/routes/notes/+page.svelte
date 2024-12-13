@@ -16,24 +16,27 @@
 </script>
 
 <ContentWrapper>
-	<h1>Notes</h1>
+	<article>
+		<header>
+			<h1>Blog</h1>
+		</header>
+		{#if status === 'error' && error}
+			<p>{error.message}</p>
+		{/if}
 
-	{#if status === 'error' && error}
-		<p>{error.message}</p>
-	{/if}
+		<a href="/notes/new">New Post</a>
 
-	<a href="/notes/new">New Post</a>
-
-	<section>
-		<ul>
-			{#each blogEntries as post}
-				{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
-					<li>
-						{format(post.created, 'L/d/yy')} <a href="notes/{post.slug}">{post.title}</a>
-						{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
-					</li>
-				{/if}
-			{/each}
-		</ul>
-	</section>
+		<section>
+			<ul>
+				{#each blogEntries as post}
+					{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
+						<li>
+							{format(post.created, 'L/d/yy')} <a href="notes/{post.slug}">{post.title}</a>
+							{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
+						</li>
+					{/if}
+				{/each}
+			</ul>
+		</section>
+	</article>
 </ContentWrapper>

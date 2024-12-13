@@ -29,37 +29,40 @@
 </script>
 
 <ContentWrapper>
-	<h1>Contact</h1>
-	<h2>Say Hello!</h2>
+	<article>
+		<header>
+			<h1>Contact</h1>
+		</header>
 
-	{#if !emailSent}
-		<p>Send me something cool.</p>
-		<form name="contact" method="POST" onsubmit={preventDefault(sendMail)}>
-			<fieldset class="usercode">
-				<label for="usercode">Enter a random value</label>
-				<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />
-			</fieldset>
+		{#if !emailSent}
+			<p>Send me something cool.</p>
+			<form name="contact" method="POST" onsubmit={preventDefault(sendMail)}>
+				<fieldset class="usercode">
+					<label for="usercode">Enter a random value</label>
+					<input id="usercode" name="usercode" tabindex="-1" value="" autocomplete="off" />
+				</fieldset>
 
-			<fieldset>
-				<md-outlined-text-field label="email" id="email" type="email" name="email" required
-				></md-outlined-text-field>
-			</fieldset>
-			<fieldset>
-				<md-outlined-text-field
-					type="textarea"
-					label="Message"
-					id="message"
-					name="message"
-					rows="10"
-				></md-outlined-text-field>
-			</fieldset>
-			<p>
-				<md-filled-button type="submit">Send</md-filled-button>
-			</p>
-		</form>
-	{:else}
-		<p>Message received!</p>
-	{/if}
+				<fieldset>
+					<md-outlined-text-field label="email" id="email" type="email" name="email" required
+					></md-outlined-text-field>
+				</fieldset>
+				<fieldset>
+					<md-outlined-text-field
+						type="textarea"
+						label="Message"
+						id="message"
+						name="message"
+						rows="10"
+					></md-outlined-text-field>
+				</fieldset>
+				<p>
+					<md-filled-button type="submit">Send</md-filled-button>
+				</p>
+			</form>
+		{:else}
+			<p>Message received!</p>
+		{/if}
+	</article>
 </ContentWrapper>
 
 <style>

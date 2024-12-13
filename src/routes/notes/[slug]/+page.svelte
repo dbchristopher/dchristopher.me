@@ -76,7 +76,8 @@
 
 	:global(.content p) {
 		font: inherit;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.3rem;
+		margin-top: 0;
 	}
 	:global(.content ul) {
 		font: inherit;

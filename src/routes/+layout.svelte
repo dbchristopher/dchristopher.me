@@ -36,7 +36,7 @@
 
 	<nav>
 		<a href="/" class:active={currentPath === '/'}>Home</a>
-		<a href="/notes" class:active={currentPath.startsWith('/notes')}>Notes</a>
+		<a href="/notes" class:active={currentPath.startsWith('/notes')}>Blog</a>
 		<a href="/about" class:active={currentPath === '/about'}>About</a>
 		<a href="/contact" class:active={currentPath === '/contact'}>Contact</a>
 		<a href="/protein" class:active={currentPath === '/protein'}>Protein</a>
@@ -70,7 +70,7 @@
 	}
 
 	.header-content {
-		font-size: 1rem;
+		font-size: 1.5rem;
 		& a {
 			color: inherit;
 		}
