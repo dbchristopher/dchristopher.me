@@ -8,6 +8,11 @@
 	import TagGroup from 'carbon-icons-svelte/lib/TagGroup.svelte';
 	import BlueskyLogo from '$lib/BlueskyLogo.svelte';
 
+	import { CommentSection } from 'bluesky-comments-svelte';
+
+	// Provide the URI of the Bluesky post you want to display comments for
+	const author = 'dchristopher.me';
+
 	interface Props {
 		data: PageData;
 	}
@@ -62,6 +67,7 @@
 					><BlueskyLogo />Bluesky</a
 				>
 			</p>
+			<CommentSection {author} />
 		</footer>
 	{/if}
 </ContentWrapper>

@@ -70,12 +70,11 @@
 	header {
 		max-width: 65ch;
 		margin: 0 auto 1rem;
-		padding: 0.5rem 1rem 0;
+		padding: 1.5rem 1rem 0;
 	}
 
 	.header-content {
 		font-size: 1.5rem;
-		padding: 1rem 0 0;
 		& a {
 			color: inherit;
 		}

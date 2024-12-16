@@ -70,6 +70,12 @@
 		max-width: 200px;
 		border-radius: 100px;
 	}
+
+	.post-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
 	.post-list li {
 		margin-bottom: 1rem;
 	}
