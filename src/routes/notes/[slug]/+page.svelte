@@ -91,6 +91,13 @@
 		padding-bottom: 0.5rem;
 	}
 
+	:global(.content blockquote) {
+		border-left: 3px solid var(--ui-purple-1);
+		margin-left: 0;
+		padding-left: 1rem;
+		font-style: italic;
+	}
+
 	.bluesky-link {
 		margin-left: 0.2rem;
 	}
