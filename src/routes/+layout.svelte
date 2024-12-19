@@ -60,6 +60,7 @@
 
 	nav a {
 		text-decoration: none;
+		color: var(--md-sys-color-primary);
 	}
 
 	nav a.active {

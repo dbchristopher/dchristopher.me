@@ -17,13 +17,17 @@
 
 <ContentWrapper>
 	<article>
-		<header>
-			<h1>Blog</h1>
-		</header>
 		{#if status === 'error' && error}
 			<p>{error.message}</p>
 		{/if}
-		<md-outlined-button href="/notes/new">New Post</md-outlined-button>
+		<div class="list-header">
+			<header>
+				<h1>Blog</h1>
+			</header>
+			<div>
+				<md-outlined-button href="/notes/new">New Post</md-outlined-button>
+			</div>
+		</div>
 		<section>
 			<md-list class="blog-entries">
 				{#each blogEntries as post}
@@ -59,5 +63,10 @@
 		border-radius: 40px;
 		text-decoration: none;
 		padding: 0.5rem 1rem;
+	}
+	.list-header {
+		display: grid;
+		align-items: center;
+		grid-template-columns: 1fr auto;
 	}
 </style>
