@@ -1,4 +1,5 @@
 import { blog } from '$db/blog';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import type { Note } from '$lib/types';
@@ -7,21 +8,56 @@ export const load: PageServerLoad = async ({ params, parent, platform }) => {
 	try {
 		const { isUserAuthenticated } = await parent();
 
-		let data: Note = await getCache({ platform, cacheKey: params.slug });
+		let blogEntry = await getCache({ platform, cacheKey: params.slug });
 
-		if (!data) {
+		if (!blogEntry) {
 			console.log('Cache miss. Fetching from MongoDB...');
-			const dataArr = await blog.find({ slug: params.slug }).limit(1).toArray();
-			data = dataArr[0];
-			updateCache({ platform, data, cacheKey: params.slug });
+			blogEntry = await blog.findOne({ slug: params.slug });
+
+			if (!blogEntry) {
+				return {
+					status: 'error',
+					errorMessage: 'Post not found',
+					post: null,
+					isUserAuthenticated
+				};
+			}
+
+			await updateCache({ platform, data: blogEntry, cacheKey: params.slug });
 		}
 
-		const { title, tags, content, created, slug, status, _id } = data;
+		// Handle redirect before processing the entry
+		if (blogEntry.tags?.includes('bookshelf')) {
+			return {
+				status: 'redirect',
+				location: `/bookshelf/${params.slug}`
+			};
+		}
 
-		const webSafeNote: Note = { title, tags, content, created, slug, status, _id: _id.toString() };
+		const { title, tags, content, created, slug, status, _id } = blogEntry;
+		const webSafeNote: Note = {
+			title,
+			tags,
+			content,
+			created,
+			slug,
+			status,
+			_id: _id.toString()
+		};
 
-		return { post: webSafeNote, isUserAuthenticated };
+		return {
+			status: 'ok',
+			post: webSafeNote,
+			isUserAuthenticated
+		};
 	} catch (error) {
-		return { props: { customers: [] } };
+		console.error('Error in load function:', error);
+
+		return {
+			status: 'error',
+			errorMessage: error instanceof Error ? error.message : 'An unknown error occurred',
+			post: null,
+			isUserAuthenticated: false
+		};
 	}
 };

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
@@ -20,12 +19,6 @@
 
 	let { data }: Props = $props();
 	let { post, isUserAuthenticated } = $derived(data);
-
-	$effect(() => {
-		if (data.status === 'redirect') {
-			goto(data.location);
-		}
-	});
 
 	if (data.post) {
 		title.set(data.post.title);
