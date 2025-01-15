@@ -42,6 +42,7 @@
 					{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
 						<md-list-item type="link" href="bookshelf/{post.slug}">
 							<div slot="supporting-text">
+								{#if post.tags.includes('recommended')}<span role="img" aria-label="recommended">⭐</span>{/if}
 								{format(post.created, 'L/d/yy')}
 								{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
 							</div>

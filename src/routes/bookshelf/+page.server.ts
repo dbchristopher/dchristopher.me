@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 			blogEntries = await blog
 				.find(
 					{ tags: 'bookshelf' },
-					{ projection: { title: 1, slug: 1, status: 1, created: 1, _id: 0 } }
+					{ projection: { title: 1, slug: 1, status: 1, created: 1, tags: 1, _id: 0 } }
 				)
 				.sort({ created: -1 }) // sort reverse chronologically (newest on top)
 				.limit(500)
@@ -21,7 +21,12 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 			await updateCache({ platform, data: blogEntries, cacheKey: BOOKSHELF_CACHE_KEY });
 		}
 
-		return { isUserAuthenticated, status: 'ok', blogEntries };
+		const normalizedBlogEntries = blogEntries.map((entry) => {
+			const {tags } = entry;
+			return {...entry, tags: tags.map((t) => t.trim())};
+		})
+
+		return { isUserAuthenticated, status: 'ok', blogEntries: normalizedBlogEntries };
 	} catch (error) {
 		return { status: 'error', error: error as Error, blogEntries: [] };
 	}
