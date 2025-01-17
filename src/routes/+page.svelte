@@ -13,7 +13,7 @@
 
 	let { data }: Props = $props();
 
-	let { blogEntries, isUserAuthenticated } = $derived(data);
+	let { blogEntries, bookshelfEntries, isUserAuthenticated } = $derived(data);
 
 	function splitIntoSentences(content: string): string[] {
 		const sentenceRegex = /(?<=[.!?])\s+(?=[A-Z])/g;
@@ -41,13 +41,32 @@
 <ContentWrapper>
 	<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
 	<section>
-		<h2>Recent Posts</h2>
+		<h2>Recent Blog Posts</h2>
 		<ul class="post-list">
 			{#each blogEntries as post}
 				{#if post.status === 'published' || isUserAuthenticated}
 					<li>
 						<article>
 							<a href="notes/{post.slug}" class="post-title">{post.title}</a>
+							<time pubdate="pubdate" datetime={post.created}
+								>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
+							>
+							{@html marked.parse(extractContentSnippet(post.content))}
+						</article>
+					</li>
+				{/if}
+			{/each}
+		</ul>
+	</section>
+
+	<section>
+		<h2>Book Reviews</h2>
+		<ul class="post-list">
+			{#each bookshelfEntries as post}
+				{#if post.status === 'published' || isUserAuthenticated}
+					<li>
+						<article>
+							<a href="bookshelf/{post.slug}" class="post-title">{post.title}</a>
 							<time pubdate="pubdate" datetime={post.created}
 								>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
 							>

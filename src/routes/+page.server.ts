@@ -7,20 +7,33 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 	const { isUserAuthenticated } = await parent();
 
 	try {
-		let blogEntries = await getCache({ platform, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
+		let recentEntries = await getCache({ platform, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
 
-		if (!blogEntries) {
-			blogEntries = await blog
-				.find({}, { projection: { title: 1, slug: 1, status: 1, content: 1, created: 1, _id: 0 } })
+		if (!recentEntries) {
+			recentEntries = await blog
+				.find(
+					{},
+					{ projection: { title: 1, tags: 1, slug: 1, status: 1, content: 1, created: 1, _id: 0 } }
+				)
 				.sort({ created: -1 }) // sort reverse chronologically (newest on top)
-				.limit(5)
+				.limit(10)
 				.toArray();
 
-			updateCache({ platform, data: blogEntries, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
+			updateCache({ platform, data: recentEntries, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
 		}
 
-		return { isUserAuthenticated, status: 'ok', blogEntries };
+		const { blogEntries, bookshelfEntries } = recentEntries.reduce(
+			(acc, entry) => {
+				if (entry.tags.includes('bookshelf')) {
+					return { ...acc, bookshelfEntries: [...acc.bookshelfEntries, entry] };
+				}
+				return { ...acc, blogEntries: [...acc.blogEntries, entry] };
+			},
+			{ blogEntries: [], bookshelfEntries: [] }
+		);
+
+		return { isUserAuthenticated, status: 'ok', blogEntries, bookshelfEntries };
 	} catch (error) {
-		return { status: 'error', error: error as Error, blogEntries: [] };
+		return { status: 'error', error: error as Error, blogEntries: [], bookshelfEntries: [] };
 	}
 };
