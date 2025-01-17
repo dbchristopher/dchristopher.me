@@ -22,9 +22,9 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 		}
 
 		const normalizedBlogEntries = blogEntries.map((entry) => {
-			const {tags } = entry;
-			return {...entry, tags: tags.map((t) => t.trim())};
-		})
+			const { tags } = entry;
+			return { ...entry, tags: tags.map((t) => t.trim()) };
+		});
 
 		return { isUserAuthenticated, status: 'ok', blogEntries: normalizedBlogEntries };
 	} catch (error) {

@@ -62,11 +62,20 @@
 	nav a {
 		text-decoration: none;
 		color: var(--md-sys-color-primary);
+		display: inline-block;
+		padding: 0.2rem 0.3rem;
+		margin-left: -0.2rem;
 	}
 
 	nav a.active {
 		font-weight: bold;
 		text-decoration: underline;
+	}
+
+	@media (max-width: 600px) {
+		nav {
+			display: block;
+		}
 	}
 
 	header {
