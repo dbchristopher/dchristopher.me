@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
 	title.set('Home');
+	description.clear();
 
 	interface Props {
 		data: PageData;

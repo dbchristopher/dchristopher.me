@@ -8,6 +8,7 @@ export type Note = {
 	created: string;
 	slug: string;
 	status: NoteStatus;
+	seo_description: string;
 };
 
 export type InsertAuthTokenResponse =
@@ -20,4 +21,5 @@ export type InsertNoteArgs = {
 	tags: string[];
 	status: NoteStatus;
 	slug: string;
+	seo_description: string;
 };

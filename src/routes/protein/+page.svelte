@@ -12,7 +12,7 @@
 	import { fetchEntries } from './utils/fetchEntries';
 	import { insertEntry } from './utils/insertEntry';
 	import { destroyEntry } from './utils/destroyEntry';
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 	interface Props {
 		data: PageData;
 	}
@@ -37,6 +37,8 @@
 			`Daily Protein Journal - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 		);
 	};
+
+	description.set('A simple protein tracker.');
 
 	const refreshEntryData = async () => {
 		isAsyncPending = true;

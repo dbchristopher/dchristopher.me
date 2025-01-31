@@ -34,14 +34,9 @@ export const load: PageServerLoad = async ({ params, parent, platform }) => {
 			};
 		}
 
-		const { title, tags, content, created, slug, status, _id } = blogEntry;
+		const { _id } = blogEntry;
 		const webSafeNote: Note = {
-			title,
-			tags,
-			content,
-			created,
-			slug,
-			status,
+			...blogEntry,
 			_id: _id.toString()
 		};
 

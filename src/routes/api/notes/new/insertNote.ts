@@ -7,14 +7,23 @@ export async function insertNote({
 	content,
 	tags,
 	status,
-	slug
+	slug,
+	seo_description
 }: InsertNoteArgs): Promise<InsertAuthTokenResponse> {
 	const createdTimestamp = normalizeDateTime(new Date());
 
 	try {
 		// Insert the value into the specified collection
 		const collection = db.collection('blog');
-		await collection.insertOne({ title, content, tags, created: createdTimestamp, status, slug });
+		await collection.insertOne({
+			title,
+			content,
+			tags,
+			created: createdTimestamp,
+			status,
+			slug,
+			seo_description
+		});
 		return { success: true };
 	} catch (error) {
 		return { success: false, error: error as Error };

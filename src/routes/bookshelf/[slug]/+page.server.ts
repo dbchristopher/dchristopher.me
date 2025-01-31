@@ -15,9 +15,9 @@ export const load: PageServerLoad = async ({ params, parent, platform }) => {
 			updateCache({ platform, data, cacheKey: params.slug });
 		}
 
-		const { title, tags, content, created, slug, status, _id } = data;
+		const { _id } = data;
 
-		const webSafeNote: Note = { title, tags, content, created, slug, status, _id: _id.toString() };
+		const webSafeNote: Note = { ...data, _id: _id.toString() };
 
 		return { post: webSafeNote, isUserAuthenticated };
 	} catch (error) {

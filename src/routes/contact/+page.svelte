@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { run, preventDefault } from 'svelte/legacy';
 
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	title.set('Contact');
+	description.clear();
 
 	let emailSent = $state(false);
 	run(() => {

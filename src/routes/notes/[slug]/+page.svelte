@@ -4,7 +4,7 @@
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
 	import { NoteStatus } from '$lib/constants';
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import TagGroup from 'carbon-icons-svelte/lib/TagGroup.svelte';
 	import BlueskyLogo from '$lib/BlueskyLogo.svelte';
@@ -29,6 +29,7 @@
 
 	if (data.post) {
 		title.set(data.post.title);
+		description.set(data.post.seo_description);
 	}
 </script>
 

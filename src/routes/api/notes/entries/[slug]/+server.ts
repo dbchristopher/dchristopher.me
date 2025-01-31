@@ -47,17 +47,17 @@ export async function PATCH({ params, request, platform }) {
 	const tags = normalizeTags(data.get('tags'));
 	const status = data.get('status');
 	const slug = data.get('slug');
+	const seo_description = data.get('seo_description');
 
 	await invalidateCache({ platform, cacheKey: NOTES_CACHE_KEY });
 	await invalidateCache({ platform, cacheKey: HOMEPAGE_NOTES_CACHE_KEY });
 
-	console.log({ slug });
 	if (typeof slug === 'string') {
 		await invalidateCache({ platform, cacheKey: slug });
 	}
 
 	// insert entry token into mongodb protein table
-	const dbResult = await patchNote(entryId, { title, content, tags, status });
+	const dbResult = await patchNote(entryId, { title, content, tags, status, seo_description });
 	if (dbResult.success) {
 		// return success
 		return new Response(JSON.stringify({ success: true }), {

@@ -4,9 +4,11 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 
 	title.set('Sign In');
+	description.clear();
+
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);

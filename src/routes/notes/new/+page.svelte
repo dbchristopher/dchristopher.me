@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { insertEntry } from './utils/insertEntry';
-	import { title } from '$lib/store.js';
+	import { title, description } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import { goto } from '$app/navigation';
 
@@ -24,6 +24,7 @@
 	};
 
 	title.set('Write New Note');
+	description.clear();
 </script>
 
 <ContentWrapper>

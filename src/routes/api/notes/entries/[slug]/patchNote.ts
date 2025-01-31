@@ -5,9 +5,9 @@ import { ObjectId } from 'mongodb';
 
 export async function patchNote(
 	id: string,
-	{ title, content, tags, status }: InsertNoteArgs
+	{ title, content, tags, status, seo_description }: InsertNoteArgs
 ): Promise<InsertAuthTokenResponse> {
-	const createdTimestamp = normalizeDateTime(new Date());
+	const updatedTimestamp = normalizeDateTime(new Date());
 
 	try {
 		// Insert the value into the specified collection
@@ -15,7 +15,7 @@ export async function patchNote(
 
 		await collection.updateOne(
 			{ _id: new ObjectId(id) },
-			{ $set: { title, content, tags, created: createdTimestamp, status } }
+			{ $set: { title, content, tags, updated: updatedTimestamp, status, seo_description } }
 		);
 
 		return { success: true };

@@ -54,6 +54,21 @@
 		></md-outlined-text-field>
 	</fieldset>
 
+	<div class="SEO">
+		<fieldset>
+			<md-outlined-text-field
+				label="SEO Description"
+				type="text"
+				id="seo_description"
+				name="seo_description"
+				placeholder="A short post"
+				value={post?.seo_description || ''}
+				disabled={isAsyncPending}
+				required
+			></md-outlined-text-field>
+		</fieldset>
+	</div>
+
 	<div class="metadata">
 		<fieldset>
 			<md-outlined-text-field

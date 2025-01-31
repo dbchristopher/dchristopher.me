@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import { NoteStatus } from '$lib/constants';
 	import { format } from 'date-fns';
-	import { title } from '$lib/store.js';
+	import { description, title } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	interface Props {
 		data: PageData;
@@ -13,6 +13,7 @@
 	let { blogEntries, status, error, isUserAuthenticated } = $derived(data);
 
 	title.set('Notes');
+	description.set('A blog about life, health, and software development.');
 </script>
 
 <ContentWrapper>

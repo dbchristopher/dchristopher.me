@@ -8,7 +8,7 @@
 	import PageFooter from '$lib/PageFooter.svelte';
 	import { page } from '$app/stores';
 	import Logout from 'carbon-icons-svelte/lib/Logout.svelte';
-	import { title } from '$lib/store.js';
+	import { title, description } from '$lib/store.js';
 
 	interface Props {
 		data: PageData;
@@ -28,7 +28,13 @@
 
 <svelte:head>
 	<title>{$title}</title>
+	<meta name="description" content={$description} />
+	<meta property="og:title" content={$title} />
+	<meta property="og:description" content={$description} />
+	<meta name="twitter:title" content={$title} />
+	<meta name="twitter:description" content={$description} />
 </svelte:head>
+
 <header>
 	<div class="header-content">
 		<div class="name"><a href="/">Daniel Christopher</a></div>

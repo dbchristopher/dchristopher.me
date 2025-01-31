@@ -14,4 +14,19 @@ function createTitle() {
 	};
 }
 
+function createDescription() {
+	const { subscribe, set } = writable('');
+
+	return {
+		subscribe,
+		set: (value: string) => {
+			set(value);
+		},
+		clear: () => {
+			set('');
+		}
+	};
+}
+
 export const title = createTitle();
+export const description = createDescription();

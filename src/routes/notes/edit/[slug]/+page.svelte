@@ -4,9 +4,10 @@
 	import { destroyEntry } from './utils/destroyEntry';
 	import { goto } from '$app/navigation';
 	import { updateEntry } from './utils/updateEntry';
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 
 	title.set('Edit Note');
+	description.clear();
 
 	interface Props {
 		data: PageData;

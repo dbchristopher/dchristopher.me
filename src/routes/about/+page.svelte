@@ -1,7 +1,8 @@
 <script>
-	import { title } from '$lib/store';
+	import { title, description } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	title.set('About');
+	description.set('More about me.');
 </script>
 
 <ContentWrapper>

@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import { NoteStatus } from '$lib/constants';
 	import { format } from 'date-fns';
-	import { title } from '$lib/store.js';
+	import { title, description } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	interface Props {
 		data: PageData;
@@ -13,6 +13,7 @@
 	let { blogEntries, status, error, isUserAuthenticated } = $derived(data);
 
 	title.set('Bookshelf');
+	description.set('My reading tracker since 2024');
 </script>
 
 <ContentWrapper>
