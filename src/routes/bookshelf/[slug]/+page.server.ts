@@ -3,10 +3,18 @@ import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import type { Note } from '$lib/types';
 
-export const load: PageServerLoad = async ({ params, parent, platform }) => {
-	try {
-		const { isUserAuthenticated } = await parent();
+export const load: PageServerLoad = async ({ params, parent, platform, url }) => {
+	const fullUrl = `${url.origin}${url.pathname}`;
 
+	const pageMetadata = {
+		title: '',
+		description: '',
+		url: fullUrl
+	};
+
+	const { isUserAuthenticated } = await parent();
+
+	try {
 		let data = await getCache({ platform, cacheKey: params.slug });
 
 		if (!data) {
@@ -19,8 +27,11 @@ export const load: PageServerLoad = async ({ params, parent, platform }) => {
 
 		const webSafeNote: Note = { ...data, _id: _id.toString() };
 
-		return { post: webSafeNote, isUserAuthenticated };
+		(pageMetadata.title = webSafeNote.title),
+			(pageMetadata.description = webSafeNote.seo_description);
+
+		return { post: webSafeNote, metadata: pageMetadata, isUserAuthenticated };
 	} catch (error) {
-		return { props: { customers: [] } };
+		return { metadata: pageMetadata, isUserAuthenticated };
 	}
 };

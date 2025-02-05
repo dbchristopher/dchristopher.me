@@ -12,12 +12,14 @@
 	import { fetchEntries } from './utils/fetchEntries';
 	import { insertEntry } from './utils/insertEntry';
 	import { destroyEntry } from './utils/destroyEntry';
-	import { title, description } from '$lib/store';
+	import SEO from '$lib/SEO.svelte';
+
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
+	let { metadata } = $derived(data);
 	let entries: ProteinEntry[] = $state([]);
 	let date: Date = $state(new Date());
 	let isAsyncPending: boolean = $state(false);
@@ -32,19 +34,10 @@
 		date;
 	});
 
-	const setTitle = (date: Date) => {
-		title.set(
-			`Daily Protein Journal - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-		);
-	};
-
-	description.set('A simple protein tracker.');
-
 	const refreshEntryData = async () => {
 		isAsyncPending = true;
 		entries = await fetchEntries(date);
 		isAsyncPending = false;
-		setTitle(date);
 	};
 
 	onMount(async () => {
@@ -86,6 +79,8 @@
 		refreshEntryData();
 	};
 </script>
+
+<SEO {metadata} />
 
 <div class="page-wrapper">
 	<ContentWrapper>

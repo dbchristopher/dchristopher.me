@@ -1,12 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { title, description } from '$lib/store';
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
-
-	title.set('Home');
-	description.clear();
+	import SEO from '$lib/SEO.svelte';
 
 	interface Props {
 		data: PageData;
@@ -38,6 +35,8 @@
 		return sentences.slice(0, 3).join(' ');
 	}
 </script>
+
+<SEO metadata={data.metadata} />
 
 <ContentWrapper>
 	<img src="/images/pfp.jpg" class="pfp" alt="author photo" />

@@ -3,8 +3,16 @@ import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import { BOOKSHELF_CACHE_KEY } from '$lib/constants';
 
-export const load: PageServerLoad = async ({ parent, platform }) => {
+export const load: PageServerLoad = async ({ parent, platform, url }) => {
 	const { isUserAuthenticated } = await parent();
+
+	const fullUrl = `${url.origin}${url.pathname}`;
+
+	const pageMetadata = {
+		title: 'Bookshelf',
+		description: 'My reading tracker since 2024',
+		url: fullUrl
+	};
 
 	try {
 		let blogEntries = await getCache({ platform, cacheKey: BOOKSHELF_CACHE_KEY });
@@ -26,7 +34,12 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 			return { ...entry, tags: tags.map((t) => t.trim()) };
 		});
 
-		return { isUserAuthenticated, status: 'ok', blogEntries: normalizedBlogEntries };
+		return {
+			isUserAuthenticated,
+			metadata: pageMetadata,
+			status: 'ok',
+			blogEntries: normalizedBlogEntries
+		};
 	} catch (error) {
 		return { status: 'error', error: error as Error, blogEntries: [] };
 	}

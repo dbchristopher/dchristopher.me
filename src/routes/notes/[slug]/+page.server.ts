@@ -4,7 +4,15 @@ import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import type { Note } from '$lib/types';
 
-export const load: PageServerLoad = async ({ params, parent, platform }) => {
+export const load: PageServerLoad = async ({ params, parent, platform, url }) => {
+	const fullUrl = `${url.origin}${url.pathname}`;
+
+	const pageMetadata = {
+		title: '',
+		description: '',
+		url: fullUrl
+	};
+
 	try {
 		const { isUserAuthenticated } = await parent();
 
@@ -40,10 +48,14 @@ export const load: PageServerLoad = async ({ params, parent, platform }) => {
 			_id: _id.toString()
 		};
 
+		pageMetadata.description = webSafeNote.seo_description;
+		pageMetadata.title = webSafeNote.title;
+
 		return {
 			status: 'ok',
 			post: webSafeNote,
-			isUserAuthenticated
+			isUserAuthenticated,
+			metadata: pageMetadata
 		};
 	} catch (error) {
 		console.error('Error in load function:', error);

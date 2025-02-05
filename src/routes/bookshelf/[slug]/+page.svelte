@@ -3,10 +3,10 @@
 	import { marked } from 'marked';
 	import { format } from 'date-fns';
 	import { NoteStatus } from '$lib/constants';
-	import { title, description } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import TagGroup from 'carbon-icons-svelte/lib/TagGroup.svelte';
 	import BlueskyLogo from '$lib/BlueskyLogo.svelte';
+	import SEO from '$lib/SEO.svelte';
 
 	import { CommentSection } from 'bluesky-comments-svelte';
 
@@ -18,13 +18,10 @@
 	}
 
 	let { data }: Props = $props();
-	let { post, isUserAuthenticated } = $derived(data);
-
-	if (data.post) {
-		title.set(data.post.title);
-		description.set(data.post.seo_description);
-	}
+	let { post, isUserAuthenticated, metadata } = $derived(data);
 </script>
+
+<SEO {metadata} />
 
 <ContentWrapper>
 	{#if post}

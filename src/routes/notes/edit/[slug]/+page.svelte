@@ -4,10 +4,8 @@
 	import { destroyEntry } from './utils/destroyEntry';
 	import { goto } from '$app/navigation';
 	import { updateEntry } from './utils/updateEntry';
-	import { title, description } from '$lib/store';
 
-	title.set('Edit Note');
-	description.clear();
+	import SEO from '$lib/SEO.svelte';
 
 	interface Props {
 		data: PageData;
@@ -15,7 +13,7 @@
 
 	let { data }: Props = $props();
 
-	let { post, isUserAuthenticated } = $derived(data);
+	let { post, isUserAuthenticated, metadata } = $derived(data);
 
 	let isAsyncPending: boolean = false;
 
@@ -46,6 +44,8 @@
 		goto('/notes/' + post?.slug);
 	};
 </script>
+
+<SEO {metadata} />
 
 <article>
 	{#if isUserAuthenticated}

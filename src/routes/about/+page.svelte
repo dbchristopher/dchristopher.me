@@ -1,9 +1,16 @@
-<script>
-	import { title, description } from '$lib/store';
+<script lang="ts">
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
-	title.set('About');
-	description.set('More about me.');
+	import SEO from '$lib/SEO.svelte';
+	import type { PageData } from './$types';
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
+
+<SEO metadata={data.metadata} />
 
 <ContentWrapper>
 	<article>

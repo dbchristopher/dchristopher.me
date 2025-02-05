@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { run, preventDefault } from 'svelte/legacy';
 
-	import { title, description } from '$lib/store';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
-	title.set('Contact');
-	description.clear();
+	import SEO from '$lib/SEO.svelte';
+	import type { PageData } from './$types';
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	let emailSent = $state(false);
 	run(() => {
@@ -29,6 +34,8 @@
 	}
 </script>
 
+<SEO metadata={data.metadata} />
+
 <ContentWrapper>
 	<article>
 		<header>
@@ -36,7 +43,7 @@
 		</header>
 
 		{#if !emailSent}
-			<p>Send me something cool.</p>
+			<p>Tell me something good.</p>
 			<form name="contact" method="POST" onsubmit={preventDefault(sendMail)}>
 				<fieldset class="usercode">
 					<label for="usercode">Enter a random value</label>

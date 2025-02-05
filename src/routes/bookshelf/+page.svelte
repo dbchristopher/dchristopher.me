@@ -2,19 +2,19 @@
 	import type { PageData } from './$types';
 	import { NoteStatus } from '$lib/constants';
 	import { format } from 'date-fns';
-	import { title, description } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
+	import SEO from '$lib/SEO.svelte';
+
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
 
-	let { blogEntries, status, error, isUserAuthenticated } = $derived(data);
-
-	title.set('Bookshelf');
-	description.set('My reading tracker since 2024');
+	let { blogEntries, status, error, isUserAuthenticated, metadata } = $derived(data);
 </script>
+
+<SEO {metadata} />
 
 <ContentWrapper>
 	<article>

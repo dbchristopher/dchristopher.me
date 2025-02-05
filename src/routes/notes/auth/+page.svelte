@@ -4,10 +4,7 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import { title, description } from '$lib/store';
-
-	title.set('Sign In');
-	description.clear();
+	import SEO from '$lib/SEO.svelte';
 
 	async function authenticate(event: Event) {
 		const form = event.target as HTMLFormElement;
@@ -43,6 +40,8 @@
 		}
 	});
 </script>
+
+<SEO metadata={data.metadata} />
 
 <div class="page-grid">
 	<form onsubmit={preventDefault(authenticate)}>

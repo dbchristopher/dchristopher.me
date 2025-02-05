@@ -2,16 +2,16 @@
 	import type { PageData } from './$types';
 	import BlogInputForm from '$lib/BlogInputForm.svelte';
 	import { insertEntry } from './utils/insertEntry';
-	import { title, description } from '$lib/store.js';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import { goto } from '$app/navigation';
+	import SEO from '$lib/SEO.svelte';
 
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	let { isUserAuthenticated } = $derived(data);
+	let { isUserAuthenticated, metadata } = $derived(data);
 	let isAsyncPending: boolean = $state(false);
 
 	const handleInsertEntry = async (event: Event) => {
@@ -22,10 +22,9 @@
 			goto(`/notes/${newPostSlug}`);
 		}
 	};
-
-	title.set('Write New Note');
-	description.clear();
 </script>
+
+<SEO {metadata} />
 
 <ContentWrapper>
 	{#if isUserAuthenticated}

@@ -3,8 +3,16 @@ import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import { NOTES_CACHE_KEY } from '$lib/constants';
 
-export const load: PageServerLoad = async ({ parent, platform }) => {
+export const load: PageServerLoad = async ({ parent, platform, url }) => {
 	const { isUserAuthenticated } = await parent();
+
+	const fullUrl = `${url.origin}${url.pathname}`;
+
+	const pageMetadata = {
+		title: 'Notes',
+		description: 'A blog about life, health, and software development.',
+		url: fullUrl
+	};
 
 	try {
 		let blogEntries = await getCache({ platform, cacheKey: NOTES_CACHE_KEY });
@@ -21,7 +29,7 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 			await updateCache({ platform, data: blogEntries, cacheKey: NOTES_CACHE_KEY });
 		}
 
-		return { isUserAuthenticated, status: 'ok', blogEntries };
+		return { isUserAuthenticated, metadata: pageMetadata, status: 'ok', blogEntries };
 	} catch (error) {
 		return { status: 'error', error: error as Error, blogEntries: [] };
 	}

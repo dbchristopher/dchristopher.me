@@ -4,6 +4,14 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	const { isUserAuthenticated } = await parent();
 
+	const fullUrl = `${url.origin}${url.pathname}`;
+
+	const pageMetadata = {
+		title: 'Sign in',
+		description: 'More about me.',
+		url: fullUrl
+	};
+
 	if (isUserAuthenticated) {
 		return { isUserAuthenticated: true };
 	}
@@ -22,9 +30,9 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 				sameSite: 'strict'
 			});
 
-			return { isUserAuthenticated: true };
+			return { isUserAuthenticated: true, metadata: pageMetadata };
 		} else {
-			return { isUserAuthenticated: false };
+			return { isUserAuthenticated: false, metadata: pageMetadata };
 		}
 	} catch (error) {
 		console.error('Error querying MongoDB:', error);
