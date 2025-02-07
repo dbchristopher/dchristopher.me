@@ -10,6 +10,9 @@
 
 	const today = new Date();
 	const [prevDate, nextDate] = $derived(getAdjacentDates(date));
+	$effect(() => {
+		console.log({ prevDate, nextDate });
+	});
 </script>
 
 <div class="date-picker">
