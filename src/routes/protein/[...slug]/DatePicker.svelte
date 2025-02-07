@@ -1,24 +1,35 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
+	import { formatDateString } from '../utils/formatDateString';
+	import { isDateBefore } from '../utils/isDateBefore';
+	import { getAdjacentDates } from '../utils/getAdjacentDates';
 	interface Props {
 		date: Date;
 	}
 
 	let { date }: Props = $props();
-	run(() => {
-		date;
-	});
+
+	const today = new Date();
+	const [prevDate, nextDate] = $derived(getAdjacentDates(date));
 </script>
 
 <div class="date-picker">
-	<md-filled-button onclick={() => {}}>&#8592;</md-filled-button>
-	<a href="/protein/today" class="no-underline">
-		<md-filled-tonal-button kind="tertiary" >
+	<a href="/protein/{formatDateString(prevDate)}">
+		<md-filled-button>&#8592;</md-filled-button>
+	</a>
+	<a href="/protein/today">
+		<md-filled-tonal-button kind="tertiary">
 			{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
 		</md-filled-tonal-button>
 	</a>
-	<md-filled-button onclick={() => {}}>&#8594;</md-filled-button>
+	{#if isDateBefore(nextDate, today)}
+		<a href="/protein/{formatDateString(nextDate)}">
+			<md-filled-button>&#8594;</md-filled-button>
+		</a>
+	{:else}
+		<a href="/protein/today">
+			<md-filled-button>&#8594;</md-filled-button>
+		</a>
+	{/if}
 </div>
 
 <style>

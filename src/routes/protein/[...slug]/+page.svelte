@@ -3,13 +3,12 @@
 	import SEO from '$lib/SEO.svelte';
 	import DatePicker from './DatePicker.svelte';
 
-	interface Props {
-		data: PageData;
-	}
+	const { data } = $props<{ data: PageData }>();
 
-	let { data }: Props = $props();
-	let { date, isUserAuthenticated, metadata } = $derived(data);
+	// Use single $derived for related data
+	const { date, isUserAuthenticated, metadata } = $derived(data);
 
+	// Parse date after getting it from data
 	const dateParsed = $derived(new Date(date));
 </script>
 
