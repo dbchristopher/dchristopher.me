@@ -9,16 +9,21 @@
 	let { date }: Props = $props();
 
 	const today = new Date();
+	const proteinLogStartDate = new Date('2024-05-17');
 	const [prevDate, nextDate] = $derived(getAdjacentDates(date));
 	$effect(() => {
-		console.log({ prevDate, nextDate });
+		// console.log({ prevDate, nextDate });
 	});
 </script>
 
 <div class="date-picker">
-	<a href="/protein/{formatDateString(prevDate)}">
+	{#if isDateBefore(proteinLogStartDate, date)}
+		<a href="/protein/{formatDateString(prevDate)}">
+			<md-filled-button>&#8592;</md-filled-button>
+		</a>
+	{:else}
 		<md-filled-button>&#8592;</md-filled-button>
-	</a>
+	{/if}
 	<a href="/protein/today">
 		<md-filled-tonal-button kind="tertiary">
 			{date.getFullYear()}-{date.getMonth() + 1}-{date.getDate()}
