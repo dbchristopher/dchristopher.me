@@ -5,14 +5,23 @@ import { updateCache, getCache } from '$lib/cacheUtils';
 import { isValidDateString } from '../utils/isValidDateString';
 import { getDateFromSlug } from '../utils/getDateFromSlug';
 
-export const load: PageServerLoad = async ({ params, parent, platform, url }) => {
+export const load: PageServerLoad = async ({ params, parent, platform, url, fetch }) => {
 	const { isUserAuthenticated } = await parent();
 
 	const date = getDateFromSlug(params.slug);
 
 	if (isValidDateString(date)) {
+		const dateObj = new Date(date)
+		dateObj.setHours(0,0,0,0)
+		const response = await fetch(`/api/protein/entries?date=${dateObj.toISOString()}`, {
+			method: 'GET'
+		});
+
+		const data = await response.json();
+
 		const responseData = {
 			date,
+			entries: data.entries,
 			metadata: {
 				title: `Protein Journal (${date})`,
 				url: url.pathname,

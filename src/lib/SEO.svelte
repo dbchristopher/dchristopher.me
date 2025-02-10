@@ -5,7 +5,7 @@
 		url: ''
 	};
 
-	const titleFormatted = `${metadata.title} • Daniel Christopher`;
+	$: titleFormatted = `${metadata.title} • Daniel Christopher`;
 </script>
 
 <svelte:head>

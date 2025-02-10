@@ -1,16 +1,14 @@
 <script lang="ts">
 	interface Props {
-		isAsyncPending: boolean;
 		totalConsumption: number;
 	}
 
-	let { isAsyncPending, totalConsumption }: Props = $props();
+	let { totalConsumption }: Props = $props();
 </script>
 
 <div class="total">
 	<p class="total__label">Total protein:</p>
-	<strong class="total__callout {isAsyncPending ? 'async-pending' : ''}">{totalConsumption}g</strong
-	>
+	<strong class="total__callout">{totalConsumption}g</strong>
 </div>
 
 <style>

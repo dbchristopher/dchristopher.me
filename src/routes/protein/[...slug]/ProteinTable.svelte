@@ -2,11 +2,10 @@
 	interface Props {
 		entries: ProteinEntry[];
 		handleDestroyEntry: (id: string) => void;
-		isAsyncPending: boolean;
 		isUserAuthenticated: boolean;
 	}
 
-	let { entries, handleDestroyEntry, isAsyncPending, isUserAuthenticated }: Props = $props();
+	let { entries, handleDestroyEntry, isUserAuthenticated }: Props = $props();
 </script>
 
 <div class="container">
@@ -19,7 +18,7 @@
 			</tr>
 		</thead>
 
-		<tbody class={isAsyncPending ? 'async-pending' : ''}>
+		<tbody>
 			{#each entries as entry}
 				<tr>
 					<td>{entry.amount}</td>
@@ -32,7 +31,6 @@
 								tabindex="0"
 								onclick={() => handleDestroyEntry(entry._id)}
 								onkeypress={() => {}}
-								disabled={isAsyncPending}
 								size="small">delete</md-outlined-button
 							>
 						{/if}

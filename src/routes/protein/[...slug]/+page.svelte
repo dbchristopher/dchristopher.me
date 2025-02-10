@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import type { PageData } from './$types';
 	import SEO from '$lib/SEO.svelte';
 	import DatePicker from './DatePicker.svelte';
@@ -7,14 +8,30 @@
 	import ProteinTable from './ProteinTable.svelte';
 	import ProteinInputForm from './ProteinInputForm.svelte';
 	import Faq from './Faq.svelte';
+	import { insertEntry } from '../utils/insertEntry';
+	import { destroyEntry } from '../utils/destroyEntry';
 
 	const { data } = $props<{ data: PageData }>();
 
 	// Use single $derived for related data
-	const { date, isUserAuthenticated, metadata } = $derived(data);
+	const { date, isUserAuthenticated, metadata, entries } = $derived(data);
 
 	// Parse date after getting it from data
 	const dateParsed = $derived(new Date(date));
+
+	const handleInsertEntry = async (event: Event) => {
+		if (isUserAuthenticated) {
+			await insertEntry(event, () => {});
+			invalidateAll();
+		}
+	};
+
+	const handleDestroyEntry = async (id: string) => {
+		await destroyEntry(id, date, () => {});
+		invalidateAll();
+	};
+
+	let totalConsumption = $derived(entries.reduce((acc, entry) => acc + entry.amount, 0));
 </script>
 
 <SEO {metadata} />
@@ -28,9 +45,9 @@
 				</header>
 				<DatePicker date={dateParsed} />
 
-				<!-- <ProteinCounter {totalConsumption} {isAsyncPending} />
+				<ProteinCounter {totalConsumption} />
 
-				<ProteinTable {entries} {handleDestroyEntry} {isAsyncPending} {isUserAuthenticated} /> -->
+				<ProteinTable {entries} {handleDestroyEntry} {isUserAuthenticated} />
 
 				{#if !isUserAuthenticated}
 					<a href="/notes/auth">Sign in manage data</a>
@@ -42,7 +59,7 @@
 	</ContentWrapper>
 	{#if isUserAuthenticated}
 		<div class="input-form-wrapper">
-			<!-- <ProteinInputForm {date} {handleInsertEntry} {isAsyncPending} /> -->
+			<ProteinInputForm date={dateParsed} {handleInsertEntry} />
 		</div>
 	{/if}
 </div>

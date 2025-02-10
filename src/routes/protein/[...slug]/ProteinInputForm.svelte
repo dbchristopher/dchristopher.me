@@ -2,12 +2,11 @@
 	import CloudUpload from 'carbon-icons-svelte/lib/CloudUpload.svelte';
 	interface Props {
 		handleInsertEntry: (event: Event) => void;
-		isAsyncPending: boolean;
 		date?: Date;
 	}
-	let { handleInsertEntry, isAsyncPending, date = new Date() }: Props = $props();
+	let { handleInsertEntry, date = new Date() }: Props = $props();
 	const handleFormKeypress = (e) => {
-		if (e.key === 'Enter' && !isAsyncPending) {
+		if (e.key === 'Enter') {
 			e.target.closest('form').requestSubmit();
 		}
 	};
@@ -24,7 +23,6 @@
 			required
 			min="0"
 			max="100"
-			disabled={isAsyncPending}
 			size="xl"
 			onkeypress={handleFormKeypress}
 			role="textbox"
@@ -39,7 +37,6 @@
 			id="description"
 			name="description"
 			required
-			disabled={isAsyncPending}
 			size="xl"
 			onkeypress={handleFormKeypress}
 			role="textbox"
@@ -47,7 +44,7 @@
 		></md-outlined-text-field>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<md-filled-icon-button type="submit" disabled={isAsyncPending}
+	<md-filled-icon-button type="submit"
 		><md-icon><CloudUpload size={24} /></md-icon></md-filled-icon-button
 	>
 </form>
