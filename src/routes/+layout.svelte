@@ -36,7 +36,7 @@
 		<a href="/bookshelf" class:active={currentPath.startsWith('/bookshelf')}>Bookshelf</a>
 		<a href="/about" class:active={currentPath === '/about'}>About</a>
 		<a href="/contact" class:active={currentPath === '/contact'}>Contact</a>
-		<a href="/protein" class:active={currentPath === '/protein'}>Protein</a>
+		<a href="/protein/today" class:active={currentPath === '/protein'}>Protein</a>
 		{#if isUserAuthenticated}
 			<a href="/notes/auth-destroy"><Logout /></a>
 		{/if}
