@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
 	import '../lib/material';
 
 	// White theme
@@ -20,7 +19,7 @@
 
 	let currentPath = $state('');
 
-	run(() => {
+	$effect.pre(() => {
 		currentPath = $page.url.pathname;
 	});
 </script>

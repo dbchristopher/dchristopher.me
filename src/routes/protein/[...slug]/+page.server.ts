@@ -11,8 +11,8 @@ export const load: PageServerLoad = async ({ params, parent, platform, url, fetc
 	const date = getDateFromSlug(params.slug);
 
 	if (isValidDateString(date)) {
-		const dateObj = new Date(date)
-		dateObj.setHours(0,0,0,0)
+		const dateObj = new Date(date);
+		dateObj.setHours(0, 0, 0, 0);
 		const response = await fetch(`/api/protein/entries?date=${dateObj.toISOString()}`, {
 			method: 'GET'
 		});

@@ -12,7 +12,7 @@ export function normalizeDateTime(date: Date): Date {
 	const hours = date.getHours();
 	const minutes = date.getMinutes();
 	const seconds = date.getSeconds();
- 
+
 	// Create start of day in UTC
 	return new Date(Date.UTC(year, month, day, hours, minutes, seconds, 0));
 }
