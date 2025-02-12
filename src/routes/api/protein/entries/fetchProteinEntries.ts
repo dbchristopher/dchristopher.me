@@ -2,12 +2,18 @@ import { protein } from '$db/protein';
 import { normalizeDateTime } from '$lib/normalizeDateTime';
 
 export async function fetchProteinEntries(date: Date) {
-	const startOfDay = normalizeDateTime(date);
-	startOfDay.setHours(0, 0, 0, 0);
+	const normalizedDateTime = normalizeDateTime(date)
+	  // Convert to UTC to avoid timezone shifts
+	const year = normalizedDateTime.getUTCFullYear();
+	const month = normalizedDateTime.getUTCMonth();
+	const day = normalizedDateTime.getUTCDate();
 
-	const endOfDay = normalizeDateTime(date);
-	endOfDay.setHours(23, 59, 59, 999);
-
+	// Create start of day in UTC
+	const startOfDay = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
+	
+	// Create end of day in UTC
+	const endOfDay = new Date(Date.UTC(year, month, day, 23, 59, 59, 999))
+	
 	const entries = await protein
 		.find({
 			created: {

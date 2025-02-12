@@ -1,13 +1,3 @@
-function pacificTimeOffset(): number {
-	// Determine if daylight saving time is in effect
-	const isDST = new Date().getTimezoneOffset() < 480;
-
-	// Pacific Time offset (7 hours for DST, 8 hours otherwise)
-	const pacificTimeOffset = isDST ? 7 : 8;
-
-	return pacificTimeOffset;
-}
-
 /**
  * A utility function to normalize the timezone of a date object to Pacific Time.
  * Used to keep the timezone consistent between the browser and server.
@@ -15,19 +5,14 @@ function pacificTimeOffset(): number {
  * @returns
  */
 export function normalizeDateTime(date: Date): Date {
-	const now = new Date(date);
+	const year = date.getUTCFullYear();
+	const month = date.getUTCMonth();
+	const day = date.getUTCDate();
 
-	// Adjust the date to Pacific Time
-	now.setHours(now.getHours() - pacificTimeOffset());
-
-	return new Date(
-		Date.UTC(
-			now.getUTCFullYear(),
-			now.getUTCMonth(),
-			now.getUTCDate(),
-			now.getUTCHours(),
-			now.getUTCMinutes(),
-			now.getUTCSeconds()
-		)
-	);
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
+ 
+	// Create start of day in UTC
+	return new Date(Date.UTC(year, month, day, hours, minutes, seconds, 0));
 }
