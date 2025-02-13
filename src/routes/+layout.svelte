@@ -33,9 +33,9 @@
 		<a href="/" class:active={currentPath === '/'}>Home</a>
 		<a href="/notes" class:active={currentPath.startsWith('/notes')}>Blog</a>
 		<a href="/bookshelf" class:active={currentPath.startsWith('/bookshelf')}>Bookshelf</a>
-		<a href="/about" class:active={currentPath === '/about'}>About</a>
-		<a href="/contact" class:active={currentPath === '/contact'}>Contact</a>
-		<a href="/protein/today" class:active={currentPath === '/protein'}>Protein</a>
+		<a href="/about" class:active={currentPath.startsWith('/about')}>About</a>
+		<a href="/contact" class:active={currentPath.startsWith('/contact')}>Contact</a>
+		<a href="/protein/today" class:active={currentPath.startsWith('/protein')}>Protein</a>
 		{#if isUserAuthenticated}
 			<a href="/notes/auth-destroy"><Logout /></a>
 		{/if}
