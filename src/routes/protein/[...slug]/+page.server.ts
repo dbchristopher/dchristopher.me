@@ -1,14 +1,22 @@
 import { error } from '@sveltejs/kit';
-import { blog } from '$db/blog';
 import type { PageServerLoad } from './$types';
-import { updateCache, getCache } from '$lib/cacheUtils';
 import { isValidDateString } from '../utils/isValidDateString';
 import { getDateFromSlug } from '../utils/getDateFromSlug';
+import type { PageServerLoadEvent } from './$types';
 
-export const load: PageServerLoad = async ({ params, parent, platform, url, fetch }) => {
+export const load: PageServerLoad = async ({
+	params,
+	parent,
+	platform,
+	url,
+	fetch,
+	cookies
+}: PageServerLoadEvent) => {
 	const { isUserAuthenticated } = await parent();
 
-	const date = getDateFromSlug(params.slug);
+	const timezone = cookies.get('timezone');
+
+	const date = getDateFromSlug(params.slug, timezone);
 
 	if (isValidDateString(date)) {
 		const dateObj = new Date(date);

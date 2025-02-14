@@ -1,12 +1,16 @@
 <script lang="ts">
 	import '../lib/material';
-
 	// White theme
 	import '../app.css';
 	import type { PageData } from './$types';
 	import PageFooter from '$lib/PageFooter.svelte';
 	import { page } from '$app/stores';
 	import Logout from 'carbon-icons-svelte/lib/Logout.svelte';
+
+	$effect(() => {
+		// set client timezone in a cookie so the backend (protein journal) can read it
+		document.cookie = `timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+	});
 
 	interface Props {
 		data: PageData;

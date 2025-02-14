@@ -1,8 +1,9 @@
 import { formatDateString } from './formatDateString';
 
-export function getDateFromSlug(slug: string) {
+export function getDateFromSlug(slug: string, timezone: string = 'UTC') {
 	if (slug === 'today') {
-		return formatDateString(new Date());
+		const today = new Date();
+		return formatDateString(new Date(today.toLocaleString('en-US', { timeZone: timezone })));
 	}
 	return slug;
 }
