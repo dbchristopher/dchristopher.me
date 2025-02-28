@@ -3,15 +3,12 @@
 
 <footer>
 	<div class="footer-content-wrapper">
-		<p>❤️ Thank you for visiting a personal website in {new Date().getFullYear()}.</p>
 		<p class="copyright">© {new Date().getFullYear()} Daniel Christopher</p>
 	</div>
 </footer>
 
 <style>
 	footer {
-		background: #444;
-		color: white;
 		text-align: left;
 	}
 
@@ -25,6 +22,6 @@
 		font-size: 0.75rem;
 	}
 	.copyright {
-		color: #ddd;
+		color: #444;
 	}
 </style>

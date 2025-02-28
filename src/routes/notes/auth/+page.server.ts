@@ -20,6 +20,7 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 		const userAuthToken = url.searchParams.get('token');
 		const newestAuthEntry = await authTable.find().sort({ timestamp: -1 }).limit(1).toArray();
 
+		console.log(newestAuthEntry, userAuthToken);
 		if (userAuthToken === newestAuthEntry[0].token) {
 			// Create a new user session cookie
 			cookies.set('session', newestAuthEntry[0].token, {

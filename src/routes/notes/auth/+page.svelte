@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { run, preventDefault } from 'svelte/legacy';
-
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import SEO from '$lib/SEO.svelte';
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 
 	async function authenticate(event: Event) {
+		event.preventDefault();
 		const form = event.target as HTMLFormElement;
 		const data = new FormData(form);
 
@@ -20,6 +20,7 @@
 				throw new Error('Authentication failed');
 			}
 
+			isSubmitted = true;
 			// Handle response here if necessary
 		} catch (error) {
 			console.error('Error during authentication:', error);
@@ -30,9 +31,11 @@
 		data: PageData;
 	}
 
+	let isSubmitted = $state(false);
+
 	let { data }: Props = $props();
 
-	run(() => {
+	$effect(() => {
 		if (browser && data.isUserAuthenticated) {
 			// check if on client side
 			// Redirect to new post page if user is authenticated
@@ -43,17 +46,37 @@
 
 <SEO metadata={data.metadata} />
 
-<div class="page-grid">
-	<form onsubmit={preventDefault(authenticate)}>
-		<input type="email" name="email" class="email-input" />
-		<md-filled-button type="submit">Email authentication link</md-filled-button>
-	</form>
-</div>
+<ContentWrapper>
+	{#if isSubmitted}
+		<form action="/notes/auth">
+			<div class="token-form-grid">
+				<md-outlined-text-field
+					label="Token"
+					placeholder="abc123"
+					type="text"
+					name="token"
+					required
+					maxLength="100"
+					role="textbox"
+					tabindex="0"
+				></md-outlined-text-field>
+				<div>
+					<md-filled-button type="submit" size="xl">Submit</md-filled-button>
+				</div>
+			</div>
+		</form>
+	{:else}
+		<form onsubmit={authenticate}>
+			<input type="email" name="email" class="email-input" />
+			<md-filled-button type="submit">Email authentication link</md-filled-button>
+		</form>
+	{/if}
+</ContentWrapper>
 
 <style>
-	.page-grid {
-		padding: 2rem 0;
-		text-align: center;
+	.token-form-grid {
+		display: grid;
+		grid-gap: 1rem;
 	}
 	.email-input {
 		display: none;
