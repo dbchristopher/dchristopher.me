@@ -45,6 +45,6 @@
 		"carbon-icons-svelte": "^12.12.0",
 		"date-fns": "^3.6.0",
 		"marked": "^13.0.3",
-		"mongodb": "^6.9.0"
+		"mongodb": "^6.13.1"
 	}
 }
