@@ -29,20 +29,40 @@
 </script>
 
 <header>
-	<div class="header-content">
-		<div class="name"><a href="/">Daniel Christopher</a></div>
-	</div>
-
 	<nav>
-		<a href="/" class:active={currentPath === '/'}>Home</a>
-		<a href="/notes" class:active={currentPath.startsWith('/notes')}>Blog</a>
-		<a href="/bookshelf" class:active={currentPath.startsWith('/bookshelf')}>Bookshelf</a>
-		<a href="/about" class:active={currentPath.startsWith('/about')}>About</a>
-		<a href="/contact" class:active={currentPath.startsWith('/contact')}>Contact</a>
-		<a href="/protein/today" class:active={currentPath.startsWith('/protein')}>Protein</a>
-		{#if isUserAuthenticated}
-			<a href="/notes/auth-destroy"><Logout /></a>
-		{/if}
+		<div>
+			<a href="/" class="name"><span class="name__first">Daniel</span> Christopher</a>
+		</div>
+		<ul class="nav-list nav-list--primary">
+			<li>
+				<a href="/" class:active={currentPath === '/'}>Home</a>
+			</li>
+			<li>
+				<a href="/notes" class:active={currentPath.startsWith('/notes')}>Blog</a>
+			</li>
+			<li>
+				<a href="/bookshelf" class:active={currentPath.startsWith('/bookshelf')}>Bookshelf</a>
+			</li>
+			<li>
+				<a href="/about" class:active={currentPath.startsWith('/about')}>About</a>
+			</li>
+			<li>
+				<a href="/contact" class:active={currentPath.startsWith('/contact')}>Contact</a>
+			</li>
+			<li></li>
+		</ul>
+		<ul class="nav-list nav-list--secondary">
+			<li>
+				<a href="/protein/today" class:active={currentPath.startsWith('/protein')}>Protein</a>
+			</li>
+			<li>
+				{#if isUserAuthenticated}
+					<a href="/notes/auth-destroy">Log out</a>
+				{:else}
+					<a href="/notes/auth">Log in</a>
+				{/if}
+			</li>
+		</ul>
 	</nav>
 </header>
 
@@ -52,12 +72,9 @@
 
 <style>
 	nav {
-		display: flex;
-		gap: 0.7rem;
-		padding: 0.5rem 0;
-		align-items: center;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
 	}
-
 	nav a {
 		text-decoration: none;
 		color: var(--md-sys-color-primary);
@@ -66,6 +83,9 @@
 		margin-left: -0.2rem;
 	}
 
+	nav a:hover {
+		text-decoration: underline;
+	}
 	nav a.active {
 		font-weight: bold;
 		text-decoration: underline;
@@ -78,19 +98,38 @@
 	}
 
 	header {
-		max-width: 65ch;
 		margin: 0 auto 1rem;
-		padding: 1.5rem 1rem 0;
-	}
-
-	.header-content {
-		font-size: 1.5rem;
-		& a {
-			color: inherit;
-		}
+		padding: 1.5rem 1rem 0.25rem;
+		border-bottom: 1px solid var(--md-sys-color-surface-variant);
+		align-items: middle;
 	}
 
 	.name {
 		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.name__first {
+		font-weight: 300;
+	}
+
+	.nav-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		white-space: nowrap;
+	}
+
+	.nav-list--primary {
+		justify-self: center;
+		display: grid;
+		grid-template-columns: repeat(5, min-content);
+		grid-gap: 0.5rem;
+	}
+
+	.nav-list--secondary {
+		display: grid;
+		grid-template-columns: repeat(2, min-content);
+		grid-gap: 0.5rem;
 	}
 </style>
