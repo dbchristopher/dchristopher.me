@@ -70,7 +70,9 @@
 				{/if}
 			</li>
 		</ul>
-		<button class="mobile-nav-anchor" class:active={isMenuOpen} onclick={toggleMenu}><Menu /></button>
+		<button class="mobile-nav-anchor" class:active={isMenuOpen} onclick={toggleMenu}
+			><Menu fill="#5a7373" /></button
+		>
 	</nav>
 </header>
 
@@ -128,6 +130,7 @@
 	a.active {
 		font-weight: bold;
 		text-decoration: underline;
+		color: var(--md-sys-color-text);
 	}
 	header {
 		margin: 0 auto 1rem;
@@ -156,6 +159,7 @@
 		padding: 0;
 		white-space: nowrap;
 		display: grid;
+		font-weight: 300;
 	}
 
 	.inline-nav-list--primary {
@@ -183,10 +187,11 @@
 
 	.mobile-nav-list {
 		list-style: none;
-		margin: 0; 
+		margin: 0;
 		padding: 1rem 0;
 		display: grid;
 		grid-template-columns: auto auto;
+		font-weight: 300;
 	}
 
 	.mobile-nav-list a {
@@ -211,6 +216,7 @@
 	@media (max-width: 550px) {
 		.name {
 			display: block;
+			color: var(--md-sys-color-text);
 		}
 		.name--condensed {
 			display: none;
@@ -229,7 +235,7 @@
 			background: transparent;
 			border: 1px solid var(--md-sys-color-surface-variant);
 			border-radius: 0.2rem;
-			transition: 
+			transition:
 				background-color 0.2s ease,
 				top 0.2s ease;
 			position: relative;

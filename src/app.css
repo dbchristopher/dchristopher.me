@@ -24,6 +24,7 @@ html {
 	--md-sys-color-primary-container: #6ff7f7;
 	--md-sys-color-on-primary: #ffffff;
 	--md-sys-color-on-primary-container: #002020;
+	--md-sys-color-text: #222;
 
 	/* Secondary colors */
 	--md-sys-color-secondary: #4a6363;
