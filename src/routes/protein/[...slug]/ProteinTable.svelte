@@ -3,9 +3,10 @@
 		entries: ProteinEntry[];
 		handleDestroyEntry: (id: string) => void;
 		isUserAuthenticated: boolean;
+		isLoading: boolean;
 	}
 
-	let { entries, handleDestroyEntry, isUserAuthenticated }: Props = $props();
+	let { entries, handleDestroyEntry, isUserAuthenticated, isLoading }: Props = $props();
 </script>
 
 <div class="container">
@@ -31,6 +32,7 @@
 								tabindex="0"
 								onclick={() => handleDestroyEntry(entry._id)}
 								onkeypress={() => {}}
+								disabled={isLoading}
 								size="small">delete</md-outlined-button
 							>
 						{/if}

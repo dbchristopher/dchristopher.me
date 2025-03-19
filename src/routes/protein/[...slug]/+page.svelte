@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import SEO from '$lib/SEO.svelte';
 	import DatePicker from './DatePicker.svelte';
@@ -19,19 +19,43 @@
 	// Parse date after getting it from data
 	const dateParsed = $derived(new Date(date));
 
+	let clientData = $state<ProteinEntry[]>([]);
+	let isLoading = $state(false);
+
 	const handleInsertEntry = async (event: Event) => {
 		if (isUserAuthenticated) {
 			await insertEntry(event, () => {});
-			invalidateAll();
+			refreshData();
 		}
 	};
 
 	const handleDestroyEntry = async (id: string) => {
 		await destroyEntry(id, date, () => {});
-		invalidateAll();
+		refreshData();
 	};
 
-	let totalConsumption = $derived(entries.reduce((acc, entry) => acc + entry.amount, 0));
+	const refreshData = async () => {
+		isLoading = true;
+		try {
+			const response = await fetch(`/api/protein/entries?date=${date}`, {
+				method: 'GET'
+			});
+			const draftData = await response.json();
+			clientData = draftData.entries;
+		} catch (error) {
+			console.error('Failed to refresh data:', error);
+		} finally {
+			isLoading = false;
+		}
+	};
+
+	let totalConsumption = $derived(
+		(clientData.length ? clientData : entries).reduce((acc, entry) => acc + entry.amount, 0)
+	);
+
+	onMount(() => {
+		refreshData()
+	})
 </script>
 
 <SEO {metadata} />
@@ -46,8 +70,12 @@
 				<DatePicker date={dateParsed} />
 
 				<ProteinCounter {totalConsumption} />
-
-				<ProteinTable {entries} {handleDestroyEntry} {isUserAuthenticated} />
+				<ProteinTable
+					{isLoading}
+					entries={clientData.length ? clientData : entries}
+					{handleDestroyEntry}
+					{isUserAuthenticated}
+				/>
 
 				{#if !isUserAuthenticated}
 					<a href="/notes/auth">Sign in manage data</a>
