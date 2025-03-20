@@ -11,6 +11,14 @@
 	import { insertEntry } from '../utils/insertEntry';
 	import { destroyEntry } from '../utils/destroyEntry';
 
+	const isProteinEntryList = (val: unknown): val is ProteinEntry[] => {
+		if (Array.isArray(val) && 'amount' in val[0]) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	const { data } = $props<{ data: PageData }>();
 
 	// Use single $derived for related data
@@ -41,7 +49,9 @@
 				method: 'GET'
 			});
 			const draftData = await response.json();
-			clientData = draftData.entries;
+			if (isProteinEntryList(draftData.entries)) {
+				clientData = draftData.entries;
+			}
 		} catch (error) {
 			console.error('Failed to refresh data:', error);
 		} finally {
@@ -52,10 +62,6 @@
 	let totalConsumption = $derived(
 		(clientData.length ? clientData : entries).reduce((acc, entry) => acc + entry.amount, 0)
 	);
-
-	onMount(() => {
-		refreshData()
-	})
 </script>
 
 <SEO {metadata} />
