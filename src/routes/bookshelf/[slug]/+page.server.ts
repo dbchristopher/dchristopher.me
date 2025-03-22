@@ -25,7 +25,12 @@ export const load: PageServerLoad = async ({ params, parent, platform, url }) =>
 
 		const { _id } = data;
 
-		const webSafeNote: Note = { ...data, _id: _id.toString() };
+		const webSafeNote: Note = {
+			...data,
+			// hide bookshelf tag so that it doesn't duplicate content from the main /bookshelf route
+			tags: [...data.tags.filter((t) => t !== 'bookshelf')],
+			_id: _id.toString()
+		};
 
 		(pageMetadata.title = webSafeNote.title),
 			(pageMetadata.description = webSafeNote.seo_description);

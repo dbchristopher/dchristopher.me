@@ -51,7 +51,7 @@
 							<TagGroup />
 							<ul class="tags">
 								{#each post.tags as tag, index (tag)}
-									<li>{tag}{index < post.tags.length - 1 ? ',' : ''}</li>
+									<li><a href="/tag/{tag}">{tag}</a>{index < post.tags.length - 1 ? ',' : ''}</li>
 								{/each}
 							</ul>
 						</div>

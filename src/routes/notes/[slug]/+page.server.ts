@@ -1,5 +1,4 @@
 import { blog } from '$db/blog';
-import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { updateCache, getCache } from '$lib/cacheUtils';
 import type { Note } from '$lib/types';
