@@ -11,12 +11,21 @@
 	import { insertEntry } from '../utils/insertEntry';
 	import { destroyEntry } from '../utils/destroyEntry';
 
-	const isProteinEntryList = (val: unknown): val is ProteinEntry[] => {
-		if (Array.isArray(val) && 'amount' in val[0]) {
-			return true;
-		} else {
+	type ProteinEntryResponse = { entries: ProteinEntry[] };
+
+	const isProteinEntryList = (response: unknown): response is ProteinEntryResponse => {
+		// Check if response is a non-null object
+		if (typeof response !== 'object' || response === null) {
 			return false;
 		}
+
+		// Check if entries exists and is an array
+		const responseObj = response as Record<string, unknown>;
+		if (!('entries' in responseObj) || !Array.isArray(responseObj.entries)) {
+			return false;
+		}
+		// Validate each entry in the array
+		return 'amount' in responseObj.entries[0];
 	};
 
 	const { data } = $props<{ data: PageData }>();
@@ -29,6 +38,10 @@
 
 	let clientData = $state<ProteinEntry[]>([]);
 	let isLoading = $state(false);
+
+	$effect(() => {
+		clientData = entries;
+	});
 
 	const handleInsertEntry = async (event: Event) => {
 		if (isUserAuthenticated) {
@@ -49,7 +62,7 @@
 				method: 'GET'
 			});
 			const draftData = await response.json();
-			if (isProteinEntryList(draftData.entries)) {
+			if (isProteinEntryList(draftData)) {
 				clientData = draftData.entries;
 			}
 		} catch (error) {
@@ -60,7 +73,10 @@
 	};
 
 	let totalConsumption = $derived(
-		(clientData.length ? clientData : entries).reduce((acc, entry) => acc + entry.amount, 0)
+		(clientData.length ? clientData : entries).reduce(
+			(acc: number, entry: ProteinEntry) => acc + entry.amount,
+			0
+		)
 	);
 </script>
 
