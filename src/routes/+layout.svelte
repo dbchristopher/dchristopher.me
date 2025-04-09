@@ -201,7 +201,7 @@
 	}
 
 	.mobile-nav-content-wrapper.open {
-		height: 170px;
+		height: auto;
 	}
 
 	@media (min-width: 550px) and (max-width: 750px) {
