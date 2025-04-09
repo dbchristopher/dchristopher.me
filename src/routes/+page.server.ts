@@ -13,7 +13,18 @@ export const load: PageServerLoad = async ({ parent, platform }) => {
 			recentEntries = await blog
 				.find(
 					{},
-					{ projection: { title: 1, tags: 1, slug: 1, status: 1, content: 1, created: 1, _id: 0 } }
+					{
+						projection: {
+							title: 1,
+							tags: 1,
+							slug: 1,
+							status: 1,
+							content: 1,
+							created: 1,
+							seo_description: 1,
+							_id: 0
+						}
+					}
 				)
 				.sort({ created: -1 }) // sort reverse chronologically (newest on top)
 				.limit(10)

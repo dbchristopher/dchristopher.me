@@ -51,7 +51,7 @@
 							<time pubdate="pubdate" datetime={post.created}
 								>Posted on {format(new Date(post.created), 'E LLL do, yyyy')}</time
 							>
-							{@html marked.parse(extractContentSnippet(post.content))}
+							{@html marked.parse(extractContentSnippet(post.seo_description || post.content))}
 						</article>
 					</li>
 				{/if}
