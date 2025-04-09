@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { NoteStatus } from '$lib/constants';
-	import { format } from 'date-fns';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import SEO from '$lib/SEO.svelte';
+	import PostEntryList from '$lib/PostEntryList.svelte';
 
 	interface Props {
 		data: PageData;
@@ -37,24 +36,7 @@
 				<dd>{blogEntries.length}</dd>
 			</dl>
 		</section>
-		<section>
-			<md-list class="blog-entries">
-				{#each blogEntries as post}
-					{#if post.status === NoteStatus.PUBLISHED || isUserAuthenticated}
-						<md-list-item type="link" href="bookshelf/{post.slug}">
-							<div slot="supporting-text">
-								{#if post.tags.includes('recommended')}<span role="img" aria-label="recommended"
-										>⭐</span
-									>{/if}
-								{format(post.created, 'L/d/yy')}
-								{#if post.status === NoteStatus.DRAFT}{post.status}{/if}
-							</div>
-							<div slot="headline">{post.title}</div>
-						</md-list-item>
-					{/if}
-				{/each}
-			</md-list>
-		</section>
+		<PostEntryList {blogEntries} isUserAuthenticated={!!isUserAuthenticated} />
 	</article>
 </ContentWrapper>
 
@@ -62,22 +44,8 @@
 	h1 {
 		margin-bottom: 0;
 	}
-	.blog-entries {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
 	section {
 		margin-top: 1rem;
-	}
-
-	.new-post {
-		display: inline-block;
-		border: 1px solid var(--ui-grey-1);
-		border-radius: 40px;
-		text-decoration: none;
-		padding: 0.5rem 1rem;
 	}
 	.list-header {
 		display: grid;

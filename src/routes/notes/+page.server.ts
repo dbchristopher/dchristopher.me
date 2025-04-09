@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ parent, platform, url }) => {
 			blogEntries = await blog
 				.find(
 					{ tags: { $ne: 'bookshelf' } },
-					{ projection: { title: 1, slug: 1, status: 1, created: 1, _id: 0 } }
+					{ projection: { title: 1, slug: 1, status: 1, created: 1, tags: 1, _id: 0 } }
 				)
 				.sort({ created: -1 }) // sort reverse chronologically (newest on top)
 				.limit(500)
