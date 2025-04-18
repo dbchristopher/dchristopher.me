@@ -44,6 +44,7 @@
 		"@sentry/sveltekit": "^9.2.0",
 		"bluesky-comments-svelte": "^0.1.1",
 		"carbon-icons-svelte": "^13.3.0",
+		"cloudinary": "^2.6.0",
 		"date-fns": "^4.1.0",
 		"lodash": "^4.17.21",
 		"marked": "^15.0.7",

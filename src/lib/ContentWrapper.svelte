@@ -13,7 +13,7 @@
 <style>
 	main {
 		padding: 0 1rem;
-		max-width: 65ch;
+		max-width: 70ch;
 		margin: 0 auto 4rem;
 		line-height: 1.5;
 		min-height: 70vh;

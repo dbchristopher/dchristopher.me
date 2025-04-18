@@ -4,6 +4,8 @@
 	import { destroyEntry } from './utils/destroyEntry';
 	import { goto } from '$app/navigation';
 	import { updateEntry } from './utils/updateEntry';
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
+	import ImageUploader from '$lib/ImageUploader.svelte';
 
 	import SEO from '$lib/SEO.svelte';
 
@@ -49,13 +51,16 @@
 
 <article>
 	{#if isUserAuthenticated}
-		<BlogInputForm
-			{handleInsertEntry}
-			{handleDelete}
-			{handleCancelClick}
-			isAsyncPending={false}
-			{post}
-		/>
+		<ContentWrapper>
+			<BlogInputForm
+				{handleInsertEntry}
+				{handleDelete}
+				{handleCancelClick}
+				isAsyncPending={false}
+				{post}
+			/>
+			<ImageUploader />
+		</ContentWrapper>
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}
