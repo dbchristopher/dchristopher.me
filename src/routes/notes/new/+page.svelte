@@ -5,7 +5,6 @@
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
 	import { goto } from '$app/navigation';
 	import SEO from '$lib/SEO.svelte';
-	import ImageUploader from '$lib/ImageUploader.svelte';
 
 	interface Props {
 		data: PageData;
@@ -16,6 +15,7 @@
 	let isAsyncPending: boolean = $state(false);
 
 	const handleInsertEntry = async (event: Event) => {
+		event.preventDefault();
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
 			const newPostSlug = await insertEntry(event);
@@ -32,7 +32,6 @@
 	{#if isUserAuthenticated}
 		<!-- create a new form api endpoint for writing a new post -->
 		<BlogInputForm {isAsyncPending} {handleInsertEntry} />
-		<ImageUploader />
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>
 	{/if}

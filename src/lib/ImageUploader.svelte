@@ -1,8 +1,13 @@
 <script lang="ts">
 	import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
 
+	interface Props {
+		handleImageUpload: (cloudinaryId: string) => void;
+	}
+
+	let { handleImageUpload }: Props = $props();
+
 	let uploading = $state(false);
-	let imageUrl = $state('');
 	let errorMessage = $state('');
 
 	async function uploadImage(event: Event) {
@@ -43,9 +48,7 @@
 
 			const result = await uploadResponse.json();
 
-			// Store the optimized URL with transformations
-			const optimizedUrl = `https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${result.public_id}`;
-			imageUrl = optimizedUrl;
+			handleImageUpload(result.public_id);
 		} catch (error) {
 			console.error('Upload error:', error);
 			errorMessage = 'Failed to upload image. Please try again.';
@@ -65,12 +68,6 @@
 	{#if errorMessage}
 		<div class="error">{errorMessage}</div>
 	{/if}
-
-	{#if imageUrl}
-		<div class="preview">
-			<img src={imageUrl} alt="Uploaded image" />
-		</div>
-	{/if}
 </div>
 
 <style>
@@ -86,14 +83,5 @@
 	.error {
 		margin-top: 0.5rem;
 		color: #e53e3e;
-	}
-
-	.preview {
-		margin-top: 1rem;
-	}
-
-	.preview img {
-		max-width: 100%;
-		max-height: 300px;
 	}
 </style>

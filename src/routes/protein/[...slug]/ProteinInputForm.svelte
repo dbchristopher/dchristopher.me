@@ -5,9 +5,10 @@
 		date?: Date;
 	}
 	let { handleInsertEntry, date = new Date() }: Props = $props();
-	const handleFormKeypress = (e) => {
+	const handleFormKeypress = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			e.target.closest('form').requestSubmit();
+			const target = e.target as HTMLElement;
+			target.closest('form')?.requestSubmit();
 		}
 	};
 </script>

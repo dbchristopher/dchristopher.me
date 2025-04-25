@@ -5,7 +5,6 @@
 	import { goto } from '$app/navigation';
 	import { updateEntry } from './utils/updateEntry';
 	import ContentWrapper from '$lib/ContentWrapper.svelte';
-	import ImageUploader from '$lib/ImageUploader.svelte';
 
 	import SEO from '$lib/SEO.svelte';
 
@@ -20,6 +19,7 @@
 	let isAsyncPending: boolean = false;
 
 	const handleInsertEntry = async (event: Event) => {
+		event.preventDefault();
 		if (isAsyncPending === false && isUserAuthenticated) {
 			isAsyncPending = true;
 			if (post) {
@@ -59,7 +59,6 @@
 				isAsyncPending={false}
 				{post}
 			/>
-			<ImageUploader />
 		</ContentWrapper>
 	{:else}
 		<a href="/notes/auth">Sign in to continue</a>

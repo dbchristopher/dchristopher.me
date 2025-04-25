@@ -1,8 +1,14 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
 	import { NoteStatus } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
+	import ImageUploader from '$lib/ImageUploader.svelte';
+	import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
+
+	const optimizeCloudinaryUrl = (cloudinaryId: string) => {
+		// Store the optimized URL with transformations
+		return `https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${cloudinaryId}`;
+	};
 
 	interface Props {
 		handleInsertEntry: (event: Event) => void;
@@ -20,10 +26,16 @@
 		post = {}
 	}: Props = $props();
 
+	const draftImages = $state<string[]>([]);
+
+	const handleImageUpload = (cloudinaryId: string) => {
+		draftImages.push(cloudinaryId);
+	};
+
 	const statusValues = Object.values(NoteStatus);
 </script>
 
-<form onsubmit={preventDefault(handleInsertEntry)}>
+<form onsubmit={handleInsertEntry}>
 	<fieldset>
 		{#if post?.slug}
 			<input type="hidden" value={post.slug} name="slug" />
@@ -107,7 +119,7 @@
 				role="button"
 				tabindex="0"
 				onclick={handleDelete}
-				onkeypress={(e) => {
+				onkeypress={(e: KeyboardEvent) => {
 					if (e.key === 'Enter') {
 						handleDelete(e);
 					}
@@ -119,6 +131,15 @@
 			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>
 		{/if}
 	</div>
+	<ImageUploader {handleImageUpload} />
+	{#each draftImages as imageId}
+		<section class="preview">
+			<img src={optimizeCloudinaryUrl(imageId)} />
+			<input type="text" value={imageId} name={`image-${imageId}`} readonly />
+			<label for={`header-image-${imageId}`}>Post Header</label>
+			<input type="radio" value={imageId} name="header-image" id={`header-image-${imageId}`} />
+		</section>
+	{/each}
 </form>
 
 <style>
@@ -163,6 +184,16 @@
 		background: #ccc;
 		height: 1rem;
 	}
+
+	.preview {
+		margin-top: 1rem;
+	}
+
+	.preview img {
+		max-width: 100%;
+		max-height: 300px;
+	}
+
 	:global(.button--delete) {
 		color: rgb(180, 25, 25);
 	}

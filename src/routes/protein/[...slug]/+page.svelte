@@ -44,6 +44,7 @@
 	});
 
 	const handleInsertEntry = async (event: Event) => {
+		event.preventDefault();
 		if (isUserAuthenticated) {
 			await insertEntry(event, () => {});
 			refreshData();
