@@ -43,7 +43,6 @@
 		</header>
 
 		{#if !emailSent}
-			<p>Tell me something good.</p>
 			<form name="contact" method="POST" onsubmit={preventDefault(sendMail)}>
 				<fieldset class="usercode">
 					<label for="usercode">Enter a random value</label>

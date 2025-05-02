@@ -90,9 +90,10 @@
 				<header>
 					<h1>Protein Journal</h1>
 				</header>
-				<DatePicker date={dateParsed} />
 
 				<ProteinCounter {totalConsumption} />
+				<DatePicker date={dateParsed} />
+
 				<ProteinTable
 					{isLoading}
 					entries={clientData.length ? clientData : entries}
@@ -107,12 +108,12 @@
 				{/if}
 			</div>
 		</article>
+		{#if isUserAuthenticated}
+			<div class="input-form-wrapper">
+				<ProteinInputForm date={dateParsed} {handleInsertEntry} />
+			</div>
+		{/if}
 	</ContentWrapper>
-	{#if isUserAuthenticated}
-		<div class="input-form-wrapper">
-			<ProteinInputForm date={dateParsed} {handleInsertEntry} />
-		</div>
-	{/if}
 </div>
 
 <style>
@@ -127,18 +128,13 @@
 	.page-grid h1 {
 		margin-top: 0.25rem;
 	}
-
 	.input-form-wrapper {
-		max-width: 65ch;
-		margin: 0 auto;
-		padding: 0.5rem 1rem;
-		border-top: 1px solid #e0e0e0;
-		background: #fff;
+		padding-top: 10px;
+		background: white;
 	}
 
 	@media (max-width: 768px) {
 		.input-form-wrapper {
-			box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
 			position: sticky;
 			left: 0;
 			right: 0;

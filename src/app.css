@@ -10,6 +10,12 @@ html {
 	color: #222;
 }
 
+h1,
+h2 {
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+}
+
 :root {
 	--md-ref-typeface-brand: 'Inter';
 	--md-ref-typeface-plain: system-ui;

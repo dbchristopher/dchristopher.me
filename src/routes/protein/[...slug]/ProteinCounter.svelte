@@ -7,7 +7,7 @@
 </script>
 
 <div class="total">
-	<p class="total__label">Total protein:</p>
+	<p class="total__label">Protein:</p>
 	<strong class="total__callout">{totalConsumption}g</strong>
 </div>
 
@@ -26,6 +26,7 @@
 	}
 
 	.total__callout {
-		font-size: 3rem;
+		font-size: 2rem;
+		line-height: 2.2rem;
 	}
 </style>

@@ -15,7 +15,6 @@
 		padding: 0 1rem;
 		max-width: 70ch;
 		margin: 0 auto 4rem;
-		line-height: 1.5;
-		min-height: 70vh;
+		line-height: 1.5rem;
 	}
 </style>

@@ -123,7 +123,7 @@
 	}
 
 	h1 {
-		margin: 0;
+		padding-bottom: 0;
 	}
 
 	.tag-group {

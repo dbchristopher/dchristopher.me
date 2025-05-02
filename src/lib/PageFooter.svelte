@@ -1,10 +1,13 @@
 <script lang="ts">
+	import ContentWrapper from '$lib/ContentWrapper.svelte';
 </script>
 
 <footer>
-	<div class="footer-content-wrapper">
-		<p class="copyright">© {new Date().getFullYear()} Daniel Christopher</p>
-	</div>
+	<ContentWrapper>
+		<div class="footer-content-wrapper">
+			<p class="copyright">© {new Date().getFullYear()} Daniel Christopher</p>
+		</div>
+	</ContentWrapper>
 </footer>
 
 <style>
@@ -13,9 +16,7 @@
 	}
 
 	.footer-content-wrapper {
-		padding: 1rem;
-		margin: 0 auto;
-		max-width: 65ch;
+		padding: 1rem 0;
 	}
 
 	.footer-content-wrapper p {

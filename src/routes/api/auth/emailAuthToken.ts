@@ -12,7 +12,7 @@ export function emailAuthToken(authToken: string) {
 		html:
 			'Authentication token created. Visit the auth page at <a href="https://dchristopher.me/notes/auth?token=' +
 			authToken +
-			'">dchristopher.me</a> to continue. Auth token: ' +
+			'">dchristopher.me</a> to continue.  <br /> <b>Auth token:</b> ' +
 			authToken
 	};
 

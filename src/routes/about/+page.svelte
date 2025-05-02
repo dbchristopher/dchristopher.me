@@ -18,14 +18,20 @@
 			<h1>About</h1>
 		</header>
 		<div class="content">
-			<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
+			<img src="/images/pfp.jpg" class="pfp" alt="author" />
 
 			<div class="text">
-				<p>Marginally online. Not a guru or a thought leader or an influencer.</p>
+				<p>
+					Marginally online. Not a guru, thought leader, or influencer. Just a millennial who's
+					nostalgic for the diy days of the internet.
+				</p>
 				<p>
 					Professionally: I'm a software developer, though I'll only occasionally write about that.
-					I'm a parent, a fitness enthusiast, and I built my own independent slice of the internet
-					to share some things I'm thinking about.
+					I'm a parent, fitness enthusiast, relentless optimizer, and avid reader.
+				</p>
+				<p>
+					I built my own independent slice of the internet as a way to push back against the
+					currents of platform consolidation.
 				</p>
 			</div>
 		</div>

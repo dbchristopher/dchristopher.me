@@ -53,7 +53,7 @@
 <style>
 	form {
 		display: grid;
-		grid-template-columns: 2fr 5fr auto;
+		grid-template-columns: 2fr 6fr auto;
 		grid-gap: 0.5rem;
 		align-items: center;
 		background: white;
