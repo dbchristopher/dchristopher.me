@@ -2,6 +2,9 @@
 	command = "npm run build"
 	publish = "build"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/server/chunks/private.js,.svelte-kit/output/server/chunks/private.js"
+
 [durable_objects]
 	classes = [{ name = "DataCache", path = "src/lib/server/durable/data-cache.js" }]
 
@@ -9,3 +12,4 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000" # Optional but recommended for images
+
