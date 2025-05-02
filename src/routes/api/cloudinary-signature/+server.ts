@@ -1,6 +1,6 @@
 // src/routes/api/cloudinary-signature/+server.ts
 import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } from '$env/static/private';
-import { v2 as cloudinary } from 'cloudinary';
+import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
 import { json } from '@sveltejs/kit';
 import crypto from 'crypto';
 
@@ -19,6 +19,6 @@ export async function POST() {
 		signature,
 		timestamp,
 		apiKey: CLOUDINARY_API_KEY,
-		cloudName: 'dfpczjlsk' // You can use PUBLIC_CLOUDINARY_CLOUD_NAME here too
+		cloudName: PUBLIC_CLOUDINARY_CLOUD_NAME
 	});
 }
