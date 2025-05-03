@@ -46,8 +46,23 @@
 	const handleInsertEntry = async (event: Event) => {
 		event.preventDefault();
 		if (isUserAuthenticated) {
+			optimisticallyUpdate(event);
 			await insertEntry(event, () => {});
+
 			refreshData();
+		}
+	};
+
+	const optimisticallyUpdate = (event: Event) => {
+		const form = event.target as HTMLFormElement;
+		const data = new FormData(form);
+		const amount = data.get('amount');
+		const description = data.get('description');
+		if (typeof amount === 'string' && typeof description === 'string') {
+			clientData = [
+				...clientData,
+				{ amount: parseInt(amount ?? ''), description, _id: '12345', created: new Date() }
+			];
 		}
 	};
 

@@ -23,10 +23,12 @@
 	}
 	.total__label {
 		margin: 0;
+		font-size: 0.75rem;
+		text-transform: uppercase;
 	}
 
 	.total__callout {
-		font-size: 2rem;
-		line-height: 2.2rem;
+		font-size: 3rem;
+		line-height: 0.8;
 	}
 </style>
