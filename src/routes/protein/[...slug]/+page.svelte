@@ -47,9 +47,7 @@
 		event.preventDefault();
 		if (isUserAuthenticated) {
 			optimisticallyUpdate(event);
-			await insertEntry(event, () => {});
-
-			refreshData();
+			await insertEntry(event, refreshData);
 		}
 	};
 
@@ -67,8 +65,7 @@
 	};
 
 	const handleDestroyEntry = async (id: string) => {
-		await destroyEntry(id, date, () => {});
-		refreshData();
+		await destroyEntry(id, date, refreshData);
 	};
 
 	const refreshData = async () => {
