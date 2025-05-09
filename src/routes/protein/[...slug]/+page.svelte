@@ -46,6 +46,7 @@
 	const handleInsertEntry = async (event: Event) => {
 		event.preventDefault();
 		if (isUserAuthenticated) {
+			isLoading = true;
 			optimisticallyUpdate(event);
 			await insertEntry(event, refreshData);
 		}
@@ -65,6 +66,7 @@
 	};
 
 	const handleDestroyEntry = async (id: string) => {
+		isLoading = true;
 		await destroyEntry(id, date, refreshData);
 	};
 
@@ -99,12 +101,12 @@
 	<ContentWrapper>
 		<article>
 			<div class="page-grid">
-				<header>
+				<header class="protein-nav">
 					<h1>Protein Journal</h1>
+					<DatePicker date={dateParsed} />
 				</header>
 
 				<ProteinCounter {totalConsumption} />
-				<DatePicker date={dateParsed} />
 
 				<ProteinTable
 					{isLoading}
@@ -122,13 +124,18 @@
 		</article>
 		{#if isUserAuthenticated}
 			<div class="input-form-wrapper">
-				<ProteinInputForm date={dateParsed} {handleInsertEntry} />
+				<ProteinInputForm {isLoading} date={dateParsed} {handleInsertEntry} />
 			</div>
 		{/if}
 	</ContentWrapper>
 </div>
 
 <style>
+	.protein-nav {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+	}
 	.page-wrapper {
 		position: relative;
 	}

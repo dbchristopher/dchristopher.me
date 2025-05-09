@@ -2,9 +2,10 @@
 	import CloudUpload from 'carbon-icons-svelte/lib/CloudUpload.svelte';
 	interface Props {
 		handleInsertEntry: (event: Event) => void;
+		isLoading: boolean;
 		date?: Date;
 	}
-	let { handleInsertEntry, date = new Date() }: Props = $props();
+	let { handleInsertEntry, date = new Date(), isLoading }: Props = $props();
 	const handleFormKeypress = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			const target = e.target as HTMLElement;
@@ -22,6 +23,7 @@
 			id="amount"
 			name="amount"
 			required
+			supporting-text="&nbsp;"
 			min="0"
 			max="100"
 			size="xl"
@@ -38,6 +40,7 @@
 			id="description"
 			name="description"
 			required
+			supporting-text="&nbsp;"
 			size="xl"
 			onkeypress={handleFormKeypress}
 			role="textbox"
@@ -45,7 +48,7 @@
 		></md-outlined-text-field>
 	</fieldset>
 	<input type="hidden" name="date" value={date.toISOString()} />
-	<md-filled-icon-button type="submit"
+	<md-filled-icon-button type="submit" disabled={isLoading}
 		><md-icon><CloudUpload size={24} /></md-icon></md-filled-icon-button
 	>
 </form>
@@ -53,7 +56,7 @@
 <style>
 	form {
 		display: grid;
-		grid-template-columns: 2fr 6fr auto;
+		grid-template-columns: 3fr 6fr auto;
 		grid-gap: 0.5rem;
 		align-items: center;
 		background: white;

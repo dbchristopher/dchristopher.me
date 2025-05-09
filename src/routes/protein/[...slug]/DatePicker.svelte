@@ -19,10 +19,10 @@
 <div class="date-picker">
 	{#if isDateBefore(proteinLogStartDate, date)}
 		<a href="/protein/{formatDateString(prevDate)}">
-			<md-filled-button>&#8592;</md-filled-button>
+			<md-text-button>&#8592;</md-text-button>
 		</a>
 	{:else}
-		<md-filled-button>&#8592;</md-filled-button>
+		<md-text-button>&#8592;</md-text-button>
 	{/if}
 	<a href="/protein/today">
 		<md-filled-tonal-button kind="tertiary">
@@ -31,11 +31,11 @@
 	</a>
 	{#if isDateBefore(nextDate, today)}
 		<a href="/protein/{formatDateString(nextDate)}">
-			<md-filled-button>&#8594;</md-filled-button>
+			<md-text-button>&#8594;</md-text-button>
 		</a>
 	{:else}
 		<a href="/protein/today">
-			<md-filled-button>&#8594;</md-filled-button>
+			<md-text-button>&#8594;</md-text-button>
 		</a>
 	{/if}
 </div>
@@ -43,5 +43,7 @@
 <style>
 	.date-picker {
 		text-align: center;
+		display: grid;
+		grid-template-columns: auto auto auto;
 	}
 </style>
