@@ -8,7 +8,9 @@ export async function insertNote({
 	tags,
 	status,
 	slug,
-	seo_description
+	seo_description,
+	cloudinary_image_ids,
+	header_image_id
 }: InsertNoteArgs): Promise<InsertAuthTokenResponse> {
 	const createdTimestamp = normalizeDateTime(new Date());
 
@@ -22,7 +24,9 @@ export async function insertNote({
 			created: createdTimestamp,
 			status,
 			slug,
-			seo_description
+			seo_description,
+			cloudinary_image_ids,
+			header_image_id
 		});
 		return { success: true };
 	} catch (error) {

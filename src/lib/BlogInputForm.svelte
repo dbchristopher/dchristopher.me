@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { NoteStatus } from '$lib/constants';
+	import { NoteStatus, IMAGE_LIST_DELIMITER } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 	import ImageUploader from '$lib/ImageUploader.svelte';
+	import CopyToClipboard from './CopyToClipboard.svelte';
 	import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
 
 	const optimizeCloudinaryUrl = (cloudinaryId: string) => {
@@ -26,7 +27,11 @@
 		post = {}
 	}: Props = $props();
 
+	const headerImageId = $derived(post.header_image_id);
+	const cloudinaryImageIds = $derived(post.cloudinary_image_ids);
 	const draftImages = $state<string[]>([]);
+	const fullImageLibrary = $derived([...cloudinaryImageIds, ...draftImages]);
+	const imageUrlCSV = $derived(fullImageLibrary.join(IMAGE_LIST_DELIMITER));
 
 	const handleImageUpload = (cloudinaryId: string) => {
 		draftImages.push(cloudinaryId);
@@ -98,7 +103,7 @@
 		<fieldset>
 			<md-outlined-select
 				label="Status"
-				selected={post?.status}
+				value={post?.status}
 				id="status"
 				name="status"
 				disabled={isAsyncPending}
@@ -131,15 +136,27 @@
 			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>
 		{/if}
 	</div>
-	<ImageUploader {handleImageUpload} />
-	{#each draftImages as imageId}
-		<section class="preview">
-			<img src={optimizeCloudinaryUrl(imageId)} />
-			<input type="text" value={imageId} name={`image-${imageId}`} readonly />
-			<label for={`header-image-${imageId}`}>Post Header</label>
-			<input type="radio" value={imageId} name="header-image" id={`header-image-${imageId}`} />
-		</section>
-	{/each}
+	<fieldset>
+		<legend>Post Image Library</legend>
+		<ImageUploader {handleImageUpload} />
+		<input type="hidden" name="image_id_list" value={imageUrlCSV} />
+		<div class="image-library">
+			{#each fullImageLibrary as imageId}
+				<section class="preview">
+					<img src={optimizeCloudinaryUrl(imageId)} />
+					<CopyToClipboard value={optimizeCloudinaryUrl(imageId)} />
+					<label for={`header-image-${imageId}`}>Post Header</label>
+					<input
+						type="radio"
+						value={imageId}
+						name="header_image_id"
+						id={`header-image-${imageId}`}
+						checked={imageId === headerImageId}
+					/>
+				</section>
+			{/each}
+		</div>
+	</fieldset>
 </form>
 
 <style>
@@ -195,5 +212,10 @@
 
 	:global(.button--delete) {
 		color: rgb(180, 25, 25);
+	}
+	.image-library {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 20px;
 	}
 </style>

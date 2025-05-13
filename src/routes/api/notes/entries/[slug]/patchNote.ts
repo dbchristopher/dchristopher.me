@@ -5,7 +5,15 @@ import { ObjectId } from 'mongodb';
 
 export async function patchNote(
 	id: string,
-	{ title, content, tags, status, seo_description }: InsertNoteArgs
+	{
+		title,
+		content,
+		tags,
+		status,
+		seo_description,
+		header_image_id,
+		cloudinary_image_ids
+	}: InsertNoteArgs
 ): Promise<InsertAuthTokenResponse> {
 	const updatedTimestamp = normalizeDateTime(new Date());
 
@@ -15,7 +23,18 @@ export async function patchNote(
 
 		await collection.updateOne(
 			{ _id: new ObjectId(id) },
-			{ $set: { title, content, tags, updated: updatedTimestamp, status, seo_description } }
+			{
+				$set: {
+					title,
+					content,
+					tags,
+					updated: updatedTimestamp,
+					status,
+					seo_description,
+					header_image_id,
+					cloudinary_image_ids
+				}
+			}
 		);
 
 		return { success: true };

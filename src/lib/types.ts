@@ -22,4 +22,6 @@ export type InsertNoteArgs = {
 	status: NoteStatus;
 	slug: string;
 	seo_description: string;
+	cloudinary_image_ids: string[];
+	header_image_id: string;
 };

@@ -16,6 +16,8 @@ export const load: PageServerLoad = async ({ params, parent, url }) => {
 
 		const blogEntries = await blog.find({ slug: params.slug }).limit(1).toArray();
 
+		console.log(blogEntries);
+
 		return {
 			post: { ...blogEntries[0], _id: blogEntries[0]._id.toString() } as Note,
 			metadata: pageMetadata,
