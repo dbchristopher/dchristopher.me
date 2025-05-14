@@ -28,7 +28,7 @@
 	}: Props = $props();
 
 	const headerImageId = $derived(post.header_image_id);
-	const cloudinaryImageIds = $derived(post.cloudinary_image_ids);
+	const cloudinaryImageIds = $derived(post.cloudinary_image_ids || []);
 	const draftImages = $state<string[]>([]);
 	const fullImageLibrary = $derived([...cloudinaryImageIds, ...draftImages]);
 	const imageUrlCSV = $derived(fullImageLibrary.join(IMAGE_LIST_DELIMITER));
