@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { NoteStatus, IMAGE_LIST_DELIMITER } from '$lib/constants';
 	import { toTitleCase } from '$lib/toTitleCase';
 	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 	import ImageUploader from '$lib/ImageUploader.svelte';
 	import CopyToClipboard from './CopyToClipboard.svelte';
 	import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
+	import { updateFormState, resetFormState } from '$lib/stores/formState';
 
 	const optimizeCloudinaryUrl = (cloudinaryId: string) => {
 		// Store the optimized URL with transformations
@@ -24,8 +26,17 @@
 		handleDelete = undefined,
 		handleCancelClick = undefined,
 		isAsyncPending,
-		post = {}
+		post = { title: '' }
 	}: Props = $props();
+
+	const handleFormSubmit = (e: Event) => {
+		resetFormState();
+		handleInsertEntry(e);
+	};
+
+	const handleFormStateUpdate = (key: string) => (e: Event) => {
+		updateFormState([key, (e.target as HTMLInputElement).value]);
+	};
 
 	const headerImageId = $derived(post.header_image_id);
 	const cloudinaryImageIds = $derived(post.cloudinary_image_ids || []);
@@ -37,10 +48,14 @@
 		draftImages.push(cloudinaryId);
 	};
 
+	$effect(() => {
+		handleFormStateUpdate('images')({ target: { value: imageUrlCSV } });
+	});
+
 	const statusValues = Object.values(NoteStatus);
 </script>
 
-<form onsubmit={handleInsertEntry}>
+<form onsubmit={handleFormSubmit}>
 	<fieldset>
 		{#if post?.slug}
 			<input type="hidden" value={post.slug} name="slug" />
@@ -53,6 +68,7 @@
 			placeholder="Title"
 			disabled={isAsyncPending}
 			value={post?.title || ''}
+			oninput={handleFormStateUpdate('title')}
 			required
 		></md-outlined-text-field>
 	</fieldset>
@@ -68,6 +84,7 @@
 			rows={10}
 			value={post?.content || ''}
 			required
+			oninput={handleFormStateUpdate('content')}
 		></md-outlined-text-field>
 	</fieldset>
 
@@ -81,6 +98,7 @@
 				placeholder="A short post"
 				value={post?.seo_description || ''}
 				disabled={isAsyncPending}
+				oninput={handleFormStateUpdate('seo_description')}
 				required
 			></md-outlined-text-field>
 		</fieldset>
@@ -96,6 +114,7 @@
 				placeholder="Tag 1, Tag 2, Tag 3"
 				value={post?.tags?.join(', ') || ''}
 				disabled={isAsyncPending}
+				oninput={handleFormStateUpdate('tags')}
 				required
 			></md-outlined-text-field>
 		</fieldset>
@@ -107,6 +126,7 @@
 				id="status"
 				name="status"
 				disabled={isAsyncPending}
+				onchange={handleFormStateUpdate('status')}
 				required
 			>
 				{#each statusValues as status}
@@ -118,22 +138,22 @@
 
 	<div class="form-action-grid">
 		<md-filled-button type="submit" disabled={isAsyncPending}>Submit</md-filled-button>
+		<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>
 		{#if handleDelete !== undefined}
-			<div class="divider"></div>
-			<md-outlined-button
-				role="button"
-				tabindex="0"
-				onclick={handleDelete}
-				onkeypress={(e: KeyboardEvent) => {
-					if (e.key === 'Enter') {
-						handleDelete(e);
-					}
-				}}
-				kind="ghost"
-				class="button--delete"><Close size={20} slot="icon" />Delete Post</md-outlined-button
-			>
-			<div></div>
-			<md-outlined-button kind="ghost" onclick={handleCancelClick}>Cancel</md-outlined-button>
+			<div class="delete-container">
+				<md-text-button
+					role="button"
+					tabindex="0"
+					onclick={handleDelete}
+					onkeypress={(e: KeyboardEvent) => {
+						if (e.key === 'Enter') {
+							handleDelete(e);
+						}
+					}}
+					kind="ghost"
+					class="button--delete"><Close size={20} slot="icon" />Delete</md-text-button
+				>
+			</div>
 		{/if}
 	</div>
 	<fieldset>
@@ -143,16 +163,20 @@
 		<div class="image-library">
 			{#each fullImageLibrary as imageId}
 				<section class="preview">
+					<div class="image-actions">
+						<CopyToClipboard value={optimizeCloudinaryUrl(imageId)} />
+						<div>
+							<input
+								type="radio"
+								value={imageId}
+								name="header_image_id"
+								id={`header-image-${imageId}`}
+								checked={imageId === headerImageId}
+							/>
+							<label for={`header-image-${imageId}`}>Post Header</label>
+						</div>
+					</div>
 					<img src={optimizeCloudinaryUrl(imageId)} />
-					<CopyToClipboard value={optimizeCloudinaryUrl(imageId)} />
-					<label for={`header-image-${imageId}`}>Post Header</label>
-					<input
-						type="radio"
-						value={imageId}
-						name="header_image_id"
-						id={`header-image-${imageId}`}
-						checked={imageId === headerImageId}
-					/>
 				</section>
 			{/each}
 		</div>
@@ -190,21 +214,25 @@
 
 	.form-action-grid {
 		display: grid;
-		grid-template-columns: auto auto auto 1fr auto;
+		grid-template-columns: auto auto 1fr;
 		grid-gap: 1rem;
 		align-items: center;
 	}
 
-	.form-action-grid .divider {
-		width: 1px;
-		background: #ccc;
-		height: 1rem;
+	.delete-container {
+		justify-self: end;
 	}
 
 	.preview {
-		margin-top: 1rem;
 	}
 
+	.image-actions {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		padding: 0.5rem 0;
+		gap: 1rem;
+	}
 	.preview img {
 		max-width: 100%;
 		max-height: 300px;

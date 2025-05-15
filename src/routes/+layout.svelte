@@ -6,10 +6,43 @@
 	import PageFooter from '$lib/PageFooter.svelte';
 	import { page } from '$app/stores';
 	import Menu from 'carbon-icons-svelte/lib/Menu.svelte';
+	import { browser } from '$app/environment';
+
+	import { onMount, onDestroy } from 'svelte';
+	import { formState } from '$lib/stores/formState';
+
+	let formStateValues = $state();
+	const unsubscribe = formState.subscribe((form) => {
+		formStateValues = form;
+	});
+
+	const handleBeforeUnload = (e: Event) => {
+		const formValues = Object.values(formStateValues).filter((v) => v.length > 0);
+		if (formValues.length) {
+			event?.preventDefault();
+			event.returnValue = ''; // Required for Chrome
+			return ''; // Required
+		}
+	};
+
+	onMount(() => {
+		if (browser) {
+			window.addEventListener('beforeunload', handleBeforeUnload);
+		}
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			unsubscribe();
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		}
+	});
 
 	$effect(() => {
-		// set client timezone in a cookie so the backend (protein journal) can read it
-		document.cookie = `timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+		if (browser) {
+			// set client timezone in a cookie so the backend (protein journal) can read it
+			document.cookie = `timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+		}
 	});
 
 	interface Props {
