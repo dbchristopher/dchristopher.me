@@ -7,34 +7,49 @@
 	import { page } from '$app/stores';
 	import Menu from 'carbon-icons-svelte/lib/Menu.svelte';
 	import { browser } from '$app/environment';
+	import { beforeNavigate } from '$app/navigation';
+	import { get } from 'svelte/store';
+	import isDeepEqual from 'lodash/isEqual';
 
-	import { onMount, onDestroy } from 'svelte';
-	import { formState } from '$lib/stores/formState';
+	import { onMount } from 'svelte';
+	import { formState, defaultFormState, resetFormState } from '$lib/stores/formState';
 
-	let formStateValues = $state();
-	const unsubscribe = formState.subscribe((form) => {
-		formStateValues = form;
-	});
+	function formHasUnsavedChanges() {
+		const formStateValues = get(formState);
+		const defaultFormStateValues = get(defaultFormState);
+		const keys = Object.keys(formStateValues);
+		const isEqual = keys.every((k) => {
+			return isDeepEqual(formStateValues[k], defaultFormStateValues[k]);
+		});
+		return !isEqual;
+	}
 
-	const handleBeforeUnload = (e: Event) => {
-		const formValues = Object.values(formStateValues).filter((v) => v.length > 0);
-		if (formValues.length) {
-			event?.preventDefault();
-			event.returnValue = ''; // Required for Chrome
-			return ''; // Required
+	// Handle navigation away from page
+	beforeNavigate(({ cancel }) => {
+		if (formHasUnsavedChanges()) {
+			if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
+				cancel();
+			} else {
+				resetFormState();
+			}
 		}
-	};
+	});
 
 	onMount(() => {
 		if (browser) {
-			window.addEventListener('beforeunload', handleBeforeUnload);
-		}
-	});
+			const handleBeforeUnload = (e: Event) => {
+				if (formHasUnsavedChanges()) {
+					e.preventDefault();
+					e.returnValue = '';
+					return '';
+				}
+			};
 
-	onDestroy(() => {
-		if (browser) {
-			unsubscribe();
-			window.removeEventListener('beforeunload', handleBeforeUnload);
+			window.addEventListener('beforeunload', handleBeforeUnload);
+
+			return () => {
+				window.removeEventListener('beforeunload', handleBeforeUnload);
+			};
 		}
 	});
 

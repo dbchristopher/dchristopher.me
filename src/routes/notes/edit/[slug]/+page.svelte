@@ -42,7 +42,8 @@
 		}
 	};
 
-	const handleCancelClick = () => {
+	const handleCancelClick = (event: Event) => {
+		event.preventDefault();
 		goto('/notes/' + post?.slug);
 	};
 </script>

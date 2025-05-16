@@ -39,7 +39,6 @@
 <SEO metadata={data.metadata} />
 
 <ContentWrapper>
-	<img src="/images/pfp.jpg" class="pfp" alt="author photo" />
 	<section>
 		<h2>Recent Blog Posts</h2>
 		<ul class="post-list">

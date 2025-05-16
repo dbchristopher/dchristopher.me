@@ -6,7 +6,7 @@
 	import ImageUploader from '$lib/ImageUploader.svelte';
 	import CopyToClipboard from './CopyToClipboard.svelte';
 	import { PUBLIC_CLOUDINARY_CLOUD_NAME } from '$env/static/public';
-	import { updateFormState, resetFormState } from '$lib/stores/formState';
+	import { updateFormState, setDefaultFormState } from '$lib/stores/formState';
 
 	const optimizeCloudinaryUrl = (cloudinaryId: string) => {
 		// Store the optimized URL with transformations
@@ -29,15 +29,6 @@
 		post = { title: '' }
 	}: Props = $props();
 
-	const handleFormSubmit = (e: Event) => {
-		resetFormState();
-		handleInsertEntry(e);
-	};
-
-	const handleFormStateUpdate = (key: string) => (e: Event) => {
-		updateFormState([key, (e.target as HTMLInputElement).value]);
-	};
-
 	const headerImageId = $derived(post.header_image_id);
 	const cloudinaryImageIds = $derived(post.cloudinary_image_ids || []);
 	const draftImages = $state<string[]>([]);
@@ -48,14 +39,34 @@
 		draftImages.push(cloudinaryId);
 	};
 
+	const statusValues = Object.values(NoteStatus);
+
+	/**
+	 * Set up "unsaved content warning" by setting default form state and tracking changes from there
+	 */
+	type FormInputKeys = 'title' | 'content' | 'images' | 'seo_description' | 'tags' | 'status';
+
+	onMount(() => {
+		setDefaultFormState<FormInputKeys>({
+			title: post.title,
+			content: post.content,
+			images: imageUrlCSV,
+			seo_description: post.seo_description,
+			tags: post.tags,
+			status: post.status
+		});
+	});
+
+	const handleFormStateUpdate = (key: FormInputKeys) => (e: Event) => {
+		updateFormState([key, (e.target as HTMLInputElement).value]);
+	};
+
 	$effect(() => {
 		handleFormStateUpdate('images')({ target: { value: imageUrlCSV } });
 	});
-
-	const statusValues = Object.values(NoteStatus);
 </script>
 
-<form onsubmit={handleFormSubmit}>
+<form onsubmit={handleInsertEntry}>
 	<fieldset>
 		{#if post?.slug}
 			<input type="hidden" value={post.slug} name="slug" />
